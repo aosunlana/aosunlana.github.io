@@ -5,7 +5,9 @@ const Index = () => {
     <div className="flex min-h-screen items-center justify-center bg-white">
       <TypeWriter 
         text="Building in Progress..." 
-        speed={150}
+        typeSpeed={100}
+        eraseSpeed={60}
+        pauseDuration={2000}
         className="text-foreground"
         style={{ fontSize: "14px" }}
       />

@@ -90,10 +90,10 @@ export default {
         },
         "blink": {
           "0%, 50%": {
-            "border-color": "transparent",
+            "opacity": "1",
           },
           "51%, 100%": {
-            "border-color": "currentColor",
+            "opacity": "0",
           },
         },
       },
