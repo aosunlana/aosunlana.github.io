@@ -80,10 +80,28 @@ export default {
             height: "0",
           },
         },
+        "typewriter": {
+          "0%": {
+            width: "0",
+          },
+          "100%": {
+            width: "100%",
+          },
+        },
+        "blink": {
+          "0%, 50%": {
+            "border-color": "transparent",
+          },
+          "51%, 100%": {
+            "border-color": "currentColor",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "typewriter": "typewriter 2s steps(20, end) forwards",
+        "blink": "blink 1s infinite",
       },
     },
   },
