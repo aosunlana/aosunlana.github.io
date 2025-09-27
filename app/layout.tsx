@@ -61,9 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" git add .
-git commit -m "New push"
-git push -u origin portfolio-branch>
+    <html lang="en">
       {/* Apply your local font globally */}
       <body className={`${neueMontreal.className} antialiased`}>
         {children}
