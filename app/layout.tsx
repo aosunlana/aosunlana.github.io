@@ -61,7 +61,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="theme-invert">
+    <html lang="en" git add .
+git commit -m "New push"
+git push -u origin portfolio-branch>
       {/* Apply your local font globally */}
       <body className={`${neueMontreal.className} antialiased`}>
         {children}
