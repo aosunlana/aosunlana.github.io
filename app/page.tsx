@@ -27,7 +27,7 @@ export default function Home() {
                 Explore my playground
               </a>
             </span>{" "}
-            for a few things I&rsquo;ve designed that actually shipped (and didn&rsquo;t
+            for a few things I&rsquo;ve designed that actually shipped and didn&rsquo;t
             break the internet - in a good way :)
           </p>
         </div>
