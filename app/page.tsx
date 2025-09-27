@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="flex flex-col md:flex-row items-start  px-4 md:px-20 pt-10">
+    <div className="flex flex-col md:flex-row items-start  px-4 md:px-20 pt-10 ">
       <main className="flex-1">
         <div className="max-w-[542px] text-custom-gray-800">
           <h2 className="text-2xl md:text-3xl font-medium pt-8 md:pt-16 pb-4 md:pb-6 leading-snug">

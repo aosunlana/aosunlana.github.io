@@ -61,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="theme-invert">
       {/* Apply your local font globally */}
       <body className={`${neueMontreal.className} antialiased`}>
         {children}
