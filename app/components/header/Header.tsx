@@ -3,47 +3,66 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  Hand,
-  Palette,
-  Wrench,
-  Bookmark,
-  PencilLine,
-  Smile,
-} from "lucide-react";
+import { useEffect } from "react";
+import { Icon as SolarIcon } from "@iconify/react";
 
-type Tab = {
-  label: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-};
+/* ---- Clarity setup ---- */
+async function ensureClarity() {
+  await import("@cds/core/icon/register.js");
+  const { ClarityIcons } = await import("@cds/core/icon");
+  const { digitalSignatureIcon } = await import(
+    "@cds/core/icon/shapes/digital-signature.js"
+  );
+  ClarityIcons.addIcons(digitalSignatureIcon);
+}
+const CdsDigitalSignatureIcon = ({ className }: { className?: string }) => (
+  // @ts-ignore web component
+  <cds-icon shape="digital-signature" class={className}></cds-icon>
+);
+
+/* Wrap Iconify names so they look like React components */
+const Solar = (name: string) =>
+  function Wrapped({ className }: { className?: string }) {
+    return <SolarIcon icon={name} className={className} />;
+  };
+
+// Pick styles you like: -outline | -bold | -bold-duotone
+const Handshake = Solar("solar:handshake-outline");
+const Palette2 = Solar("solar:palette-2-outline");
+const Library = Solar("solar:library-outline");
+const FolderWithFiles = Solar("solar:folder-with-files-outline");
+const SmileCircle = Solar("solar:smile-circle-outline");
+
+type IconType = React.ComponentType<{ className?: string }>;
+type Tab = { label: string; href: string; icon: IconType };
 
 const TABS: Tab[] = [
-  { label: "Hello", href: "/", icon: Hand },
-  { label: "Playground", href: "/playground", icon: Palette },
-  { label: "Tools", href: "/tools", icon: Wrench },
-  { label: "Bookmarks", href: "/bookmarks", icon: Bookmark },
-  { label: "Notes", href: "/notes", icon: PencilLine },
-  { label: "Let’s Talk", href: "/lets-talk", icon: Smile },
+  { label: "Hello", href: "/", icon: Handshake },
+  { label: "Playground", href: "/playground", icon: Palette2 },
+  { label: "Tools", href: "/tools", icon: Library },
+  { label: "Bookmarks", href: "/bookmarks", icon: FolderWithFiles },
+  { label: "Notes", href: "/notes", icon: CdsDigitalSignatureIcon }, // Clarity
+  { label: "Let’s Talk", href: "/lets-talk", icon: SmileCircle },
 ];
 
 export default function Header() {
   const pathname = usePathname();
+  useEffect(() => {
+    void ensureClarity();
+  }, []);
 
   return (
     <header className="w-full flex justify-center">
       <nav aria-label="Primary" className="mt-6 max-w-full">
         <ul className="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white p-1.5 shadow-sm overflow-x-auto">
-          {/* Avatar */}
           <li className="shrink-0">
             <Link
               href="/"
               className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-gray-100 overflow-hidden"
               aria-label="Profile"
             >
-              {/* Replace /avatar.png with your image (put it in /public) */}
               <Image
-                src="/avatar.png"
+                src="/avatar.svg"
                 alt="Avatar"
                 width={32}
                 height={32}
@@ -51,8 +70,6 @@ export default function Header() {
               />
             </Link>
           </li>
-
-          {/* Tabs */}
           {TABS.map(({ label, href, icon: Icon }) => {
             const active = pathname === href;
             return (
@@ -73,7 +90,6 @@ export default function Header() {
                         ? "text-gray-700"
                         : "text-gray-500 group-hover:text-gray-700"
                     }`}
-                    aria-hidden="true"
                   />
                   <span>{label}</span>
                 </Link>
