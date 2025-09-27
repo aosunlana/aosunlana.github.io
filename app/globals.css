@@ -1,13 +1,33 @@
 @import "tailwindcss";
 
-/* Invert whole UI */
-.theme-invert {
-  color-scheme: dark;
-  filter: invert(1) hue-rotate(180deg);
+/* Global text selection color */
+:root {
+  --select-bg: #fff7a1; /* light yellow */
+  --select-fg: #111928; /* dark text for contrast */
 }
-/* Revert media so photos/logos look normal */
-.theme-invert :where(img, video, canvas, iframe, picture, svg, [data-no-invert]) {
-  filter: invert(1) hue-rotate(180deg);
+
+::selection {
+  background: var(--select-bg);
+  color: var(--select-fg);
+}
+
+/* Firefox */
+::-moz-selection {
+  background: var(--select-bg);
+  color: var(--select-fg);
+}
+
+/* Dark mode follows system automatically */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  /* Revert only media or what you EXPLICITLY mark */
+  html :where(img, video, canvas, iframe, picture, svg, [data-no-invert]) {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }
 /* Neue Montreal — Light (300) */
 @font-face {
