@@ -36,7 +36,7 @@ export default function Home() {
       {/* FOOTER SECTION */}
       <footer className="mt-auto w-full text-base md:text-lg leading-relaxed pb-10 pt-10">
         <p>
-          Follow on &lsquo;X&rsquo;{" "}
+          Follow on &lsquo;X:&rsquo;{" "}
           <span className="text-custom-gray-400">
             <a
               href="https://x.com/hey_emmah"
