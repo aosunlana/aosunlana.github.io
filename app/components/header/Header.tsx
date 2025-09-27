@@ -52,7 +52,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="w-full flex justify-center">
+    <header className="w-full flex">
       <nav aria-label="Primary" className="mt-6 max-w-full">
         <ul className="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white p-1.5 shadow-sm overflow-x-auto">
           <li className="shrink-0">
