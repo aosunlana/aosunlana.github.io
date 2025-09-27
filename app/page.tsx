@@ -1,10 +1,10 @@
 export default function Home() {
   return (
-    <div className="min-h-dvh flex flex-col items-start px-4 md:px-20 pt-10 text-custom-gray-900">
+    <div className="min-h-dvh flex flex-col items-start px-4 md:px-20 pt-[max(env(safe-area-inset-top),2.5rem)] md:pt-10 text-custom-gray-900">
       {/* BODY CONTENT */}
       <main className="flex-1 w-full">
         <div className="max-w-[542px]">
-          <h2 className="text-2xl md:text-3xl font-medium pt-8 md:pt-16 pb-4 md:pb-6 leading-snug">
+          <h2 className="text-2xl md:text-3xl font-medium pt-6 md:pt-16 pb-4 md:pb-6 leading-snug">
             Exploring what happens <br />
             when <span className="text-custom-gray-400">designer</span> thinks
             like an <span className="text-custom-gray-400">engineer</span>
