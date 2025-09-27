@@ -20,21 +20,6 @@ body { min-height: 100dvh; }     /* use dvh on mobile */
   color: var(--select-fg);
 }
 
-/* Firefox */
-::-moz-selection {
-  background: var(--select-bg);
-  color: var(--select-fg);
-}
-
-/* one class to invert the whole UI */
-.theme-invert {
-  color-scheme: dark;
-  filter: invert(1) hue-rotate(180deg);
-}
-/* re-invert only media you mark (so photos/logos look normal) */
-.theme-invert :where(img, video, canvas, iframe, picture, svg, [data-no-invert]) {
-  filter: invert(1) hue-rotate(180deg);
-}
 
 /* Neue Montreal — Light (300) */
 @font-face {
