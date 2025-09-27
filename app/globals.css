@@ -17,18 +17,16 @@
   color: var(--select-fg);
 }
 
-/* Dark mode follows system automatically */
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-    filter: invert(1) hue-rotate(180deg);
-  }
-
-  /* Revert only media or what you EXPLICITLY mark */
-  html :where(img, video, canvas, iframe, picture, svg, [data-no-invert]) {
-    filter: invert(1) hue-rotate(180deg);
-  }
+/* one class to invert the whole UI */
+.theme-invert {
+  color-scheme: dark;
+  filter: invert(1) hue-rotate(180deg);
 }
+/* re-invert only media you mark (so photos/logos look normal) */
+.theme-invert :where(img, video, canvas, iframe, picture, svg, [data-no-invert]) {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 /* Neue Montreal — Light (300) */
 @font-face {
   font-family: "Neue Montreal";
