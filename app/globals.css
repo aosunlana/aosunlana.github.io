@@ -1,26 +1,211 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+/* Neue Montreal — Light (300) */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Neue Montreal — Regular (400) */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Italic.woff2") format("woff2"); /* regular italic */
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Neue Montreal — Medium (500) */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Neue Montreal — Bold (700) */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Global */
+body {
+  font-family: "Neue Montreal", system-ui, sans-serif;
+}
+
+
+@theme {
+  --color-custom-pink-50: #fdf2f8;
+  --color-custom-pink-100: #fce8f3;
+  --color-custom-pink-200: #fad1e8;
+  --color-custom-pink-300: #f8b4d9;
+  --color-custom-pink-400: #f17eb8;
+  --color-custom-pink-500: #e74694;
+  --color-custom-pink-600: #d61f69;
+  --color-custom-pink-700: #bf125d;
+  --color-custom-pink-800: #99154b;
+  --color-custom-pink-900: #751a3d;
+
+  --color-custom-purple-50: #f6f5ff;
+  --color-custom-purple-100: #edebfe;
+  --color-custom-purple-200: #dcd7fe;
+  --color-custom-purple-300: #cabffd;
+  --color-custom-purple-400: #ac94fa;
+  --color-custom-purple-500: #9061f9;
+  --color-custom-purple-600: #7e3af2;
+  --color-custom-purple-700: #6c2bd9;
+  --color-custom-purple-800: #5521b5;
+  --color-custom-purple-900: #4a1d96;
+
+  --color-custom-indigo-50: #f0f5ff;
+  --color-custom-indigo-100: #e5edff;
+  --color-custom-indigo-200: #cddbfe;
+  --color-custom-indigo-300: #b4c6fc;
+  --color-custom-indigo-400: #8da2fb;
+  --color-custom-indigo-500: #6875f5;
+  --color-custom-indigo-600: #5850ec;
+  --color-custom-indigo-700: #5145cd;
+  --color-custom-indigo-800: #42389d;
+  --color-custom-indigo-900: #362f78;
+
+  --color-custom-teal-50: #edfafa;
+  --color-custom-teal-100: #d5f5f6;
+  --color-custom-teal-200: #afecef;
+  --color-custom-teal-300: #7edce2;
+  --color-custom-teal-400: #16bdca;
+  --color-custom-teal-500: #0694a2;
+  --color-custom-teal-600: #047481;
+  --color-custom-teal-700: #036672;
+  --color-custom-teal-800: #05505c;
+  --color-custom-teal-900: #014451;
+
+  --color-custom-green-50: #f3faf7;
+  --color-custom-green-100: #def7ec;
+  --color-custom-green-200: #bcf0da;
+  --color-custom-green-300: #84e1bc;
+  --color-custom-green-400: #31c48d;
+  --color-custom-green-500: #0e9f6e;
+  --color-custom-green-600: #057a55;
+  --color-custom-green-700: #046c4e;
+  --color-custom-green-800: #03543f;
+  --color-custom-green-900: #014737;
+
+  --color-custom-yellow-50: #fdfdea;
+  --color-custom-yellow-100: #fdf6b2;
+  --color-custom-yellow-200: #fce96a;
+  --color-custom-yellow-300: #faca15;
+  --color-custom-yellow-400: #e3a008;
+  --color-custom-yellow-500: #c27803;
+  --color-custom-yellow-600: #9f580a;
+  --color-custom-yellow-700: #8e4b10;
+  --color-custom-yellow-800: #723b13;
+  --color-custom-yellow-900: #633112;
+
+  --color-custom-orange-50: #fff8f1;
+  --color-custom-orange-100: #feecdc;
+  --color-custom-orange-200: #fcd9bd;
+  --color-custom-orange-300: #fdba8c;
+  --color-custom-orange-400: #ff8a4c;
+  --color-custom-orange-500: #ff5a1f;
+  --color-custom-orange-600: #d03801;
+  --color-custom-orange-700: #b43403;
+  --color-custom-orange-800: #8a2c0d;
+  --color-custom-orange-900: #771d1d;
+
+  --color-custom-red-50: #fdf2f2;
+  --color-custom-red-100: #fde8e8;
+  --color-custom-red-200: #fbd5d5;
+  --color-custom-red-300: #f8b4b4;
+  --color-custom-red-400: #f98080;
+  --color-custom-red-500: #f05252;
+  --color-custom-red-600: #e02424;
+  --color-custom-red-700: #c81e1e;
+  --color-custom-red-800: #9b1c1c;
+  --color-custom-red-900: #771d1d;
+
+  --color-custom-gray-50: #f9fafb;
+  --color-custom-gray-100: #f3f4f6;
+  --color-custom-gray-200: #e5e7eb;
+  --color-custom-gray-300: #d1d5db;
+  --color-custom-gray-400: #9ca3af;
+  --color-custom-gray-500: #6b7280;
+  --color-custom-gray-600: #4b5563;
+  --color-custom-gray-700: #374151;
+  --color-custom-gray-800: #1f2a37;
+  --color-custom-gray-900: #111928;
+
+  --color-custom-primary-50: #ebf5ff;
+  --color-custom-primary-100: #e1effe;
+  --color-custom-primary-200: #c3ddfd;
+  --color-custom-primary-300: #a4cafe;
+  --color-custom-primary-400: #76a9fa;
+  --color-custom-primary-500: #3f83f8;
+  --color-custom-primary-600: #1c64f2;
+  --color-custom-primary-700: #1a56db;
+  --color-custom-primary-800: #1e429f;
+  --color-custom-primary-900: #233876;
+
+  --color-custom-sunglow-50: #fff9eb;
+  --color-custom-sunglow-100: #fff4d7;
+  --color-custom-sunglow-200: #ffeec3;
+  --color-custom-sunglow-300: #ffe8af;
+  --color-custom-sunglow-400: #ffe39b;
+  --color-custom-sunglow-500: #ffdd86;
+  --color-custom-sunglow-600: #ffd772;
+  --color-custom-sunglow-700: #ffd15e;
+  --color-custom-sunglow-800: #ffcc4a;
+  --color-custom-sunglow-900: #ffc636;
+
+  --default-font-family: 'bitter';
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;           /* Remove default margin */
+  padding: 0;          /* Remove default padding */
+  overflow: hidden;    /* Disable scrolling */
+  height: 100vh;       /* Full viewport height */
+  width: 100vw;        /* Full viewport width */
+  overscroll-behavior: none; /* Prevent scroll chaining on touch devices */
 }
+
