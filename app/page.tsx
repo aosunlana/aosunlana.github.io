@@ -12,7 +12,7 @@ export default function Home() {
 
           {/* SUBTEXT CONTENT */}
           <p className="text-base md:text-lg leading-relaxed pb-4">
-            Hi, I&rsquo;m Emmanuel - a{" "}
+            Hi, 👋🏼 I&rsquo;m Emmanuel - a{" "}
             <span className="text-custom-gray-400">curious human</span> who
             designs interfaces and builds digital things for a living. Sometimes
             with Framer, sometimes with Figma, always with vibes.
