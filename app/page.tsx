@@ -6,7 +6,7 @@ export default function Home() {
           <h2 className="text-2xl md:text-3xl font-medium pt-8 md:pt-16 pb-4 md:pb-6 leading-snug">
             Exploring what happens <br />
             when <span className="text-custom-gray-400">designer</span> thinks
-            like an <span className="text-custom-gray-400">engineer</span>.
+            like an <span className="text-custom-gray-400">engineer</span>
           </h2>
 
           <p className="text-base md:text-lg leading-relaxed pb-4">
@@ -23,9 +23,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="w-full md:w-auto">
-        
-      </footer>
+      <footer className="w-full md:w-auto"></footer>
     </div>
   );
 }

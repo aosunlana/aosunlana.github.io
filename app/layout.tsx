@@ -52,7 +52,7 @@ const neueMontreal = localFont({
 export const metadata: Metadata = {
   title: "Emmanuel - Design Engineer",
   description:
-    "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living. Sometimes with Framer, Sometimes with Figma, always with vibes.",
+    "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living",
 };
 
 export default function RootLayout({
