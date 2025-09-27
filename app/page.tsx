@@ -12,7 +12,7 @@ export default function Home() {
 
           {/* SUBTEXT CONTENT */}
           <p className="text-base md:text-lg leading-relaxed pb-4">
-            Hi, I’m Emmanuel - a{" "}
+            Hi, I&rsquo;m Emmanuel - a{" "}
             <span className="text-custom-gray-400">curious human</span> who
             designs interfaces and builds digital things for a living. Sometimes
             with Framer, sometimes with Figma, always with vibes.
@@ -22,12 +22,12 @@ export default function Home() {
             <span className="text-custom-gray-400">
               <a
                 href="/playground"
-                className="underline decoration-dotted decoration-current underline-offset-8 hover:decoration-2 hover:text-custom-gray-800 "
+                className="underline decoration-dotted decoration-current underline-offset-8 hover:decoration-2 hover:text-custom-gray-800"
               >
                 Explore my playground
               </a>
             </span>{" "}
-            for a few things I’ve designed that actually shipped (and didn’t
+            for a few things I&rsquo;ve designed that actually shipped (and didn&rsquo;t
             break the internet - in a good way :)
           </p>
         </div>
@@ -36,22 +36,23 @@ export default function Home() {
       {/* FOOTER SECTION */}
       <footer className="mt-auto w-full text-base md:text-lg leading-relaxed pb-10 pt-10">
         <p>
-          Follow on 'X'{" "}
+          Follow on &lsquo;X&rsquo;{" "}
           <span className="text-custom-gray-400">
             <a
-              href="x.com/hey_emmah"
+              href="https://x.com/hey_emmah"
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline decoration-dotted decoration-current underline-offset-8 hover:decoration-2 hover:text-custom-gray-800"
             >
               @hey_emmah;
             </a>
           </span>
         </p>
-        <p className="pt-6">
-          {" "}
+        <p className="pt-2">
           I believe obsession beats talent, and <br />
-          I've built my craft by refusing to let go until it's done right.
+          I&rsquo;ve built my craft by refusing to let go until it&rsquo;s done right.
         </p>
-        <p className="text-sm text-custom-gray-400 pt-4">
+        <p className="text-sm text-custom-gray-400 pt-2">
           &copy; {new Date().getFullYear()} Emmanuel. All rights reserved.
         </p>
       </footer>
