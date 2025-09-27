@@ -27,8 +27,8 @@ export default function Home() {
                 Explore my playground
               </a>
             </span>{" "}
-            for a few things I&rsquo;ve designed that actually shipped and didn&rsquo;t
-            break the internet - in a good way :)
+            for a few things I&rsquo;ve designed that actually shipped and
+            didn&rsquo;t break the internet - in a good way :)
           </p>
         </div>
       </main>
@@ -36,7 +36,7 @@ export default function Home() {
       {/* FOOTER SECTION */}
       <footer className="mt-auto w-full text-base md:text-lg leading-relaxed pb-10 pt-10">
         <p>
-          Follow on &lsquo;X:&rsquo;{" "}
+          Follow on X:{" "}
           <span className="text-custom-gray-400">
             <a
               href="https://x.com/hey_emmah"
@@ -50,7 +50,8 @@ export default function Home() {
         </p>
         <p className="pt-2">
           I believe obsession beats talent, and <br />
-          I&rsquo;ve built my craft by refusing to let go until it&rsquo;s done right.
+          I&rsquo;ve built my craft by refusing to let go until it&rsquo;s done
+          right.
         </p>
         <p className="text-sm text-custom-gray-400 pt-2">
           &copy; {new Date().getFullYear()} Emmanuel. All rights reserved.
