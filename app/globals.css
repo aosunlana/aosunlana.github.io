@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Make sure there's a paintable backdrop that the filter can invert */
+html, body {
+  background-color: #fff;       /* light base that will invert to dark */
+  margin: 0;
+}
+
+html { min-height: 100%; }
+body { min-height: 100dvh; }     /* use dvh on mobile */
+
 /* Global text selection color */
 :root {
   --select-bg: #fff7a1; /* light yellow */
