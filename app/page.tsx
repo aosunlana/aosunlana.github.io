@@ -1,11 +1,10 @@
-
 import Header from "./components/header/Header";
 
 export default function Home() {
   return (
-    <div className="min-h-dvh flex flex-col items-start px-4 md:px-20 pt-[max(env(safe-area-inset-top))] md:pt-4 text-custom-gray-900">
-<div className="w-full">
-      <Header />
+    <div className="min-h-dvh flex flex-col items-start pt px-4 md:px-20 pt-[max(env(safe-area-inset-top))] md:pt-4 text-custom-gray-900">
+      <div className="w-full">
+        <Header />
       </div>
 
       {/* BODY CONTENT */}
