@@ -1,23 +1,24 @@
-// app/page.tsx
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Header from "./components/header/Header";
 
-const container = {
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const container: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.06, delayChildren: 0.05 },
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 10, filter: "blur(3px)" },
   show: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: EASE },
   },
 };
 
@@ -28,7 +29,6 @@ export default function Home() {
         <Header />
       </div>
 
-      {/* BODY CONTENT */}
       <motion.main
         className="flex-1 w-full"
         variants={container}
@@ -45,7 +45,6 @@ export default function Home() {
             like an <span className="text-custom-gray-400">engineer</span>
           </motion.h2>
 
-          {/* SUBTEXT CONTENT */}
           <motion.p variants={item} className="text-base md:text-lg leading-relaxed pb-4">
             Hi, 👋🏼 I&rsquo;m Emmanuel - a{" "}
             <span className="text-custom-gray-400">curious human</span> who
@@ -68,11 +67,7 @@ export default function Home() {
         </div>
       </motion.main>
 
-      {/* FOOTER SECTION */}
-      <motion.footer
-        variants={item}
-        className="mt-auto w-full text-base md:text-lg leading-relaxed pb-10 pt-10"
-      >
+      <motion.footer variants={item} className="mt-auto w-full text-base md:text-lg leading-relaxed pb-10 pt-10">
         <p>
           Follow on X:{" "}
           <span className="text-custom-gray-400">
