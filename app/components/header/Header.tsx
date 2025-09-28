@@ -154,8 +154,8 @@ export default function Header() {
                       href={href}
                       onClick={() => setOpen(false)}
                       className={[
-                        // left aligned, 12px left padding, 48px tall, 16px text
-                        "flex h-12 items-center justify-start pl-4 pr-3 gap-2 text-base font-normal text-custom-gray-800",
+                        // center aligned, 48px tall, 16px text
+                        "flex h-12 items-center justify-center  pr-3 gap-2 text-base font-normal text-custom-gray-800",
                         borders,
                         "border-custom-gray-200",
                       ].join(" ")}
