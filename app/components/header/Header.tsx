@@ -16,7 +16,7 @@ function makeIcon(name: string) {
 }
 
 /* ✅ icons (fixed names) */
-const HelloIcon      = makeIcon("solar:hand-shake-outline");     
+const HelloIcon      = makeIcon("solar:hand-shake-outline");    
 const PlaygroundIcon = makeIcon("solar:pallete-2-outline");
 const ToolsIcon      = makeIcon("solar:library-outline");
 const BookmarksIcon  = makeIcon("solar:folder-with-files-outline");
@@ -154,13 +154,14 @@ export default function Header() {
                       href={href}
                       onClick={() => setOpen(false)}
                       className={[
-                        "flex h-12 items-center justify-center text-base font-normal text-custom-gray-800",
+                        // left aligned, 12px left padding, 48px tall, 16px text
+                        "flex h-12 items-center justify-start pl-4 pr-3 gap-2 text-base font-normal text-custom-gray-800",
                         borders,
                         "border-custom-gray-200",
                       ].join(" ")}
                     >
-                      <I className="h-5 w-5 text-gray-700 shrink-0 mr-2" aria-hidden="true" />
-                      <span className="text-center">{label}</span>
+                      <I className="h-5 w-5 text-gray-700 shrink-0" aria-hidden="true" />
+                      <span className="text-left">{label}</span>
                     </Link>
                   );
                 })}
