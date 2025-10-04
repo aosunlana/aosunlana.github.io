@@ -1,81 +1,95 @@
 @import "tailwindcss";
 
+html, body {
+  background-color: #fff;  /* light base that will invert to dark */
+  margin: 0;
+}
 
+html { min-height: 100%; }
+body { min-height: 100dvh; }  /* use dvh on mobile */
 
-/* Neue Montreal — Light (300) */
+/* Global text selection color */
+:root {
+  --select-bg: #fff7a1; /* light yellow */
+}
+
+::selection {
+  background: var(--select-bg);
+  color: var(--select-fg);
+}
+
+/* Light (300) */
 @font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Light.woff2") format("woff2");
+  font-family: "SF Pro Display";
+  src:
+    local("SF Pro Display Light"),
+    local("SFProDisplay-Light"),
+    url("/fonts/SFProDisplay-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
+/* Regular (400) */
 @font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-LightItalic.woff2") format("woff2");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Neue Montreal — Regular (400) */
-@font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Regular.woff2") format("woff2");
+  font-family: "SF Pro Display";
+  src:
+    local("SF Pro Display Regular"),
+    local("SFProDisplay-Regular"),
+    url("/fonts/SFProDisplay-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
+/* Medium (500) */
 @font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Italic.woff2") format("woff2"); /* regular italic */
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Neue Montreal — Medium (500) */
-@font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Medium.woff2") format("woff2");
+  font-family: "SF Pro Display";
+  src:
+    local("SF Pro Display Medium"),
+    local("SFProDisplay-Medium"),
+    url("/fonts/SFProDisplay-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
+/* Semibold (600) */
 @font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-MediumItalic.woff2") format("woff2");
-  font-weight: 500;
-  font-style: italic;
+  font-family: "SF Pro Display";
+  src:
+    local("SF Pro Display Semibold"),
+    local("SFProDisplay-Semibold"),
+    url("/fonts/SFProDisplay-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
   font-display: swap;
 }
 
-/* Neue Montreal — Bold (700) */
+/* Bold (700) */
 @font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-Bold.woff2") format("woff2");
+  font-family: "SF Pro Display";
+  src:
+    local("SF Pro Display Bold"),
+    local("SFProDisplay-Bold"),
+    url("/fonts/SFProDisplay-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Neue Montreal";
-  src: url("/fonts/NeueMontreal-BoldItalic.woff2") format("woff2");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Global */
+/* Global font stack */
 body {
-  font-family: "Neue Montreal", system-ui, sans-serif;
+  font-family:
+    "SF Pro Display", "SF Pro Text", /* Apple system families */
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    system-ui, sans-serif;
 }
 
-
+/* -------------------- */
+/* Custom colors   */
+/* -------------------- */
 @theme {
   --color-custom-pink-50: #fdf2f8;
   --color-custom-pink-100: #fce8f3;
@@ -198,15 +212,16 @@ body {
   --color-custom-sunglow-800: #ffcc4a;
   --color-custom-sunglow-900: #ffc636;
 
-  --default-font-family: 'bitter';
+  --default-font-family: "SF Pro Display";
 }
 
+/* ⚠️ Note: these lines force no scroll and can cause overlay/“blank page” issues.
+   Keep only if you really want a fixed canvas page. */
 body {
-  margin: 0;           /* Remove default margin */
-  padding: 0;          /* Remove default padding */
-  overflow: hidden;    /* Disable scrolling */
-  height: 100vh;       /* Full viewport height */
-  width: 100vw;        /* Full viewport width */
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden;    /* Disable scrolling */
+  /* height: 100vh;       /* Full viewport height */
+  /* width: 600px;*/        /* Full viewport width */
   overscroll-behavior: none; /* Prevent scroll chaining on touch devices */
 }
-
