@@ -2,51 +2,51 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const neueMontreal = localFont({
+const sfProDisplay = localFont({
   src: [
     {
-      path: "../public/fonts/NeueMontreal-Light.woff2",
+      path: "../public/fonts/SFProDisplay-Light.woff2",
       weight: "300",
       style: "normal",
     },
+    
     {
-      path: "../public/fonts/NeueMontreal-LightItalic.woff2",
-      weight: "300",
-      style: "italic",
-    },
-    {
-      path: "../public/fonts/NeueMontreal-Regular.woff2",
+      path: "../public/fonts/SFProDisplay-Regular.woff2",
       weight: "400",
       style: "normal",
     },
+    
     {
-      path: "../public/fonts/NeueMontreal-Italic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../public/fonts/NeueMontreal-Medium.woff2",
+      path: "../public/fonts/SFProDisplay-Medium.woff2",
       weight: "500",
       style: "normal",
     },
+    
     {
-      path: "../public/fonts/NeueMontreal-MediumItalic.woff2",
-      weight: "500",
-      style: "italic",
+      path: "../public/fonts/SFProDisplay-Semibold.woff2",
+      weight: "600",
+      style: "normal",
     },
+    
     {
-      path: "../public/fonts/NeueMontreal-Bold.woff2",
+      path: "../public/fonts/SFProDisplay-Bold.woff2",
       weight: "700",
       style: "normal",
     },
-    {
-      path: "../public/fonts/NeueMontreal-BoldItalic.woff2",
-      weight: "700",
-      style: "italic",
-    },
+    
   ],
-  variable: "--font-neue",
+  variable: "--font-sf", // optional CSS var if you want to use it in Tailwind
   display: "swap",
+  fallback: [
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    "Arial",
+    "Noto Sans",
+    "sans-serif",
+  ],
 });
 
 export const metadata: Metadata = {
@@ -55,7 +55,6 @@ export const metadata: Metadata = {
     "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
 };
 
-/** ✅ Proper viewport (iOS safe area, no invalid <head> placement) */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -73,8 +72,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* Next will inject <head> from metadata/viewport above */}
-      <body className={`${neueMontreal.className} antialiased`}>
+      {/* Next injects <head> from metadata/viewport */}
+      <body className={`${sfProDisplay.className} antialiased`}>
         {children}
       </body>
     </html>
