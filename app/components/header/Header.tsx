@@ -7,6 +7,15 @@ import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import { NAV } from "@/components/SubPageMenu";
 
+const PAGE_SUMMARIES: Record<string, string> = {
+  "/": "Product Designer / Design Engineer",
+  "/playground": "Sandbox for design experiments and prototypes.",
+  "/tools": "Useful tSools and utilities I rely on.",
+  "/bookmarks": "Curated links, inspiration, and references.",
+  "/notes": "Thoughts, case studies, and writing.",
+  "/lets-talk": "Ways to get in touch and start a conversation.",
+};
+
 export default function Header() {
   const pathname = usePathname();
 
@@ -15,7 +24,15 @@ export default function Header() {
     return pathname.startsWith(item.href);
   });
 
-  const showAvatar = !activeNavItem || pathname === "/";
+  const isHome = pathname === "/";
+  const showAvatar = !activeNavItem || isHome;
+
+  const title = isHome
+    ? "Emmanuel A. Priestley"
+    : activeNavItem?.label ?? "Page";
+
+  const subtitleKey = activeNavItem?.href ?? "/";
+  const subtitle = PAGE_SUMMARIES[subtitleKey] ?? PAGE_SUMMARIES["/"];
 
   return (
     <header className="w-full">
@@ -52,13 +69,19 @@ export default function Header() {
           )}
         </Link>
 
-        {/* Name + Role */}
+        {/* Page title + subtitle */}
         <div>
           <h1 className="text-[18px] leading-9 tracking-[0.5px] font-semibold text-custom-gray-900">
-            Emmanuel A. Priestley
+            {title}
           </h1>
           <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500">
-            Product Designer <span className="text-custom-gray-500">/</span> Design Engineer
+            {isHome ? (
+              <>
+                Product Designer <span className="text-custom-gray-500">/</span> Design Engineer
+              </>
+            ) : (
+              subtitle
+            )}
           </p>
         </div>
       </div>

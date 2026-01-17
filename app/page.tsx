@@ -1,7 +1,8 @@
 "use client";
 
 import Header from "./components/header/Header";
-import Showcase from "./components/Showcase";
+import SubPageMenu from "./components/SubPageMenu";
+import BrandWidget from "./components/BrandWidget";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -41,8 +42,8 @@ export default function Home() {
               collaborating with teams at:
             </p>
 
-            <div>
-              <Showcase />    
+            <div className="pt-[16px] pb-[16px]">
+              <BrandWidget />    
             </div>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
@@ -79,10 +80,13 @@ export default function Home() {
 
       {/* FOOTER (centered container) */}
       <footer className="w-full pt-[140px] md:pt-20">
-        <div className="mx-auto w-full max-w-[600px] px-4 pb-[max(env(safe-area-inset-bottom),16px)] md:pb-4">
-          <Footer />
-        </div>
-      </footer>
+              <div className="mx-auto w-full max-w-[600px] px-4 pb-[max(env(safe-area-inset-bottom),16px)] md:pb-4">
+                <div className="mb-[16px]">
+                  <SubPageMenu />
+                </div>
+                <Footer />
+              </div>
+            </footer>
     </div>
   );
 }
