@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   return notes.map((note) => ({ slug: note.slug }));
 }
 
-export default function NotePage({ params }: { params: { slug: string } }) {
+export default function NotePage({ params }: any) {
   let note;
 
   try {
