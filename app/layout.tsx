@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
+import { Analytics } from "@vercel/analytics/next"
 
 const sfProDisplay = localFont({
   src: [
@@ -77,6 +78,7 @@ export default function RootLayout({
       <body className={`${sfProDisplay.className} antialiased`}>
         <PageTransition>{children}</PageTransition>
       </body>
+      <Analytics />
     </html>
   );
 }
