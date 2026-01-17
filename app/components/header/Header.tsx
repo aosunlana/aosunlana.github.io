@@ -31,10 +31,14 @@ export default function Header() {
 
   const title = isHome
     ? "Emmanuel A. Priestley"
+    : isNotesDetail
+    ? "Back to Notes"
     : activeNavItem?.label ?? "Page";
 
   const subtitleKey = activeNavItem?.href ?? "/";
-  const subtitle = PAGE_SUMMARIES[subtitleKey] ?? PAGE_SUMMARIES["/"];
+  const subtitle = isNotesDetail
+    ? "See all notes and writing in one place."
+    : PAGE_SUMMARIES[subtitleKey] ?? PAGE_SUMMARIES["/"];
 
   return (
     <header className="w-full">
