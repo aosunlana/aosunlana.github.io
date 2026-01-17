@@ -42,7 +42,7 @@ export default function Home() {
             </p>
 
             <div>
-              <Showcase />
+              <Showcase />    
             </div>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
