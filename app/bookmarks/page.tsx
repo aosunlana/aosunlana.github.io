@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Header from "@/components/header/Header";
 
-const PASSWORD = "#$18dec1999";
+const PASSWORD = "$#18dec1999";
 
 export default function BookmarksPage() {
   const [input, setInput] = useState("");
