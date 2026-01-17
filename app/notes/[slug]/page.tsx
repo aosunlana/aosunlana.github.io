@@ -10,6 +10,7 @@ export async function generateStaticParams() {
   return notes.map((note) => ({ slug: note.slug }));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function NotePage({ params }: any) {
   let note;
 
@@ -25,7 +26,7 @@ export default function NotePage({ params }: any) {
     <main className="max-w-3xl mx-auto px-6 py-14">
       <h1 className="text-2xl font-bold">{title}</h1>
 
-      <p className="text-gray-500 mt-2">
+      <p className="text-gray-500 mt-2">     
         {date} • {note.readingTime}
       </p>
 
