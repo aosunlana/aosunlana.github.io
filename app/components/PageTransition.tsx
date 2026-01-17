@@ -1,10 +1,13 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type Dir = 1 | -1;
+
+// ✅ Proper tuple type (this fixes the TS error)
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function PageTransition({
   children,
@@ -31,7 +34,8 @@ export default function PageTransition({
     popTriggeredRef.current = false;
   }, [pathname]);
 
-  const variants = {
+  // ✅ Type the variants to satisfy TS
+  const variants: Variants = {
     initial: (dir: Dir) => ({
       x: dir === 1 ? "100%" : "-100%",
     }),
@@ -39,14 +43,14 @@ export default function PageTransition({
       x: 0,
       transition: {
         duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
+        ease,
       },
     },
     exit: (dir: Dir) => ({
       x: dir === 1 ? "-100%" : "100%",
       transition: {
         duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
+        ease,
       },
     }),
   };
