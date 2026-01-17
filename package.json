@@ -12,6 +12,7 @@
     "@cds/core": "^6.16.1",
     "@iconify/react": "^6.0.1",
     "@solar-icons/react": "^1.0.1",
+    "@vercel/analytics": "^1.6.1",
     "framer-motion": "^12.26.2",
     "geist": "^1.5.1",
     "gray-matter": "^4.0.3",

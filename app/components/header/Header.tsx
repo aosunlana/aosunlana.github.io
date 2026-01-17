@@ -25,7 +25,9 @@ export default function Header() {
   });
 
   const isHome = pathname === "/";
+  const isNotesDetail = pathname.startsWith("/notes/") && pathname !== "/notes";
   const showAvatar = !activeNavItem || isHome;
+  const tileHref = isNotesDetail ? "/notes" : "/";
 
   const title = isHome
     ? "Emmanuel A. Priestley"
@@ -39,11 +41,17 @@ export default function Header() {
       <div className="flex items-center gap-4 md:gap-5 pb-8 ">
         {/* Avatar / Page Icon tile */}
         <Link
-          href="/"
+          href={tileHref}
           aria-label="Profile"
           className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-custom-gray-100 overflow-hidden"
         >
-          {showAvatar || !activeNavItem ? (
+          {isNotesDetail ? (
+            <Icon
+              icon="ic:outline-keyboard-backspace"
+              className="h-7 w-7 text-custom-gray-900"
+              aria-hidden="true"
+            />
+          ) : showAvatar || !activeNavItem ? (
             <Image
               src="/avatar.svg"
               alt="Avatar"
