@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import PageTransition from "./components/PageTransition";
 
 const sfProDisplay = localFont({
   src: [
@@ -74,7 +75,7 @@ export default function RootLayout({
     <html lang="en">
       {/* Next injects <head> from metadata/viewport */}
       <body className={`${sfProDisplay.className} antialiased`}>
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 html, body {
   background-color: #fff;  /* light base that will invert to dark */
