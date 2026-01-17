@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import SubPageMenu from "@/components/SubPageMenu";
+import Footer from "@/components/Footer";
+
 
 import { getAllNotes, getNoteBySlug } from "@/lib/notes";
 import Header from "@/components/header/Header";
@@ -58,6 +61,16 @@ export default function NotePage({ params }: any) {
           </section>
         </div>
       </main>
+{/* FOOTER (centered container) */}
+      <footer className="w-full pt-[140px] md:pt-20">
+        <div className="mx-auto w-full max-w-[600px] px-4 pb-[max(env(safe-area-inset-bottom),16px)] md:pb-4">
+          <div className="mb-[16px]">
+            <SubPageMenu />
+          </div>
+          <Footer />
+        </div>
+      </footer>
+
     </div>
   );
 }
