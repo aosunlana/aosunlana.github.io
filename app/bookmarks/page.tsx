@@ -1,16 +1,18 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { Icon } from "@iconify/react";
+// import { useState, type FormEvent } from "react";
+// import { Icon } from "@iconify/react";
 import Header from "@/components/header/Header";
 
-import ConstructionPlaceholder from "@/components/ConstructionPlaceholder";
+// import ConstructionPlaceholder from "@/components/ConstructionPlaceholder";
 import SubPageMenu from "@/components/SubPageMenu";
 import Footer from "@/components/Footer";
+import BookmarksList from "./BookmarksList";
 
-const PASSWORD = "$#18dec1999";
+// const PASSWORD = "$#18dec1999";
 
 export default function BookmarksPage() {
+  /* PASSWORD PROTECTION - COMMENTED OUT FOR NOW
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
@@ -69,6 +71,7 @@ export default function BookmarksPage() {
       </div>
     );
   }
+  */
 
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
@@ -78,8 +81,13 @@ export default function BookmarksPage() {
         </div>
       </header>
 
-      <main className="flex-1 w-full flex items-center justify-center">
-        <ConstructionPlaceholder />
+      <main className="flex-1 w-full">
+        <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20">
+          <section className="w-full">
+
+            <BookmarksList />
+          </section>
+        </div>
       </main>
 
       {/* FOOTER (centered container) */}
