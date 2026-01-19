@@ -7,6 +7,14 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Playground",
   description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
+  openGraph: {
+    title: "Playground",
+    description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
+  },
+  twitter: {
+    title: "Playground",
+    description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
+  },
 };
 
 export default function PlaygroundPage() {

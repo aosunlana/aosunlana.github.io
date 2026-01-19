@@ -7,6 +7,14 @@ import ToolsList from "./ToolsList";
 export const metadata: Metadata = {
   title: "Tools",
   description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
+  openGraph: {
+    title: "Tools",
+    description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
+  },
+  twitter: {
+    title: "Tools",
+    description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
+  },
 };
 
 export default function ToolsPage() {

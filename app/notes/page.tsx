@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: "Notes",
   description: "Thoughts, essays, and reflections on design, engineering, and life.",
   openGraph: {
-    title: "Notes - Emmanuel",
+    title: "Notes",
+    description: "Thoughts, essays, and reflections on design, engineering, and life.",
+  },
+  twitter: {
+    title: "Notes",
     description: "Thoughts, essays, and reflections on design, engineering, and life.",
   },
 };

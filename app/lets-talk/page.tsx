@@ -7,6 +7,14 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Let's Talk",
   description: "Let's build something great together. Get in touch for collaborations, projects, or just to say hi.",
+  openGraph: {
+    title: "Let's Talk",
+    description: "Let's build something great together. Get in touch for collaborations, projects, or just to say hi.",
+  },
+  twitter: {
+    title: "Let's Talk",
+    description: "Let's build something great together. Get in touch for collaborations, projects, or just to say hi.",
+  },
 };
 
 export default function LetsTalkPage() {

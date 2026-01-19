@@ -62,7 +62,10 @@ export const metadata: Metadata = {
   description:
     "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
   openGraph: {
-    title: "Emmanuel - Design Engineer",
+    title: {
+      default: "Emmanuel - Design Engineer",
+      template: "%s | Emmanuel",
+    },
     description:
       "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
     url: "https://emmah.xyz",
@@ -72,7 +75,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Emmanuel - Design Engineer",
+    title: {
+      default: "Emmanuel - Design Engineer",
+      template: "%s | Emmanuel",
+    },
     description:
       "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
     creator: "@0xEmm4h2B1",

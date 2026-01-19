@@ -11,6 +11,14 @@ import BookmarksList from "./BookmarksList";
 export const metadata: Metadata = {
   title: "Bookmarks",
   description: "A curated collection of interesting links, articles, and resources I've found on the web.",
+  openGraph: {
+    title: "Bookmarks",
+    description: "A curated collection of interesting links, articles, and resources I've found on the web.",
+  },
+  twitter: {
+    title: "Bookmarks",
+    description: "A curated collection of interesting links, articles, and resources I've found on the web.",
+  },
 };
 
 // const PASSWORD = "$#18dec1999";
