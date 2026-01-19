@@ -83,7 +83,11 @@ export default function ReadingProgressRing() {
     <button
       type="button"
       aria-label={isComplete ? "Reading complete" : "Reading progress"}
-      className="fixed bottom-4 left-4 z-50 flex h-8 w-8 items-center justify-center"
+      className={`fixed right-4 top-1/2 -translate-y-1/2 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 dark:bg-app-card-dark/90 backdrop-blur-sm ${
+        !isScrollIdle || isComplete
+          ? "border border-custom-gray-200 dark:border-app-border-dark"
+          : ""
+      }`}
     >
       <div className="relative flex items-center justify-center">
         <svg
@@ -141,7 +145,7 @@ export default function ReadingProgressRing() {
         )}
         {!isComplete && isScrollIdle && (
           <span className="absolute inset-0 flex items-center justify-center text-custom-gray-900 dark:text-app-text-dark">
-            <Icon icon="line-md:emoji-smile-filled" className="h-5 w-5" />
+            <Icon icon="line-md:emoji-smile-filled" className="h-8 w-8" />
           </span>
         )}
         {isComplete && (

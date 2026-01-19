@@ -25,7 +25,7 @@ export default function NotePage({ params }: any) {
   const { title, date, cover } = note.frontmatter;
 
   return (
-    <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
+    <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark note-reading-page">
       <ReadingProgressRing />
       <header className="w-full">
         <div className="mx-auto w-full max-w-[600px] px-4 pt-[max(env(safe-area-inset-top),16px)] md:pt-4">

@@ -245,6 +245,14 @@ body {
   overscroll-behavior: none; /* Prevent scroll chaining on touch devices */
 }
 
+.note-reading-page {
+  scrollbar-width: none;
+}
+
+.note-reading-page::-webkit-scrollbar {
+  display: none;
+}
+
 .prose li::marker {
   color: currentColor;
 }
