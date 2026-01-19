@@ -236,6 +236,7 @@ body {
 
 /* ⚠️ Note: these lines force no scroll and can cause overlay/“blank page” issues.
    Keep only if you really want a fixed canvas page. */
+html,
 body {
   margin: 0;
   padding: 0;
@@ -243,6 +244,13 @@ body {
   /* height: 100vh;       /* Full viewport height */
   /* width: 600px;*/        /* Full viewport width */
   overscroll-behavior: none; /* Prevent scroll chaining on touch devices */
+  scrollbar-width: none;     /* Firefox: hide scrollbars */
+  -ms-overflow-style: none;  /* IE/Edge legacy: hide scrollbars */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari: hide scrollbars */
 }
 
 .note-reading-page {
