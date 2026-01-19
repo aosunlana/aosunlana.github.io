@@ -16,7 +16,7 @@ export default function ConstructionPlaceholder({ title = "Still Baking..." }: {
       
       <p className="text-lg text-custom-gray-600 dark:text-custom-gray-300 max-w-[400px] mx-auto mb-10 leading-relaxed font-medium">
         I only work on this portfolio on Sundays. <br />
-        <span className="text-custom-gray-400 dark:text-app-text-dark text-base">(If I don't oversleep).</span>
+        <span className="text-custom-gray-400 dark:text-app-text-dark text-base">(If I don&apos;t oversleep).</span>
       </p>
       
       <Link 
