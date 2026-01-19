@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Icon } from "@iconify/react";
+import gsap from "gsap";
 
 const SIZE = 32;
 const STROKE_WIDTH = 2.5;
@@ -12,6 +13,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 export default function ReadingProgressRing() {
   const [progress, setProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const digitRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -43,11 +45,24 @@ export default function ReadingProgressRing() {
     };
   }, []);
 
-  if (!mounted) return null;
-
   const isComplete = progress >= 0.995;
   const offset = CIRCUMFERENCE * (1 - progress);
   const displayPercent = Math.round(progress * 100);
+  const clampedPercent = Math.min(displayPercent, 99);
+  const tens = Math.floor(clampedPercent / 10);
+  const units = clampedPercent % 10;
+
+  useEffect(() => {
+    if (!digitRef.current || isComplete) return;
+
+    gsap.fromTo(
+      digitRef.current,
+      { y: 8, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.25, ease: "power2.out" }
+    );
+  }, [units, isComplete]);
+
+  if (!mounted) return null;
 
   return createPortal(
     <button
@@ -95,8 +110,16 @@ export default function ReadingProgressRing() {
           )}
         </svg>
         {!isComplete && (
-          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-medium text-custom-gray-900 dark:text-app-text-dark">
-            {displayPercent}%
+          <span className="absolute inset-0 flex items-center justify-center overflow-hidden text-[9px] font-medium text-custom-gray-900 dark:text-app-text-dark">
+            <span className="flex items-center justify-center gap-[1px]">
+              <span className="block">
+                {tens}
+              </span>
+              <span ref={digitRef} className="block">
+                {units}
+              </span>
+              <span className="block">%</span>
+            </span>
           </span>
         )}
         {isComplete && (
