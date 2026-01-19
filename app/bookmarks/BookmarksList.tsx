@@ -5,56 +5,11 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-
-interface Bookmark {
-  title: string;
-  url: string;
-  description: string;
-  domain: string;
-}
-
-const BOOKMARKS: Bookmark[] = [
-  {
-    title: "GSAP (GreenSock)",
-    url: "https://greensock.com",
-    description: "The standard for modern web animation. Robust, performant, and essential for creative development.",
-    domain: "greensock.com"
-  },
-  {
-    title: "Vercel Design System",
-    url: "https://vercel.com/design",
-    description: "A masterclass in clean, functional, and scalable design systems.",
-    domain: "vercel.com"
-  },
-  {
-    title: "Family",
-    url: "https://family.co",
-    description: "Incredible crypto wallet interface design. Smooth interactions and thoughtful details.",
-    domain: "family.co"
-  },
-  {
-    title: "Linear Guide",
-    url: "https://linear.app/method",
-    description: "Not just a tool manual, but a philosophy on building software effectively.",
-    domain: "linear.app"
-  },
-  {
-    title: "Rauno Freiberg",
-    url: "https://rauno.me",
-    description: "A continuous source of inspiration for interaction design and craft.",
-    domain: "rauno.me"
-  },
-  {
-    title: "Craft",
-    url: "https://craft.do",
-    description: "Beautiful native-feeling interactions on the web. A benchmark for quality.",
-    domain: "craft.do"
-  }
-];
+import type { Bookmark } from "@/lib/bookmarks";
 
 type ViewMode = "list" | "grid";
 
-export default function BookmarksList() {
+export default function BookmarksList({ initialBookmarks }: { initialBookmarks: Bookmark[] }) {
   const [view, setView] = useState<ViewMode>("list");
   const [mounted, setMounted] = useState(false);
   const activeIndex = view === "list" ? 0 : 1;
@@ -109,13 +64,13 @@ export default function BookmarksList() {
             transition={{ duration: 0.2 }}
             className="rounded-3xl border border-custom-gray-200 dark:border-app-border-dark overflow-hidden bg-white dark:bg-custom-gray-900/20"
           >
-            {BOOKMARKS.map((bookmark, index) => (
+            {initialBookmarks.map((bookmark, index) => (
               <Link
                 key={bookmark.url}
                 href={bookmark.url}
                 target="_blank"
                 className={`group block p-4 sm:p-5 hover:bg-custom-gray-50 dark:hover:bg-custom-gray-800/20 transition-colors ${
-                  index !== BOOKMARKS.length - 1
+                  index !== initialBookmarks.length - 1
                     ? "border-b border-custom-gray-200 dark:border-app-border-dark"
                     : ""
                 }`}
@@ -131,7 +86,7 @@ export default function BookmarksList() {
                         className="w-3.5 h-3.5 text-custom-gray-400 dark:text-custom-gray-500 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" 
                       />
                     </div>
-                    <p className="text-sm text-custom-gray-500 dark:text-custom-gray-400 line-clamp-2 leading-relaxed">
+                    <p className="text-sm text-custom-gray-500 dark:text-custom-gray-400 line-clamp-2 leading-relaxed h-[46px]">
                       {bookmark.description}
                     </p>
                   </div>
@@ -163,7 +118,7 @@ export default function BookmarksList() {
             transition={{ duration: 0.2 }}
             className="grid grid-cols-2 gap-3 sm:gap-4"
           >
-            {BOOKMARKS.map((bookmark) => (
+            {initialBookmarks.map((bookmark) => (
               <Link
                 key={bookmark.url}
                 href={bookmark.url}
@@ -196,11 +151,11 @@ export default function BookmarksList() {
                   />
                 </div>
                 
-                <p className="text-xs sm:text-sm text-custom-gray-500 dark:text-custom-gray-400 line-clamp-3 leading-relaxed mb-3 sm:mb-4 flex-1">
+                <p className="text-xs sm:text-sm text-custom-gray-500 dark:text-custom-gray-400 line-clamp-2 leading-relaxed mb-3 sm:mb-4 h-[40px] sm:h-[46px]">
                   {bookmark.description}
                 </p>
 
-                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-custom-gray-400 dark:text-custom-gray-500">
+                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-custom-gray-400 dark:text-custom-gray-500 mt-auto">
                   <span className="truncate">{bookmark.domain}</span>
                 </div>
               </Link>

@@ -7,6 +7,7 @@ import Header from "@/components/header/Header";
 import SubPageMenu from "@/components/SubPageMenu";
 import Footer from "@/components/Footer";
 import BookmarksList from "./BookmarksList";
+import { getEnrichedBookmarks } from "@/lib/bookmarks";
 
 export const metadata: Metadata = {
   title: "Bookmarks",
@@ -23,7 +24,8 @@ export const metadata: Metadata = {
 
 // const PASSWORD = "$#18dec1999";
 
-export default function BookmarksPage() {
+export default async function BookmarksPage() {
+  const bookmarks = await getEnrichedBookmarks();
   /* PASSWORD PROTECTION - COMMENTED OUT FOR NOW
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
@@ -97,7 +99,7 @@ export default function BookmarksPage() {
         <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20">
           <section className="w-full">
 
-            <BookmarksList />
+            <BookmarksList initialBookmarks={bookmarks} />
           </section>
         </div>
       </main>
