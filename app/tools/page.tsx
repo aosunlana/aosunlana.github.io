@@ -6,7 +6,7 @@ import ToolsList from "./ToolsList";
 
 export const metadata: Metadata = {
   title: "Tools",
-  description: "The software and hardware I use every day.",
+  description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
 };
 
 export default function ToolsPage() {

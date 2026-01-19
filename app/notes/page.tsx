@@ -8,10 +8,10 @@ import { getAllNotes } from "@/lib/notes";
 
 export const metadata: Metadata = {
   title: "Notes",
-  description: "Personal notes and articles.",
+  description: "Thoughts, essays, and reflections on design, engineering, and life.",
   openGraph: {
     title: "Notes - Emmanuel",
-    description: "Personal notes and articles.",
+    description: "Thoughts, essays, and reflections on design, engineering, and life.",
   },
 };
 

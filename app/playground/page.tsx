@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Playground",
-  description: "Experimental projects, UI designs, and code components.",
+  description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
 };
 
 export default function PlaygroundPage() {

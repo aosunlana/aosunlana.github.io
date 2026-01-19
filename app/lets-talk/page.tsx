@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Let's Talk",
-  description: "Get in touch with me.",
+  description: "Let's build something great together. Get in touch for collaborations, projects, or just to say hi.",
 };
 
 export default function LetsTalkPage() {
