@@ -14,7 +14,7 @@ export const NAV: NavItem[] = [
   { label: "Tools",       href: "/tools",      icon: "solar:library-outline" },
   { label: "Bookmarks",   href: "/bookmarks",  icon: "solar:folder-with-files-outline" },
   { label: "Notes",       href: "/notes",      icon: "clarity:digital-signature-line" },
-  { label: "Let’s Talk",  href: "/lets-talk",  icon: "solar:smile-circle-outline" },
+  { label: "About Me",    href: "/about",      icon: "solar:smile-circle-outline" },
 ];
 
 export default function SubPageMenu() {

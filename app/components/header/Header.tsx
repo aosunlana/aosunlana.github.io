@@ -13,7 +13,7 @@ const PAGE_SUMMARIES: Record<string, string> = {
   "/tools": "Useful tools and utilities I rely on.",
   "/bookmarks": "Curated links, inspiration, and references.",
   "/notes": "Thoughts, case studies, and writing.",
-  "/lets-talk": "Ways to get in touch and start a conversation.",
+  "/about": "Get to know me, my background, and experience.",
 };
 
 export default function Header() {
