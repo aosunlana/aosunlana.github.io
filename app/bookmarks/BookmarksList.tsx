@@ -161,46 +161,46 @@ export default function BookmarksList() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className="grid grid-cols-2 gap-3 sm:gap-4"
           >
             {BOOKMARKS.map((bookmark) => (
               <Link
                 key={bookmark.url}
                 href={bookmark.url}
                 target="_blank"
-                className="group flex flex-col p-5 rounded-3xl border border-custom-gray-200 dark:border-app-border-dark bg-white dark:bg-custom-gray-900/20 hover:bg-custom-gray-50 dark:hover:bg-custom-gray-800/20 transition-colors h-full"
+                className="group flex flex-col p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-custom-gray-200 dark:border-app-border-dark bg-white dark:bg-custom-gray-900/20 hover:bg-custom-gray-50 dark:hover:bg-custom-gray-800/20 transition-colors h-full"
               >
-                <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex items-start justify-between gap-2 sm:gap-3 mb-2 sm:mb-3">
                   <div className="flex items-center gap-2 min-w-0">
                      {/* Favicon or fallback */}
-                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-custom-gray-100 dark:bg-app-card-dark shrink-0">
+                     <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-custom-gray-100 dark:bg-app-card-dark shrink-0">
                       <img
                         src={`https://www.google.com/s2/favicons?domain=${bookmark.domain}&sz=32`}
                         alt=""
-                        className="w-4 h-4 rounded-sm"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm"
                         onError={(e) => {
                           e.currentTarget.style.display = "none";
                           e.currentTarget.nextElementSibling?.classList.remove("hidden");
                         }}
                       />
-                      <Icon icon="solar:link-circle-linear" className="w-4 h-4 text-custom-gray-500 dark:text-custom-gray-400 hidden" />
+                      <Icon icon="solar:link-circle-linear" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-custom-gray-500 dark:text-custom-gray-400 hidden" />
                     </div>
-                    <h3 className="text-base font-semibold text-custom-gray-900 dark:text-app-text-dark truncate group-hover:text-custom-gray-600 dark:group-hover:text-custom-gray-300 transition-colors">
+                    <h3 className="text-sm sm:text-base font-semibold text-custom-gray-900 dark:text-app-text-dark truncate group-hover:text-custom-gray-600 dark:group-hover:text-custom-gray-300 transition-colors">
                       {bookmark.title}
                     </h3>
                   </div>
                   
                   <Icon 
                     icon="solar:arrow-right-up-linear" 
-                    className="w-4 h-4 text-custom-gray-400 dark:text-custom-gray-500 group-hover:text-custom-gray-600 dark:group-hover:text-custom-gray-300 transition-colors shrink-0" 
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-custom-gray-400 dark:text-custom-gray-500 group-hover:text-custom-gray-600 dark:group-hover:text-custom-gray-300 transition-colors shrink-0" 
                   />
                 </div>
                 
-                <p className="text-sm text-custom-gray-500 dark:text-custom-gray-400 line-clamp-3 leading-relaxed mb-4 flex-1">
+                <p className="text-xs sm:text-sm text-custom-gray-500 dark:text-custom-gray-400 line-clamp-3 leading-relaxed mb-3 sm:mb-4 flex-1">
                   {bookmark.description}
                 </p>
 
-                <div className="flex items-center gap-1.5 text-xs font-medium text-custom-gray-400 dark:text-custom-gray-500">
+                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-custom-gray-400 dark:text-custom-gray-500">
                   <span className="truncate">{bookmark.domain}</span>
                 </div>
               </Link>
