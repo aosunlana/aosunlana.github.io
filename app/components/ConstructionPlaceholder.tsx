@@ -28,7 +28,7 @@ export default function ConstructionPlaceholder({ title = "Still Baking..." }: {
       </Link>
       
       <p className="mt-8 flex items-center justify-center gap-2 text-sm text-custom-gray-400 dark:text-app-text-dark font-medium">
-        <span>It's where I spill the real tea</span>
+        <span>It&apos;s where I spill the real tea</span>
         <Icon icon="solar:cup-hot-linear" className="w-4 h-4" />
       </p>
     </div>

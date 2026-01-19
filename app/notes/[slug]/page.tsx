@@ -49,7 +49,6 @@ export async function generateStaticParams() {
   return notes.map((note) => ({ slug: note.slug }));
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function NotePage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
   let note;
