@@ -1,13 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-
-type Dir = 1 | -1;
-
-// ✅ Proper tuple type (this fixes the TS error)
-const ease = [0.22, 1, 0.36, 1] as const;
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function PageTransition({
   children,
@@ -15,61 +10,46 @@ export default function PageTransition({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
-  const [direction, setDirection] = useState<Dir>(1);
-  const popTriggeredRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onPopState = () => {
-      popTriggeredRef.current = true;
-      setDirection(-1);
-    };
+    const container = containerRef.current;
+    if (!container) return;
 
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
 
-  useEffect(() => {
-    if (!popTriggeredRef.current) setDirection(1);
-    popTriggeredRef.current = false;
+      tl.fromTo(
+        container,
+        { autoAlpha: 0, y: 20, scale: 0.98 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "power2.out" }
+      );
+
+      const elements = container.querySelectorAll(
+        "header, main, section, article, h1, h2, h3, p, a, li"
+      );
+
+      if (elements.length) {
+        tl.from(
+          elements,
+          {
+            autoAlpha: 0,
+            y: 10,
+            duration: 0.4,
+            stagger: 0.04,
+            ease: "power2.out",
+          },
+          "-=0.25"
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
   }, [pathname]);
 
-  // ✅ Type the variants to satisfy TS
-  const variants: Variants = {
-    initial: (dir: Dir) => ({
-      x: dir === 1 ? "100%" : "-100%",
-    }),
-    animate: {
-      x: 0,
-      transition: {
-        duration: 0.45,
-        ease,
-      },
-    },
-    exit: (dir: Dir) => ({
-      x: dir === 1 ? "-100%" : "100%",
-      transition: {
-        duration: 0.45,
-        ease,
-      },
-    }),
-  };
-
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <AnimatePresence mode="wait" initial={false} custom={direction}>
-        <motion.div
-          key={pathname}
-          custom={direction}
-          variants={variants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="relative z-10 min-h-screen"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+    <div ref={containerRef} className="min-h-screen">
+      {children}
     </div>
   );
 }
