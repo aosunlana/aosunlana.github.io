@@ -84,7 +84,7 @@ export default function ReadingProgressRing() {
       type="button"
       aria-label={isComplete ? "Reading complete" : "Reading progress"}
       className={`fixed right-4 top-1/2 -translate-y-1/2 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 dark:bg-app-card-dark/90 backdrop-blur-sm ${
-        !isScrollIdle || isComplete
+        !isScrollIdle && !isComplete
           ? "border border-custom-gray-200 dark:border-app-border-dark"
           : ""
       }`}
@@ -96,7 +96,7 @@ export default function ReadingProgressRing() {
           viewBox="0 0 32 32"
           className="block"
         >
-          {!isComplete && (
+          {!isComplete && !isScrollIdle && (
             <>
               <circle
                 cx="16"
