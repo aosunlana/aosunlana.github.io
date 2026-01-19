@@ -9,7 +9,7 @@ import { NAV } from "@/components/SubPageMenu";
 
 const PAGE_SUMMARIES: Record<string, string> = {
   "/": "Product Designer / Design Engineer",
-  "/playground": "Sandbox for design experiments and prototypes.",
+  "/playground": "Explore my design experiments and prototypes.",
   "/tools": "Useful tools and utilities I rely on.",
   "/bookmarks": "Curated links, inspiration, and references.",
   "/notes": "Thoughts, case studies, and writing.",
