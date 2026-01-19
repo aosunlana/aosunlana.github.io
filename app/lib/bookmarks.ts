@@ -14,10 +14,15 @@ const BOOKMARK_URLS = [
   "https://linear.app/method",
   "https://rauno.me",
   "https://craft.do",
+  "https://x.com/bluewmist/status/2012755834636533893",
 ];
 
 // Fallback data in case fetching fails
 const FALLBACK_DATA: Record<string, Partial<Bookmark>> = {
+  "https://x.com/bluewmist/status/2012755834636533893": {
+    title: "Unrot your brain",
+    description: "There was a time I devoured books like candy. Sometimes reading them as a pdfs, unable to wait for it as a gift. I kept notebooks full of weird facts and quotes I didnt quite understand. I was the smart girl.",
+  },
   "https://greensock.com": {
     title: "GSAP (GreenSock)",
     description: "The standard for modern web animation. Robust, performant, and essential for creative development.",
