@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import gsap from "gsap";
 
-interface Tool {
+export interface Tool {
   name: string;
   description: string;
   icon: string; // Used as fallback
@@ -16,85 +16,7 @@ interface Tool {
   impact: string;
 }
 
-const TOOLS: Tool[] = [
-  // Design
-  {
-    name: "Figma",
-    description: "Where all design work happens.",
-    icon: "solar:palette-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Design",
-    url: "https://figma.com",
-    usage: "Interface design, prototyping, and maintaining design systems.",
-    impact: "It's the infinite canvas where I think, explore, and solidify visual ideas before a single line of code is written.",
-  },
-  {
-    name: "Framer",
-    description: "For shipping websites fast.",
-    icon: "solar:window-frame-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Design",
-    url: "https://framer.com",
-    usage: "Building high-fidelity interactive prototypes and shipping marketing sites.",
-    impact: "Bridges the gap between static design and the real web. It lets me validate interactions and ship stunning sites in record time.",
-  },
-  
-  // Development
-  {
-    name: "VS Code",
-    description: "My editor of choice.",
-    icon: "solar:code-circle-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Development",
-    url: "https://code.visualstudio.com",
-    usage: "Full-stack development, debugging, and writing markdown.",
-    impact: "My command center. With the right extensions and keybindings, it disappears and lets me flow directly into the codebase.",
-  },
-  {
-    name: "Arc",
-    description: "The browser I can't live without.",
-    icon: "solar:globe-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Development",
-    url: "https://arc.net",
-    usage: "Daily browsing, research, and managing multiple workspaces.",
-    impact: "Spaces and profiles keep my context switching cost low. It feels like an OS for the web rather than just a browser.",
-  },
-  
-  // Productivity
-  {
-    name: "Raycast",
-    description: "Spotlight on steroids.",
-    icon: "solar:bolt-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Productivity",
-    url: "https://raycast.com",
-    usage: "System control, clipboard history, window management, and quick scripts.",
-    impact: "It eliminates friction. I can navigate my entire system and perform complex tasks without ever lifting my hands from the keyboard.",
-  },
-  {
-    name: "Notion",
-    description: "Second brain for notes and docs.",
-    icon: "solar:notebook-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Productivity",
-    url: "https://notion.so",
-    usage: "Documentation, project planning, and organizing my life.",
-    impact: "The flexibility allows me to build custom workflows for everything from reading lists to sprint planning. It keeps the chaos organized.",
-  },
-  {
-    name: "Linear",
-    description: "Issue tracking that feels like magic.",
-    icon: "solar:checklist-minimalistic-linear",
-    logo: "/logos/placeholder.svg",
-    category: "Productivity",
-    url: "https://linear.app",
-    usage: "Task management, bug tracking, and roadmap planning.",
-    impact: "It respects my time. Fast, keyboard-centric, and opinionated in the right ways. It turns project management into a flow state.",
-  },
-];
-
-export default function ToolsList() {
+export default function ToolsList({ tools }: { tools: Tool[] }) {
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const contentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const prevToolRef = useRef<string | null>(null);
@@ -153,14 +75,14 @@ export default function ToolsList() {
 
   return (
     <div className="rounded-3xl border border-custom-gray-200 dark:border-app-border-dark overflow-hidden bg-white dark:bg-custom-gray-900/20">
-      {TOOLS.map((tool, index) => {
+      {tools.map((tool, index) => {
         const isActive = activeTool === tool.name;
         
         return (
           <div
             key={tool.name}
             className={`group relative overflow-hidden transition-colors duration-300 ${
-              index !== TOOLS.length - 1
+              index !== tools.length - 1
                 ? "border-b border-custom-gray-200 dark:border-app-border-dark"
                 : ""
             } ${isActive ? "bg-custom-gray-50 dark:bg-custom-gray-800/40" : "hover:bg-custom-gray-50 dark:hover:bg-custom-gray-800/20"}`}

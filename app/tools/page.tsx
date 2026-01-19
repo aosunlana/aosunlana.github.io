@@ -3,6 +3,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
 import SubPageMenu from "@/components/SubPageMenu";
 import ToolsList from "./ToolsList";
+import { getTools } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "Tools",
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
 };
 
 export default function ToolsPage() {
+  const tools = getTools();
+
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
       {/* HEADER */}
@@ -32,7 +35,7 @@ export default function ToolsPage() {
           <section className="w-full">
           
 
-            <ToolsList />
+            <ToolsList tools={tools} />
           </section>
         </div>
       </main>
