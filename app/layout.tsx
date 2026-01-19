@@ -94,12 +94,31 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Emmanuel",
+    jobTitle: "Design Engineer",
+    url: "https://emmah.xyz",
+    sameAs: [
+      "https://x.com/@0xEmm4h2B1",
+      "https://github.com/hey-emmah",
+      "https://www.linkedin.com/in/",
+    ],
+    description:
+      "A Curious human who design interfaces and build digital things for a living",
+  };
+
   return (
     <html lang="en">
       {/* Next injects <head> from metadata/viewport */}
       <body
         className={`${sfProDisplay.className} antialiased bg-white text-custom-gray-900 dark:bg-app-bg-dark dark:text-app-text-dark`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider>
           <ThemeToggle />
           <PageTransition>{children}</PageTransition>

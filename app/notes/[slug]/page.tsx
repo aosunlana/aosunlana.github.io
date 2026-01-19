@@ -50,7 +50,8 @@ export async function generateStaticParams() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function NotePage({ params }: any) {
+export default async function NotePage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   let note;
 
   try {
@@ -59,10 +60,29 @@ export default function NotePage({ params }: any) {
     return notFound();
   }
 
-  const { title, date, cover } = note.frontmatter;
+  const { title, date, cover, description } = note.frontmatter;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    datePublished: date,
+    description: description,
+    image: cover ? `https://emmah.xyz${cover}` : undefined,
+    url: `https://emmah.xyz/notes/${params.slug}`,
+    author: {
+      "@type": "Person",
+      name: "Emmanuel",
+      url: "https://emmah.xyz",
+    },
+  };
 
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark note-reading-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ReadingProgressRing />
       <header className="w-full">
         <div className="mx-auto w-full max-w-[600px] px-4 pt-[max(env(safe-area-inset-top),16px)] md:pt-4">
