@@ -13,8 +13,8 @@ export default function ResumeButton() {
 
   // Reset text when going back to idle
   useEffect(() => {
-    let ctx = gsap.context(() => {
-        if (status === "idle" && textRef.current) {
+    const ctx = gsap.context(() => {
+      if (status === "idle" && textRef.current) {
             textRef.current.innerText = "Download Resume";
             gsap.to([textRef.current, iconRef.current], {
                 y: 0,
@@ -37,8 +37,8 @@ export default function ResumeButton() {
 
     setStatus("downloading");
 
-    const ctx = gsap.context(() => {
-        // Create a timeline for the download animation
+    gsap.context(() => {
+      // Create a timeline for the download animation
         const tl = gsap.timeline({
         onComplete: () => {
             setStatus("completed");

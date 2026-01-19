@@ -76,13 +76,13 @@ export default function AboutPage() {
         <section className="mb-20">
             <div className="flex flex-col gap-6">
                  <h1 className="text-[22px] leading-8 tracking-[1%] font-medium text-custom-gray-900 dark:text-app-text-dark">
-                    Let's build something <br className="hidden sm:block"/> 
+                    Let&apos;s build something <br className="hidden sm:block"/> 
                     <span className="text-custom-gray-500 dark:text-custom-gray-400">extraordinary together.</span>
                 </h1>
                 
                 <div className="space-y-4 text-base leading-6 tracking-[0.5%] text-custom-gray-600 dark:text-custom-gray-400 max-w-lg">
                     <p>
-                    I'm a Product Designer turned Design Engineer who loves turning complex ideas into simple, delightful experiences. 
+                    I&apos;m a Product Designer turned Design Engineer who loves turning complex ideas into simple, delightful experiences. 
                     </p>
                 </div>
 
