@@ -1,13 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
 import SubPageMenu from "@/components/SubPageMenu";
 
 import { getAllNotes } from "@/lib/notes";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Notes",
   description: "Personal notes and articles.",
+  openGraph: {
+    title: "Notes - Emmanuel",
+    description: "Personal notes and articles.",
+  },
 };
 
 function renderDescription(text: string) {

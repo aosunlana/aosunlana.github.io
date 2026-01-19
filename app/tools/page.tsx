@@ -1,7 +1,13 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import Header from "@/components/header/Header";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Tools",
+  description: "Tools and software I use.",
+};
+
+export default function ToolsPage() {
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900">
       <header className="w-full">

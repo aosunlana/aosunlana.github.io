@@ -1,7 +1,13 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import Header from "@/components/header/Header";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Playground",
+  description: "Experimental projects and ideas.",
+};
+
+export default function PlaygroundPage() {
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900">
       <header className="w-full">

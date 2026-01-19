@@ -1,11 +1,48 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import SubPageMenu from "@/components/SubPageMenu";
 import Footer from "@/components/Footer";
 import { getAllNotes, getNoteBySlug } from "@/lib/notes";
 import Header from "@/components/header/Header";
 import ReadingProgressRing from "@/components/ReadingProgressRing";
+
+export async function generateMetadata(
+  props: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const params = await props.params;
+  let note;
+
+  try {
+    note = getNoteBySlug(params.slug);
+  } catch {
+    return {
+      title: "Note Not Found",
+    };
+  }
+
+  const { title, description, date, cover } = note.frontmatter;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime: date,
+      url: `/notes/${params.slug}`,
+      images: cover ? [{ url: cover }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: cover ? [cover] : [],
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const notes = getAllNotes();
