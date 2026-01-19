@@ -4,6 +4,10 @@ import { useState, type FormEvent } from "react";
 import { Icon } from "@iconify/react";
 import Header from "@/components/header/Header";
 
+import ConstructionPlaceholder from "@/components/ConstructionPlaceholder";
+import SubPageMenu from "@/components/SubPageMenu";
+import Footer from "@/components/Footer";
+
 const PASSWORD = "$#18dec1999";
 
 export default function BookmarksPage() {
@@ -74,13 +78,19 @@ export default function BookmarksPage() {
         </div>
       </header>
 
-      <main className="flex-1 w-full">
-        <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20 flex items-center justify-center">
-          <p className="text-base text-custom-gray-900 dark:text-app-text-dark">
-            Bookmarks content goes here.
-          </p>
-        </div>
+      <main className="flex-1 w-full flex items-center justify-center">
+        <ConstructionPlaceholder />
       </main>
+
+      {/* FOOTER (centered container) */}
+      <footer className="w-full pt-[140px] md:pt-20">
+        <div className="mx-auto w-full max-w-[600px] px-4 pb-[max(env(safe-area-inset-bottom),16px)] md:pb-4">
+          <div className="mb-[16px]">
+            <SubPageMenu />
+          </div>
+          <Footer />
+        </div>
+      </footer>
     </div>
   );
 }
