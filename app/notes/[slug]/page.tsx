@@ -3,10 +3,9 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import SubPageMenu from "@/components/SubPageMenu";
 import Footer from "@/components/Footer";
-
-
 import { getAllNotes, getNoteBySlug } from "@/lib/notes";
 import Header from "@/components/header/Header";
+import ReadingProgressRing from "@/components/ReadingProgressRing";
 
 export async function generateStaticParams() {
   const notes = getAllNotes();
@@ -27,6 +26,7 @@ export default function NotePage({ params }: any) {
 
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
+      <ReadingProgressRing />
       <header className="w-full">
         <div className="mx-auto w-full max-w-[600px] px-4 pt-[max(env(safe-area-inset-top),16px)] md:pt-4">
           <Header />
