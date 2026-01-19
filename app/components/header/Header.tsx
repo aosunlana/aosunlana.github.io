@@ -47,12 +47,12 @@ export default function Header() {
         <Link
           href={tileHref}
           aria-label="Profile"
-          className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-custom-gray-100 overflow-hidden"
+          className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-custom-gray-100 dark:bg-app-card-dark overflow-hidden"
         >
           {isNotesDetail ? (
             <Icon
               icon="ic:outline-keyboard-backspace"
-              className="h-7 w-7 text-custom-gray-900"
+              className="h-7 w-7 text-custom-gray-900 dark:text-app-text-dark"
               aria-hidden="true"
             />
           ) : showAvatar || !activeNavItem ? (
@@ -67,7 +67,7 @@ export default function Header() {
           ) : activeNavItem.icon ? (
             <Icon
               icon={activeNavItem.icon}
-              className="h-7 w-7 text-custom-gray-900"
+              className="h-7 w-7 text-custom-gray-900 dark:text-app-text-dark"
               aria-hidden="true"
             />
           ) : (
@@ -83,10 +83,10 @@ export default function Header() {
 
         {/* Page title + subtitle */}
         <div>
-          <h1 className="text-[18px] leading-9 tracking-[0.5px] font-semibold text-custom-gray-900">
+          <h1 className="text-[18px] leading-9 tracking-[0.5px] font-semibold text-custom-gray-900 dark:text-app-text-dark">
             {title}
           </h1>
-          <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500">
+          <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark">
             {isHome ? (
               <>
                 Product Designer <span className="text-custom-gray-500">/</span> Design Engineer

@@ -13,13 +13,13 @@ export const NAV: NavItem[] = [
   { label: "Playground",  href: "/playground", icon: "solar:pallete-2-outline" },
   { label: "Tools",       href: "/tools",      icon: "solar:library-outline" },
   { label: "Bookmarks",   href: "/bookmarks",  icon: "solar:folder-with-files-outline" },
-  { label: "Notes",       href: "/notes",      svg:  "/images/notes.svg" },
+  { label: "Notes",       href: "/notes",      icon: "clarity:digital-signature-line" },
   { label: "Let’s Talk",  href: "/lets-talk",  icon: "solar:smile-circle-outline" },
 ];
 
 export default function SubPageMenu() {
   return (
-    <nav className="rounded-[16px] border border-custom-gray-200 bg-white overflow-hidden">
+    <nav className="rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark overflow-hidden">
       {/* MOBILE: 2 columns x 3 rows */}
       <div className="grid grid-cols-2 md:hidden">
         {NAV.map((item, i) => {
@@ -33,10 +33,10 @@ export default function SubPageMenu() {
             <Link
               key={item.label}
               href={item.href}
-              className={`group relative flex h-12 items-center gap-2 px-4 text-sm tracking-[0.5px] text-custom-gray-900 ${borders} border-custom-gray-200`}
+              className={`group relative flex h-12 items-center gap-2 px-4 text-sm tracking-[0.5px] text-custom-gray-900 dark:text-app-text-dark ${borders} border-custom-gray-200 dark:border-app-border-dark`}
             >
               {item.icon ? (
-                <Icon icon={item.icon} className="h-5 w-5 text-custom-gray-700 shrink-0" />
+                <Icon icon={item.icon} className="h-5 w-5 text-custom-gray-700 dark:text-app-text-dark shrink-0" />
               ) : (
                 <Image
                   src={item.svg!}
@@ -50,7 +50,7 @@ export default function SubPageMenu() {
 
               <Icon
                 icon="solar:arrow-right-up-outline"
-                className="absolute right-3 h-4 w-4 opacity-0 -translate-y-[2px] translate-x-[2px] transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-custom-gray-700"
+                className="absolute right-3 h-4 w-4 opacity-0 -translate-y-[2px] translate-x-[2px] transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-custom-gray-700 dark:text-app-text-dark group-hover:text-app-link-text-hover dark:group-hover:text-app-link-text-hover"
                 aria-hidden="true"
               />
             </Link>
@@ -77,10 +77,10 @@ export default function SubPageMenu() {
             <Link
               key={item.label}
               href={item.href}
-              className={`group relative flex h-12 items-center gap-2 px-4 text-sm tracking-[0.5px] text-custom-gray-900 ${borders} border-custom-gray-200`}
+              className={`group relative flex h-12 items-center gap-2 px-4 text-sm tracking-[0.5px] text-custom-gray-900 dark:text-app-text-dark ${borders} border-custom-gray-200 dark:border-app-border-dark`}
             >
               {item.icon ? (
-                <Icon icon={item.icon} className="h-5 w-5 text-custom-gray-700 shrink-0" />
+                <Icon icon={item.icon} className="h-5 w-5 text-custom-gray-700 dark:text-app-text-dark shrink-0" />
               ) : (
                 <Image
                   src={item.svg!}
@@ -94,7 +94,7 @@ export default function SubPageMenu() {
 
               <Icon
                 icon="solar:arrow-right-up-outline"
-                className="absolute right-3 h-4 w-4 opacity-0 -translate-y-[2px] translate-x-[2px] transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-custom-gray-700"
+                className="absolute right-3 h-4 w-4 opacity-0 -translate-y-[2px] translate-x-[2px] transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-custom-gray-700 dark:text-app-text-dark group-hover:text-app-link-text-hover dark:group-hover:text-app-link-text-hover"
                 aria-hidden="true"
               />
             </Link>

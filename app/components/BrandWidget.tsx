@@ -37,7 +37,7 @@ export default function BrandWidget() {
   return (
     <section className="mx-auto w-full max-w-[600pxpx] pb-4">
       {/* ===================== COMPANIES ===================== */}
-      <div className="rounded-[16px] border border-custom-gray-200 bg-white overflow-hidden">
+      <div className="rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark overflow-hidden">
         {/* Mobile: 1 col with row dividers; Desktop: 3 cols with right dividers */}
         <div className="grid grid-cols-1 md:grid-cols-3">
           {COMPANIES.map((c) => (
@@ -50,13 +50,13 @@ export default function BrandWidget() {
                 "border-b last:border-b-0",
                 // DESKTOP: right divider on first two only
                 "md:border-b-0 md:border-r md:last:border-r-0",
-                "border-custom-gray-200",
+                "border-custom-gray-200 dark:border-app-border-dark",
               ].join(" ")}
             >
               {/* MOBILE: icon to the left of text; DESKTOP: stacked */}
               <div className="flex items-start gap-3 md:block">
                 {/* Logo — adjust size here if you need (h-12/w-12 or h-14/w-14) */}
-                <div className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#161616] overflow-hidden shrink-0">
+                <div className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-app-card-dark overflow-hidden shrink-0">
                   <Image
                     src={c.logo}
                     alt={`${c.name} logo`}
@@ -74,10 +74,10 @@ export default function BrandWidget() {
 
                 {/* Text — MOBILE: no extra top margin; DESKTOP: add mt-4 */}
                 <div className="flex-1 md:mt-4">
-                  <h3 className="text-base leading-6 tracking-[0.5px] font-semibold text-custom-gray-900">
+                  <h3 className="text-base leading-6 tracking-[0.5px] font-semibold text-custom-gray-900 dark:text-app-text-dark">
                     {c.name}
                   </h3>
-                  <p className="mt-[2px] text-sm leading-5 tracking-[0.5px] text-custom-gray-500">
+                  <p className="mt-[2px] text-sm leading-5 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark">
                     {c.description}
                   </p>
                 </div>

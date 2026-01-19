@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="w-full flex flex-col">
         {/* Links wrapper */}
         <nav className="w-full">
-          <ul className="flex w-full rounded-[16px] border border-custom-gray-200 overflow-hidden bg-white">
+          <ul className="flex w-full rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark overflow-hidden ">
             {[
               { label: "Twitter", href: "https://x.com/@0xEmm4h2B1" },
               { label: "GitHub", href: "https://github.com/hey-emmah" },
@@ -24,9 +24,10 @@ export default function Footer() {
                   }
                   className={[
                     "flex h-12 items-center justify-center px-4",
-                    "text-base leading-6 tracking-[0.5px] text-custom-gray-900",
-                    // right border on first three only
-                    i < arr.length - 1 ? "border-r border-custom-gray-200" : "",
+                    "text-base leading-6 tracking-[0.5px] text-custom-gray-900 dark:text-app-text-dark",
+                    i < arr.length - 1
+                      ? "border-r border-custom-gray-200 dark:border-app-border-dark"
+                      : "",
                   ].join(" ")}
                 >
                   {label}
@@ -37,8 +38,8 @@ export default function Footer() {
         </nav>
 
         {/* Copyright box */}
-        <div className="w-full rounded-[16px] border border-custom-gray-200 bg-white h-12 px-4 flex items-center justify-center -mt-[0.5px]">
-          <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500 text-center">
+        <div className="w-full rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark h-12 px-4 flex items-center justify-center -mt-[0.5px]">
+          <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark text-center">
             &copy; {new Date().getFullYear()} Emmanuel. All rights reserved.
           </p>
         </div>

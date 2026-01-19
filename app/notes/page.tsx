@@ -17,9 +17,9 @@ function renderDescription(text: string) {
     let colorClass = "";
 
     if (index === 1) {
-      colorClass = "text-custom-gray-900";
+      colorClass = "text-custom-gray-900 dark:text-app-link-text-default";
     } else if (index === 2) {
-      colorClass = "text-custom-gray-400";
+      colorClass = "text-custom-gray-400 dark:text-app-text-hover-dark";
     }
 
     return (
@@ -35,7 +35,7 @@ export default function NotesPage() {
   const notes = getAllNotes();
 
   return (
-    <div className="min-h-dvh flex flex-col text-custom-gray-900">
+    <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
       {/* HEADER (centered container) */}
       <header className="w-full">
         <div className="mx-auto w-full max-w-[600px] px-4 pt-[max(env(safe-area-inset-top),16px)] md:pt-4">
@@ -45,23 +45,25 @@ export default function NotesPage() {
 
       <main className="flex-1 w-full">
         <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20">
-          <div className="w-full rounded-3xl border border-custom-gray-200 bg-white overflow-hidden">
+          <div className="w-full rounded-3xl border border-custom-gray-200 dark:border-app-border-dark overflow-hidden">
             {notes.map((note, index) => (
               <div
                 key={note.slug}
                 className={`px-6 py-5 ${
-                  index !== notes.length - 1 ? "border-b border-custom-gray-200" : ""
+                  index !== notes.length - 1
+                    ? "border-b border-custom-gray-200 dark:border-app-border-dark"
+                    : ""
                 }`}
               >
-                <p className="text-xs font-medium text-custom-gray-500 mb-2">
+                <p className="text-xs font-medium text-custom-gray-500 dark:text-app-text-dark mb-2">
                   {note.date}
                 </p>
 
                 <Link href={`/notes/${note.slug}`} className="block">
-                  <h2 className="text-[16px] sm:text-[18px] font-semibold text-custom-gray-900 mb-1 line-clamp-1 sm:line-clamp-none underline decoration-dotted decoration-current underline-offset-6 sm:no-underline sm:hover:underline sm:hover:decoration-2 sm:hover:text-custom-gray-500">
+                  <h2 className="text-[16px] sm:text-[18px] font-semibold text-custom-gray-900 dark:text-app-text-dark mb-1 line-clamp-1 underline decoration-dotted decoration-current underline-offset-6 sm:no-underline sm:hover:underline sm:hover:decoration-2 sm:hover:text-custom-gray-500 dark:sm:hover:text-app-text-hover-dark">
                     {note.title}
                   </h2>
-                  <p className="text-base leading-relaxed text-custom-gray-500 line-clamp-2">
+                  <p className="text-base leading-relaxed text-custom-gray-500 dark:text-app-text-dark line-clamp-2">
                     {renderDescription(note.description)}
                   </p>
                 </Link>

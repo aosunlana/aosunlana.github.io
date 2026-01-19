@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "./components/ThemeProvider";
+import ThemeToggle from "./components/ThemeToggle";
 
 const sfProDisplay = localFont({
   src: [
@@ -75,8 +77,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* Next injects <head> from metadata/viewport */}
-      <body className={`${sfProDisplay.className} antialiased`}>
-        <PageTransition>{children}</PageTransition>
+      <body
+        className={`${sfProDisplay.className} antialiased bg-white text-custom-gray-900 dark:bg-app-bg-dark dark:text-app-text-dark`}
+      >
+        <ThemeProvider>
+          <ThemeToggle />
+          <PageTransition>{children}</PageTransition>
+        </ThemeProvider>
       </body>
       <Analytics />
     </html>

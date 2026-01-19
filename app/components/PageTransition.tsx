@@ -65,7 +65,7 @@ export default function PageTransition({
           initial="initial"
           animate="animate"
           exit="exit"
-          className="relative z-10 min-h-screen bg-white"
+          className="relative z-10 min-h-screen"
         >
           {children}
         </motion.div>

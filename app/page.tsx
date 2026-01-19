@@ -17,17 +17,17 @@ export default function Home() {
 
       {/* MAIN (centered container + vertical centering) */}
       <main className="flex-1 w-full">
-        <div className="mx-auto w-full max-w-[600px] px-4 flex items-center">
+        <div className="mx-auto w-full max-w-[600px] px-4 flex items-center dark:text-app-text-dark">
           <section className="w-full">
             <h1 className="text-[22px] leading-8 tracking-[1%] font-medium pt-6 pb-6 md:pt-4">
               Exploring what happens <br />
-              when <span className="text-custom-gray-500">designer</span> thinks
-              like an <span className="text-custom-gray-500">engineer</span>
+              when <span className="text-custom-gray-500 dark:text-app-link-text-default ">designer</span> thinks
+              like an <span className="text-custom-gray-500 dark:text-app-link-text-default">engineer</span>
             </h1>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
               A{" "}
-              <span className="text-custom-gray-500 font-medium">
+              <span className="text-custom-gray-500 dark:text-app-link-text-default font-medium">
                 Product Designer
               </span>{" "}
               who loves turning complex ideas into simple, delightful
@@ -49,7 +49,7 @@ export default function Home() {
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
               While my foundation is firmly in Product Design, I&rsquo;m
               actively exploring the horizon of{" "}
-              <span className="text-custom-gray-500">Design Engineering</span>,
+              <span className="text-custom-gray-500 dark:text-app-link-text-default">Design Engineering</span>,
               blurring the line between design and development. I believe the
               future of product design isn&rsquo;t just about how things look,
               but also about how fast and seamlessly they can be built, tested,
@@ -58,10 +58,10 @@ export default function Home() {
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
               This portfolio is my sandbox: a mix of projects I&rsquo;ve{" "}
-              <span className="text-custom-gray-500">
+              <span className="text-custom-gray-500 dark:text-app-link-text-default">
                 <a
                   href="/playground"
-                  className="underline decoration-dotted decoration-current underline-offset-6 hover:decoration-2 hover:text-custom-gray-800"
+                  className="underline decoration-dotted decoration-current underline-offset-6 hover:decoration-2 hover:text-app-link-text-hover"
                 >
                   designed, shipped, and iterated
                 </a>

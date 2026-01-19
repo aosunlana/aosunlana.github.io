@@ -1,17 +1,23 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 @plugin "@tailwindcss/typography";
 
 html, body {
-  background-color: #fff;  /* light base that will invert to dark */
   margin: 0;
 }
 
-html { min-height: 100%; }
-body { min-height: 100dvh; }  /* use dvh on mobile */
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+}
 
 /* Global text selection color */
 :root {
-  --select-bg: #fff7a1; /* light yellow */
+  --select-bg: #DBFDDE;
+  --select-fg: #58D267;
 }
 
 ::selection {
@@ -213,6 +219,18 @@ body {
   --color-custom-sunglow-800: #ffcc4a;
   --color-custom-sunglow-900: #ffc636;
 
+  /* App-level semantic colors */
+  --color-app-bg-dark: #191919;
+  --color-app-card-dark: #252424;
+  --color-app-logo-dark: #161616;
+  --color-app-text-dark: #D4D4D4;
+  --color-app-border-dark: #2B2C2C;
+  --color-app-button-hover-dark: #383838;
+  --color-app-button-hover-light: #f2f2f2;
+  --color-app-text-hover-dark: #8A8A8A;
+  --color-app-link-text-default: #9B9B9B;
+  --color-app-link-text-hover: #58D267;
+
   --default-font-family: "SF Pro Display";
 }
 
@@ -225,4 +243,26 @@ body {
   /* height: 100vh;       /* Full viewport height */
   /* width: 600px;*/        /* Full viewport width */
   overscroll-behavior: none; /* Prevent scroll chaining on touch devices */
+}
+
+.prose li::marker {
+  color: currentColor;
+}
+
+.prose blockquote {
+  color: inherit;
+  border-left-color: currentColor;
+}
+
+.prose a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.375em;
+}
+
+.prose a:hover {
+  text-decoration-thickness: 2px;
+  color: var(--color-app-link-text-hover);
 }
