@@ -489,6 +489,59 @@ function DefaultView({
 
 /* -------------------------------- search -------------------------------- */
 
+// Relational search data. A file or collection carries the people attached to
+// it, and matches a query when the query hits its own text OR any of those
+// people, so searching a user surfaces the files they are on and the
+// collections they belong to, not just rows whose text happens to contain it.
+const contains = (text: string, q: string) => text.toLowerCase().includes(q.toLowerCase());
+const relMatch = (text: string, people: string[], q: string) =>
+  contains(text, q) || people.some((n) => contains(n, q));
+
+const MEMBERS: { person: Person; meta: ReactNode }[] = [
+  { person: P.jess, meta: <Meta icon={<CircleDashed size={16} />} value={2} /> },
+  { person: P.adamS, meta: null },
+  { person: P.matt, meta: <Meta icon={<CircleDashed size={16} />} value={5} /> },
+  { person: P.shawn, meta: <Meta icon={<CircleDashed size={16} />} value={3} /> },
+];
+
+const FILES: { name: string; read: boolean; faces: Person[]; people: string[] }[] = [
+  { name: "Marcus`s Invoice 1", read: true, faces: [P.matt, P.jess], people: ["Marcus Reed", "Tamara Cole", "Delmar Poole"] },
+  { name: "Marcus`s Invoice 2", read: false, faces: [], people: ["Marcus Reed"] },
+];
+
+const REACTIONS: { person: Person }[] = [{ person: P.adamS }];
+
+type Collection = {
+  name: string;
+  accent: boolean;
+  branch: number | null;
+  groups: { label: string; names: string[]; count: number }[];
+  people: string[];
+};
+const COLLECTIONS: Collection[] = [
+  {
+    name: "Clients",
+    accent: true,
+    branch: 4,
+    groups: [
+      { label: "Paid", names: ["Marcus Reed", "Bella Innes", "Otis Kwan"], count: 16 },
+      { label: "Free", names: ["Amara Lund", "Scott Vale", "Tamara Cole", "Margo Hale", "Jeff Rhodes"], count: 21 },
+    ],
+    people: [],
+  },
+  { name: "Toolkit", accent: false, branch: 2, groups: [], people: ["Marcus Reed", "Omar Diaz"] },
+  { name: "Big ideas", accent: false, branch: null, groups: [], people: ["Margo Hale", "Amara Quinn"] },
+  { name: "New hires", accent: false, branch: 14, groups: [], people: ["Tamara Cole", "Amara Quinn"] },
+];
+const collectionPeople = (c: Collection) => [...c.groups.flatMap((g) => g.names), ...c.people];
+
+const filterMembers = (q: string, dir: SortDir) =>
+  MEMBERS.filter((m) => matchP(m.person, q)).sort(byName(dir));
+const filterFiles = (q: string) => FILES.filter((f) => relMatch(f.name, f.people, q));
+const filterReactions = (q: string) => REACTIONS.filter((r) => matchP(r.person, q));
+const filterCollections = (q: string) =>
+  COLLECTIONS.filter((c) => relMatch(c.name, collectionPeople(c), q));
+
 function SearchView({
   q,
   active,
@@ -503,36 +556,10 @@ function SearchView({
   let d = 0;
   const step = () => 0.02 + d++ * 0.02;
 
-  const members = [
-    { person: P.jess, meta: <Meta icon={<CircleDashed size={16} />} value={2} /> },
-    { person: P.adamS, meta: null },
-    { person: P.matt, meta: <Meta icon={<CircleDashed size={16} />} value={5} /> },
-    { person: P.shawn, meta: <Meta icon={<CircleDashed size={16} />} value={3} /> },
-  ]
-    .filter((m) => matchP(m.person, q))
-    .sort(byName(sortDir));
-
-  const files = [
-    { name: "Marcus`s Invoice 1", read: true, faces: [P.matt, P.jess] },
-    { name: "Marcus`s Invoice 2", read: false, faces: [] as Person[] },
-  ].filter((f) => f.name.toLowerCase().includes(q.toLowerCase()));
-
-  const reactions = [{ person: P.adamS }].filter((r) => matchP(r.person, q));
-
-  const collections = [
-    {
-      name: "Clients",
-      accent: true,
-      branch: 4,
-      groups: [
-        { label: "Paid", names: ["Marcus Reed", "Bella Innes", "Otis Kwan"], count: 16 },
-        { label: "Free", names: ["Amara Lund", "Scott Vale", "Tamara Cole", "Jeff Rhodes"], count: 21 },
-      ],
-    },
-    { name: "Toolkit", accent: false, branch: 2, groups: [] },
-    { name: "Big ideas", accent: false, branch: null, groups: [] },
-    { name: "New hires", accent: false, branch: 14, groups: [] },
-  ];
+  const members = filterMembers(q, sortDir);
+  const files = filterFiles(q);
+  const reactions = filterReactions(q);
+  const collections = filterCollections(q);
 
   return (
     <div className="pb-1">
@@ -612,7 +639,9 @@ function SearchView({
         </>
       )}
 
-      <Label count={1} delay={step()}>Collections</Label>
+      {collections.length > 0 && (
+        <>
+      <Label count={collections.length} delay={step()}>Collections</Label>
       <div className="px-1">
         {collections.map((c) => (
           <div key={c.name}>
@@ -667,15 +696,21 @@ function SearchView({
           </div>
         ))}
       </div>
+        </>
+      )}
     </div>
   );
 }
 
 /* ------------------------------ mention popover ------------------------- */
 
-function MentionPopover({ q }: { q: string }) {
+function MentionPopover({ q, onPick }: { q: string; onPick: (name: string) => void }) {
   const suggestions = [P.adamM, P.amy].filter((p) => p.name.toLowerCase().includes(q.toLowerCase()));
+  const [hover, setHover] = useState<string | null>(null);
   if (suggestions.length === 0) return null;
+  // Default the glide to the first row; fall back if a stale hover drops out.
+  const activeName =
+    hover && suggestions.some((s) => s.name === hover) ? hover : suggestions[0]?.name;
   return (
     <motion.div
       initial={{ opacity: 0, y: -8, scale: 0.97 }}
@@ -685,18 +720,30 @@ function MentionPopover({ q }: { q: string }) {
       className="absolute left-0 top-[calc(100%+8px)] z-30 w-[248px] origin-top overflow-hidden rounded-xl border border-black/10 bg-white p-1 dark:border-white/10 dark:bg-[#232325]"
     >
       {suggestions.map((p, i) => (
-        <motion.div
+        <motion.button
           key={p.name}
+          type="button"
           initial={{ opacity: 0, x: -6 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.05 + i * 0.05, duration: 0.2, ease: EASE }}
-          className={`flex items-center gap-2.5 rounded-lg px-2 py-1.5 ${i === 0 ? "bg-black/[0.05] dark:bg-white/[0.06]" : ""}`}
+          onMouseEnter={() => setHover(p.name)}
+          onClick={() => onPick(p.name)}
+          className="relative flex w-full items-center gap-2.5 rounded-lg px-2 py-1.5 text-left"
         >
-          <Avatar person={p} size={24} />
-          <span className={`text-[14px] ${TXT}`}>
+          {activeName === p.name && (
+            <motion.span
+              layoutId="mention-hl"
+              transition={HL_SPRING}
+              className="absolute inset-0 rounded-lg bg-black/[0.05] dark:bg-white/[0.06]"
+            />
+          )}
+          <span className="relative z-10">
+            <Avatar person={p} size={24} />
+          </span>
+          <span className={`relative z-10 text-[14px] ${TXT}`}>
             <Highlight text={p.name} q={q} />
           </span>
-        </motion.div>
+        </motion.button>
       ))}
     </motion.div>
   );
@@ -731,16 +778,10 @@ export default function CommandSearch() {
       return [...last.map((l) => l.id), "qa:task", "qa:note", "qa:member", "file:invoice"];
     }
     const ids: string[] = [];
-    (["jess", "adamS", "matt", "shawn"] as const)
-      .filter((k) => matchP(P[k], q))
-      .map((k) => ({ person: P[k] }))
-      .sort(byName(sortDir))
-      .forEach((m) => ids.push(`mem:${m.person.name}`));
-    ["Marcus`s Invoice 1", "Marcus`s Invoice 2"].forEach((n) => {
-      if (n.toLowerCase().includes(q.toLowerCase())) ids.push(`file:${n}`);
-    });
-    if (matchP(P.adamS, q)) ids.push(`rx:${P.adamS.name}`);
-    ["Clients", "Toolkit", "Big ideas", "New hires"].forEach((n) => ids.push(`col:${n}`));
+    filterMembers(q, sortDir).forEach((m) => ids.push(`mem:${m.person.name}`));
+    filterFiles(q).forEach((f) => ids.push(`file:${f.name}`));
+    filterReactions(q).forEach((r) => ids.push(`rx:${r.person.name}`));
+    filterCollections(q).forEach((c) => ids.push(`col:${c.name}`));
     return ids;
   }, [searching, q, sortDir]);
 
@@ -906,7 +947,16 @@ export default function CommandSearch() {
             >
               <div className="absolute left-4 right-4 top-0 z-20">
                 <AnimatePresence>
-                  {isMention && searching && <MentionPopover q={q} />}
+                  {isMention && searching && (
+                    <MentionPopover
+                      q={q}
+                      onPick={(name) => {
+                        setRaw(name);
+                        setOpen(true);
+                        inputRef.current?.focus();
+                      }}
+                    />
+                  )}
                 </AnimatePresence>
               </div>
               <LayoutGroup>
