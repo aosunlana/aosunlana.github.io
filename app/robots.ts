@@ -7,5 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: "https://emmah.xyz/sitemap.xml",
+    host: "https://emmah.xyz",
   };
 }

@@ -24,22 +24,26 @@ export async function generateMetadata(
 
   const { title, description, date, cover } = note.frontmatter;
 
+  const url = `/notes/${params.slug}`;
   return {
     title,
     description,
+    alternates: { canonical: url },
     openGraph: {
       title,
       description,
       type: "article",
       publishedTime: date,
-      url: `/notes/${params.slug}`,
-      images: cover ? [{ url: cover }] : [],
+      authors: ["Emmanuel A. Priestley"],
+      url,
+      // Fall back to the generated opengraph-image route when there is no cover.
+      images: cover ? [{ url: cover }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: cover ? [cover] : [],
+      images: cover ? [cover] : undefined,
     },
   };
 }
@@ -66,12 +70,14 @@ export default async function NotePage(props: { params: Promise<{ slug: string }
     "@type": "BlogPosting",
     headline: title,
     datePublished: date,
+    dateModified: date,
     description: description,
-    image: cover ? `https://emmah.xyz${cover}` : undefined,
+    image: `https://emmah.xyz${cover ?? `/notes/${params.slug}/opengraph-image`}`,
     url: `https://emmah.xyz/notes/${params.slug}`,
+    mainEntityOfPage: `https://emmah.xyz/notes/${params.slug}`,
     author: {
       "@type": "Person",
-      name: "Emmanuel",
+      name: "Emmanuel A. Priestley",
       url: "https://emmah.xyz",
     },
   };
@@ -92,7 +98,7 @@ export default async function NotePage(props: { params: Promise<{ slug: string }
       <main className="flex-1 w-full">
         <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20">
           <section className="w-full">
-            <h1 className="text-[22px] leading-8 tracking-[0.5px] font-semibold sm:text-[24px] text-custom-gray-900 dark:text-app-text-dark">
+            <h1 className="font-display text-[22px] leading-8 tracking-[0.5px] font-semibold sm:text-[25px] text-custom-gray-900 dark:text-app-text-dark">
               {title}
             </h1>
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Bookmarks",
-  description: "Curated list of bookmarks and resources.",
+  description: "Links, references, and things worth keeping.",
 };
 
 export default function BookmarksLayout({

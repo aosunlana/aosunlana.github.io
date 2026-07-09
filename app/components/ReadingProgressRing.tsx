@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Icon } from "@iconify/react";
-import gsap from "gsap";
+import { Smiley, ThumbsUp } from "@phosphor-icons/react";
 
 const SIZE = 32;
 const STROKE_WIDTH = 2.5;
@@ -15,7 +14,6 @@ export default function ReadingProgressRing() {
   const [progress, setProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [isScrollIdle, setIsScrollIdle] = useState(false);
-  const digitRef = useRef<HTMLSpanElement | null>(null);
   const idleTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -62,20 +60,6 @@ export default function ReadingProgressRing() {
 
   const isComplete = progress >= 0.995;
   const offset = CIRCUMFERENCE * (1 - progress);
-  const displayPercent = Math.round(progress * 100);
-  const clampedPercent = Math.min(displayPercent, 99);
-  const tens = Math.floor(clampedPercent / 10);
-  const units = clampedPercent % 10;
-
-  useEffect(() => {
-    if (!digitRef.current || isComplete || isScrollIdle) return;
-
-    gsap.fromTo(
-      digitRef.current,
-      { y: 8, autoAlpha: 0 },
-      { y: 0, autoAlpha: 1, duration: 0.25, ease: "power2.out" }
-    );
-  }, [units, isComplete, isScrollIdle]);
 
   if (!mounted) return null;
 
@@ -130,27 +114,14 @@ export default function ReadingProgressRing() {
             />
           )}
         </svg>
-        {!isComplete && !isScrollIdle && (
-          <span className="absolute inset-0 flex items-center justify-center overflow-hidden text-[9px] font-medium text-custom-gray-900 dark:text-app-text-dark">
-            <span className="flex items-center justify-center gap-[1px]">
-              <span className="block">
-                {tens}
-              </span>
-              <span ref={digitRef} className="block">
-                {units}
-              </span>
-              <span className="block">%</span>
-            </span>
-          </span>
-        )}
         {!isComplete && isScrollIdle && (
           <span className="absolute inset-0 flex items-center justify-center text-custom-gray-900 dark:text-app-text-dark">
-            <Icon icon="line-md:emoji-smile-filled" className="h-8 w-8" />
+            <Smiley size={32} weight="fill" aria-hidden="true" />
           </span>
         )}
         {isComplete && (
           <span className="absolute inset-0 flex items-center justify-center text-custom-gray-900">
-            <Icon icon="line-md:thumbs-up-filled" className="h-4 w-4" />
+            <ThumbsUp size={16} weight="fill" aria-hidden="true" />
           </span>
         )}
       </div>

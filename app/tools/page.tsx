@@ -3,39 +3,31 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
 import SubPageMenu from "@/components/SubPageMenu";
 import ToolsList from "./ToolsList";
-import { getTools } from "@/lib/tools";
 
 export const metadata: Metadata = {
   title: "Tools",
-  description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
+  description: "The software and tools I use to design and build.",
+  alternates: { canonical: "/tools" },
   openGraph: {
     title: "Tools",
-    description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
+    description: "The software and tools I use to design and build.",
   },
   twitter: {
     title: "Tools",
-    description: "A curated list of the software, hardware, and tools I use to design and build digital products.",
+    description: "The software and tools I use to design and build.",
   },
 };
 
 export default function ToolsPage() {
-  const tools = getTools();
-
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
-      {/* HEADER */}
-      <header className="w-full">
-        <div className="mx-auto w-full max-w-[600px] px-4 pt-[max(env(safe-area-inset-top),16px)] md:pt-4">
-          <Header />
-        </div>
-      </header>
+      {/* Breadcrumb (absolute, positioned by the component) */}
+      <Header />
 
       <main className="flex-1 w-full">
-        <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20">
+        <div className="mx-auto w-full max-w-[600px] px-4 pt-16 pb-20 md:pt-[22px]">
           <section className="w-full">
-          
-
-            <ToolsList tools={tools} />
+            <ToolsList />
           </section>
         </div>
       </main>

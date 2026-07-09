@@ -1,10 +1,26 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Bricolage_Grotesque, Dancing_Script } from "next/font/google";
+import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
+
+// Display face for the hero and headings. Body stays on SF Pro.
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+const signature = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-signature",
+  display: "swap",
+});
 import PageTransition from "./components/PageTransition";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./components/ThemeProvider";
 import ThemeToggle from "./components/ThemeToggle";
+import NotesAutoLock from "./components/NotesAutoLock";
+import { site } from "./lib/site";
 
 const sfProDisplay = localFont({
   src: [
@@ -54,34 +70,43 @@ const sfProDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://emmah.xyz"),
+  metadataBase: new URL(site.url),
   title: {
-    default: "Emmanuel - Design Engineer",
-    template: "%s | Emmanuel",
+    default: site.title,
+    template: `%s · ${site.name}`,
   },
-  description:
-    "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
+  description: site.description,
+  applicationName: site.shortName,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: {
-      default: "Emmanuel - Design Engineer",
-      template: "%s | Emmanuel",
-    },
-    description:
-      "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
-    url: "https://emmah.xyz",
-    siteName: "Emmanuel",
-    locale: "en_US",
     type: "website",
+    locale: site.locale,
+    url: site.url,
+    siteName: site.name,
+    title: site.title,
+    description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: {
-      default: "Emmanuel - Design Engineer",
-      template: "%s | Emmanuel",
+    title: site.title,
+    description: site.description,
+    creator: site.twitter,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
-    description:
-      "Hi, I’m Emmanuel - A Curious human who design interfaces and build digital things for a living :)",
-    creator: "@0xEmm4h2B1",
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -103,32 +128,45 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Emmanuel",
+    name: site.name,
+    alternateName: site.shortName,
     jobTitle: "Design Engineer",
-    url: "https://emmah.xyz",
-    sameAs: [
-      "https://x.com/@0xEmm4h2B1",
-      "https://github.com/hey-emmah",
-      "https://www.linkedin.com/in/",
+    url: site.url,
+    email: `mailto:${site.email}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lagos",
+      addressCountry: "NG",
+    },
+    sameAs: site.sameAs,
+    knowsAbout: [
+      "Design Engineering",
+      "Product Design",
+      "Design Systems",
+      "React",
+      "Next.js",
+      "TypeScript",
     ],
-    description:
-      "A Curious human who design interfaces and build digital things for a living",
+    description: site.description,
   };
 
   return (
     <html lang="en">
       {/* Next injects <head> from metadata/viewport */}
       <body
-        className={`${sfProDisplay.className} antialiased bg-white text-custom-gray-900 dark:bg-app-bg-dark dark:text-app-text-dark`}
+        className={`${sfProDisplay.variable} ${bricolage.variable} ${signature.variable} antialiased bg-white text-custom-gray-900 dark:bg-app-bg-dark dark:text-app-text-dark`}
       >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ThemeProvider>
-          <ThemeToggle />
-          <PageTransition>{children}</PageTransition>
-        </ThemeProvider>
+        <ViewTransitions>
+          <ThemeProvider>
+            <ThemeToggle />
+            <NotesAutoLock />
+            <PageTransition>{children}</PageTransition>
+          </ThemeProvider>
+        </ViewTransitions>
       </body>
       <Analytics />
     </html>

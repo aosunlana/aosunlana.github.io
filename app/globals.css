@@ -8,21 +8,27 @@ html, body {
 
 html {
   min-height: 100%;
+  /* Global type scale. Lowered to reduce the overall font size site-wide. */
+  font-size: 90%;
 }
 
 body {
   min-height: 100dvh;
 }
 
-/* Global text selection color */
+/* Global text selection color (neutral) */
 :root {
-  --select-bg: #DBFDDE;
-  --select-fg: #58D267;
+  --select-bg: rgba(115, 115, 115, 0.25);
+  /* Neutral emphasis/hover accent (replaces the old green). Resolves per theme. */
+  --accent-hover: #171717;
+}
+
+.dark {
+  --accent-hover: #ffffff;
 }
 
 ::selection {
   background: var(--select-bg);
-  color: var(--select-fg);
 }
 
 /* Light (300) */
@@ -85,9 +91,10 @@ body {
   font-display: swap;
 }
 
-/* Global font stack */
+/* Global font stack: Bricolage Grotesque for everything, SF Pro as fallback */
 body {
   font-family:
+    var(--font-bricolage),
     "SF Pro Display", "SF Pro Text", /* Apple system families */
     -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
@@ -186,16 +193,17 @@ body {
   --color-custom-red-800: #9b1c1c;
   --color-custom-red-900: #771d1d;
 
-  --color-custom-gray-50: #f9fafb;
-  --color-custom-gray-100: #f3f4f6;
-  --color-custom-gray-200: #e5e7eb;
-  --color-custom-gray-300: #d1d5db;
-  --color-custom-gray-400: #9ca3af;
-  --color-custom-gray-500: #6b7280;
-  --color-custom-gray-600: #4b5563;
-  --color-custom-gray-700: #374151;
-  --color-custom-gray-800: #1f2a37;
-  --color-custom-gray-900: #111928;
+  /* Neutral grays (no blue or navy undertone) */
+  --color-custom-gray-50: #fafafa;
+  --color-custom-gray-100: #f5f5f5;
+  --color-custom-gray-200: #e5e5e5;
+  --color-custom-gray-300: #d4d4d4;
+  --color-custom-gray-400: #a3a3a3;
+  --color-custom-gray-500: #737373;
+  --color-custom-gray-600: #525252;
+  --color-custom-gray-700: #404040;
+  --color-custom-gray-800: #262626;
+  --color-custom-gray-900: #171717;
 
   --color-custom-primary-50: #ebf5ff;
   --color-custom-primary-100: #e1effe;
@@ -229,9 +237,10 @@ body {
   --color-app-button-hover-light: #f2f2f2;
   --color-app-text-hover-dark: #8A8A8A;
   --color-app-link-text-default: #9B9B9B;
-  --color-app-link-text-hover: #58D267;
+  /* Neutral hover accent (was green #58D267). Per-theme via --accent-hover. */
+  --color-app-link-text-hover: var(--accent-hover);
 
-  --default-font-family: "SF Pro Display";
+  --default-font-family: var(--font-bricolage), "SF Pro Display", sans-serif;
 }
 
 /* ⚠️ Note: these lines force no scroll and can cause overlay/“blank page” issues.
@@ -281,4 +290,93 @@ body::-webkit-scrollbar {
 .prose a:hover {
   text-decoration-thickness: 2px;
   color: var(--color-app-link-text-hover);
+}
+
+/* Handwriting face for the animated signature. */
+.font-signature {
+  font-family: var(--font-signature), "Segoe Script", cursive;
+}
+
+/* Display face (Bricolage Grotesque) for the hero and headings. Body stays SF Pro. */
+.font-display {
+  font-family: var(--font-bricolage), "SF Pro Display", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+/* Blur-in reveal on scroll (About page sections) */
+.reveal {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(16px);
+  transition:
+    opacity 700ms cubic-bezier(0.19, 1, 0.22, 1),
+    filter 700ms cubic-bezier(0.19, 1, 0.22, 1),
+    transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.reveal-in {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Instagram-style story progress bar fill. */
+@keyframes story-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Copy sparkles: a small burst of stars floats up when a contact is copied. */
+@keyframes sparkle-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0), -26px) scale(var(--s, 1)) rotate(var(--rot, 90deg));
+  }
+}
+
+.sparkle {
+  animation: sparkle-float 700ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sparkle {
+    display: none;
+  }
+}
+
+/* View Transitions: a clicked craft card morphs into the detail stage, and the
+   rest crossfades. Tuned for a smooth, calm feel. */
+::view-transition-group(*) {
+  animation-duration: 340ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

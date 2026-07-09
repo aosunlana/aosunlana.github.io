@@ -11,14 +11,15 @@ import { getEnrichedBookmarks } from "@/lib/bookmarks";
 
 export const metadata: Metadata = {
   title: "Bookmarks",
-  description: "A curated collection of interesting links, articles, and resources I've found on the web.",
+  description: "Links, references, and things worth keeping.",
+  alternates: { canonical: "/bookmarks" },
   openGraph: {
     title: "Bookmarks",
-    description: "A curated collection of interesting links, articles, and resources I've found on the web.",
+    description: "Links, references, and things worth keeping.",
   },
   twitter: {
     title: "Bookmarks",
-    description: "A curated collection of interesting links, articles, and resources I've found on the web.",
+    description: "Links, references, and things worth keeping.",
   },
 };
 
@@ -89,14 +90,11 @@ export default async function BookmarksPage() {
 
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
-      <header className="w-full">
-        <div className="mx-auto w-full max-w-[600px] px-4 pt-[max(env(safe-area-inset-top),16px)] md:pt-4">
-          <Header />
-        </div>
-      </header>
+      {/* Breadcrumb (absolute, positioned by the component) */}
+      <Header />
 
       <main className="flex-1 w-full">
-        <div className="mx-auto w-full max-w-[600px] px-4 pt-6 pb-20">
+        <div className="mx-auto w-full max-w-[600px] px-4 pt-16 pb-20 md:pt-[22px]">
           <section className="w-full">
 
             <BookmarksList initialBookmarks={bookmarks} />

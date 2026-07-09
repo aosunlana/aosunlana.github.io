@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Playground",
   description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
+  alternates: { canonical: "/playground" },
   openGraph: {
     title: "Playground",
     description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
@@ -20,19 +21,13 @@ export const metadata: Metadata = {
 export default function PlaygroundPage() {
   return (
     <div className="min-h-dvh flex flex-col text-custom-gray-900 dark:text-app-text-dark">
-      <header className="w-full">
-        {/* Widen header max-width to match the new layout */}
-        <div className="mx-auto w-full max-w-[1200px] px-6 pt-[max(env(safe-area-inset-top),24px)] md:pt-8">
-          <Header />
-        </div>
-      </header>
+      {/* Breadcrumb (absolute, positioned by the component) */}
+      <Header />
 
       <main className="flex-1 w-full">
-        {/* Main container with wider max-width for sidebar layout */}
-        <div className="mx-auto w-full max-w-[1200px] px-6 pt-12 pb-20">
-          <section className="w-full">
-            <PlaygroundList />
-          </section>
+        <div className="mx-auto w-full max-w-[1800px] pt-16 pb-20 md:pt-16">
+          <h1 className="sr-only">Playground</h1>
+          <PlaygroundList />
         </div>
       </main>
 

@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 
+const description =
+  "Design engineer with a product design background across fintech and insurance. Previously at Tempo (YC S23), Digit, and Carbon.";
+
 export const metadata: Metadata = {
-  title: "About Me",
-  description: "I'm a Product Designer turned Design Engineer who loves turning complex ideas into simple, delightful experiences.",
-  openGraph: {
-    title: "About Me",
-    description: "I'm a Product Designer turned Design Engineer who loves turning complex ideas into simple, delightful experiences.",
-  },
-  twitter: {
-    title: "About Me",
-    description: "I'm a Product Designer turned Design Engineer who loves turning complex ideas into simple, delightful experiences.",
-  },
+  title: "About",
+  description,
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About", description, url: "/about" },
+  twitter: { title: "About", description },
 };
 
 export default function AboutLayout({

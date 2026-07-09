@@ -152,8 +152,8 @@ export default function Showcase() {
       const col = idx % 3;             // 0,1,2
 
       // Desktop borders:
-      // Row 0 → only right borders on first two cells
-      // Row 1 → top on all + right borders on first two
+      // Row 0 - only right borders on first two cells
+      // Row 1 - top on all + right borders on first two
       const borders =
         row === 0
           ? (col < 2 ? "border-r" : "")

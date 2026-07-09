@@ -10,9 +10,9 @@ export default function Footer() {
         <nav className="w-full">
           <ul className="flex w-full rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark overflow-hidden ">
             {[
-              { label: "Twitter", href: "https://x.com/@0xEmm4h2B1" },
+              { label: "Twitter", href: "https://x.com/hey_emmah" },
               { label: "GitHub", href: "https://github.com/hey-emmah" },
-              { label: "LinkedIn", href: "https://www.linkedin.com/in/" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/emmah-priestley/" },
               { label: "Email", href: "mailto:hello@emmah.xyz" },
             ].map(({ label, href }, i, arr) => (
               <li key={label} className="flex-1">

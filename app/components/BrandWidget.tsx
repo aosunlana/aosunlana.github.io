@@ -2,143 +2,96 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowUpRight } from "@phosphor-icons/react";
 
 type Company = {
   name: string;
   href: string;
   logo: string;
-  description: string;
+  role: string;
+  dates: string;
+  badge?: string;
 };
 
 /* ---------- DATA ---------- */
 const COMPANIES: Company[] = [
   {
-    name: "Tempo (YC23)",
+    name: "Tempo",
+    badge: "YC S23",
     href: "https://www.tempo.new/",
     logo: "/images/tempo.svg",
-    description: "Where I’m currently designing products that scale.",
+    role: "Design Engineer",
+    dates: "2025",
   },
   {
-    name: "Rayform",
-    href: "https://rayform-tech.framer.website/",
-    logo: "/images/rayform.svg",
-    description: "My playground for building and exploring experimental ideas.",
+    name: "Digit Insurance",
+    href: "https://www.godigit.com/",
+    logo: "/images/digit.svg",
+    role: "Product Designer",
+    dates: "2022 - 2025",
   },
   {
-    name: "Sidebridge",
-    href: "https://sidebridge.io",
-    logo: "/images/sidebridge.svg",
-    description: "Crafting components and pixel-perfect systems.",
+    name: "Carbon Business (Formerly Vella Finance)",
+    href: "https://www.getcarbon.co/",
+    logo: "/images/carbon.svg",
+    role: "Product Designer",
+    dates: "2021 - 2023",
   },
 ];
 
-
 export default function BrandWidget() {
   return (
-    <section className="mx-auto w-full max-w-[600pxpx] pb-4">
-      {/* ===================== COMPANIES ===================== */}
-      <div className="rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark overflow-hidden">
-        {/* Mobile: 1 col with row dividers; Desktop: 3 cols with right dividers */}
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          {COMPANIES.map((c) => (
+    <section className="w-full">
+      <ul className="flex flex-col">
+        {COMPANIES.map((c) => (
+          <li key={c.name}>
             <Link
-              key={c.name}
               href={c.href}
-              className={[
-                "group relative block p-4",
-                // MOBILE row dividers
-                "border-b last:border-b-0",
-                // DESKTOP: right divider on first two only
-                "md:border-b-0 md:border-r md:last:border-r-0",
-                "border-custom-gray-200 dark:border-app-border-dark",
-              ].join(" ")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 py-3"
             >
-              {/* MOBILE: icon to the left of text; DESKTOP: stacked */}
-              <div className="flex items-start gap-3 md:block">
-                {/* Logo — adjust size here if you need (h-12/w-12 or h-14/w-14) */}
-                <div className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-app-card-dark overflow-hidden shrink-0">
-                  <Image
-                    src={c.logo}
-                    alt={`${c.name} logo`}
-                    width={48}
-                    height={48}
-                    className="h-8 w-8 object-contain"
-                    priority
-                  />
-                  {/* Shimmer (no running logo) */}
-                  <span className="pointer-events-none absolute inset-0 overflow-hidden">
-                    <span className="shimmer shimmer-1" />
-                    <span className="shimmer shimmer-2" />
-                  </span>
-                </div>
+              {/* Logo tile */}
+              <div className="relative inline-flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-custom-gray-900 dark:bg-app-card-dark">
+                <Image
+                  src={c.logo}
+                  alt={`${c.name} logo`}
+                  width={48}
+                  height={48}
+                  className="h-7 w-7 object-contain grayscale transition-[filter] duration-300 group-hover:grayscale-0"
+                />
+              </div>
 
-                {/* Text — MOBILE: no extra top margin; DESKTOP: add mt-4 */}
-                <div className="flex-1 md:mt-4">
-                  <h3 className="text-base leading-6 tracking-[0.5px] font-semibold text-custom-gray-900 dark:text-app-text-dark">
+              {/* Name + role + dates */}
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-semibold leading-tight text-custom-gray-900 dark:text-app-text-dark">
                     {c.name}
                   </h3>
-                  <p className="mt-[2px] text-sm leading-5 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark">
-                    {c.description}
-                  </p>
+                  {c.badge && (
+                    <span className="shrink-0 rounded-full bg-custom-gray-100 dark:bg-app-card-dark px-2 py-0.5 text-[11px] font-medium text-custom-gray-500 dark:text-app-text-dark">
+                      {c.badge}
+                    </span>
+                  )}
                 </div>
+                <p className="truncate text-sm leading-5 text-custom-gray-500 dark:text-custom-gray-400">
+                  {c.role}{" "}
+                  <span className="text-custom-gray-400 dark:text-custom-gray-600">
+                    &middot; {c.dates}
+                  </span>
+                </p>
               </div>
+
+              {/* Hover arrow */}
+              <ArrowUpRight
+                size={16}
+                aria-hidden="true"
+                className="shrink-0 -translate-x-1 text-custom-gray-400 opacity-0 transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-app-link-text-hover dark:text-custom-gray-600 dark:group-hover:text-app-link-text-hover"
+              />
             </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Tiny overlap between sections (-0.5px) */}
-      <div className="-mt-[0.5px] md:-mt-[1px]" />
-
-
-
-      {/* ===== CSS (shimmer only, tunable) ===== */}
-      <style jsx global>{`
-        /* Adjust shimmer look here */
-        :root {
-          --shimmer-angle: -20deg;  /* slant */
-          --shimmer-speed: 900ms;   /* speed */
-          --shimmer-alpha-1: 0.70;  /* brightness of wipe 1 */
-          --shimmer-alpha-2: 0.45;  /* brightness of wipe 2 */
-          --shimmer-width: 55%;     /* stripe width */
-        }
-        .group:hover .shimmer { opacity: 1; }
-
-        .shimmer {
-          position: absolute;
-          top: -30%;
-          bottom: -30%;
-          width: var(--shimmer-width);
-          transform: skewX(var(--shimmer-angle));
-          background: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, var(--shimmer-alpha-1)) 50%,
-            rgba(255, 255, 255, 0) 100%
-          );
-          opacity: 0;
-          pointer-events: none;
-        }
-        .shimmer-1 {
-          left: -20%;
-          animation: wipe var(--shimmer-speed) linear infinite;
-        }
-        .shimmer-2 {
-          left: -35%;
-          animation: wipe var(--shimmer-speed) linear infinite;
-          animation-delay: 120ms;
-          background: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, var(--shimmer-alpha-2)) 50%,
-            rgba(255, 255, 255, 0) 100%
-          );
-        }
-        @keyframes wipe {
-          0%   { transform: translateX(-120%) skewX(var(--shimmer-angle)); }
-          100% { transform: translateX(220%)  skewX(var(--shimmer-angle)); }
-        }
-      `}</style>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
