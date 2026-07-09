@@ -1,0 +1,14 @@
+# This is a server-rendered Next.js app (middleware + API routes), so it must
+# run as a Node Web Service, not a Static Site.
+services:
+  - type: web
+    name: emmah-portfolio
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
