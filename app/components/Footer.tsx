@@ -1,6 +1,8 @@
 // app/components/Footer.tsx
 "use client";
 
+import ThemeToggle from "./ThemeToggle";
+
 export default function Footer() {
   return (
     <footer className="w-full">
@@ -37,11 +39,19 @@ export default function Footer() {
           </ul>
         </nav>
 
-        {/* Copyright box */}
-        <div className="w-full rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark h-12 px-4 flex items-center justify-center -mt-[0.5px]">
-          <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark text-center">
+        {/* Copyright box: text left, a full-height divider, then the theme
+            switch (each icon separated by its own full-height divider). */}
+        <div className="w-full rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark h-12 pl-4 flex items-stretch justify-between -mt-[0.5px]">
+          <p className="self-center min-w-0 truncate text-base leading-6 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark">
             &copy; {new Date().getFullYear()} Emmanuel. All rights reserved.
           </p>
+          <div className="flex shrink-0 items-stretch">
+            <span
+              aria-hidden="true"
+              className="w-px self-stretch bg-custom-gray-200 dark:bg-app-border-dark"
+            />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </footer>

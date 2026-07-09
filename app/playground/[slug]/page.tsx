@@ -45,13 +45,16 @@ export default async function CraftPage(props: {
   const ratio = aspectW / aspectH;
   const hasWriteup = Boolean(craft.writeup && craft.writeup.length > 0);
   const isComponent = craft.kind === "component";
-  // Width is bounded by the design cap, the available width (viewport minus the
-  // page's horizontal padding), and the height-derived width. min() picks the
-  // smallest, so the card fits whichever axis is tightest.
-  const stageWidth = `min(760px, calc(100vw - 2rem), calc(72vh * ${ratio}))`;
+  // Width is bounded by the design cap, the available container width (100% of
+  // the padded main), and the height-derived width. min() picks the smallest, so
+  // the card fits whichever axis is tightest and never overflows the viewport.
+  const stageWidth = `min(760px, 100%, calc(72vh * ${ratio}))`;
+  // The aspect floor for live components. Uses viewport math (a min-height can't
+  // reuse the 100% width), which is fine as an approximate resting height.
+  const stageFloor = `calc(min(760px, calc(100vw - 2rem), calc(72vh * ${ratio})) / ${ratio})`;
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-[1800px] flex-col px-4 py-8 text-custom-gray-900 dark:text-app-text-dark md:px-6">
+    <main className="mx-auto flex min-h-dvh w-full max-w-[1800px] flex-col overflow-x-clip px-4 py-8 text-custom-gray-900 dark:text-app-text-dark md:px-6">
       <EscapeToExit href="/playground" />
       <h1 className="sr-only">{craft.title}</h1>
 
@@ -86,7 +89,7 @@ export default async function CraftPage(props: {
       {/* Stage. Centered in the viewport when there is no writeup; sits near the
           top when a writeup follows so the copy can flow beneath it. */}
       <div
-        className={`flex items-center justify-center pt-6 ${
+        className={`flex w-full min-w-0 items-center justify-center pt-6 ${
           hasWriteup ? "pb-10" : "flex-1 pb-24"
         }`}
       >
@@ -100,7 +103,7 @@ export default async function CraftPage(props: {
             // Components use the aspect as a floor so a tall panel can push the
             // card down instead of being clipped; static media stays exact.
             ...(isComponent
-              ? { minHeight: `calc(${stageWidth} / ${ratio})` }
+              ? { minHeight: stageFloor }
               : { aspectRatio: craft.aspect }),
             background: craft.background ?? "#0a0a0a",
             viewTransitionName: `craft-${craft.slug}`,

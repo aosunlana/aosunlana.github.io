@@ -34,6 +34,38 @@ export type Craft =
 // Newest first. Swap these for real crafts as they are ready.
 export const crafts: Craft[] = [
   {
+    slug: "command-search",
+    title: "Command search",
+    aspect: "3 / 2",
+    date: "2026-07",
+    background: "#2e2e2e",
+    kind: "component",
+    component: "command-search",
+    summary: "A search palette that switches from a resting state to live results as you type.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "The command bar is where a product shows its manners. What it offers before you type, how it sorts what it finds, how it points at a match without making a scene. I wanted one that felt thought through from the first click to the last, so I slowed down on the parts most people skip.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Click the bar and it opens. Empty, it shows the resting view: the filters you are looking for, your last few searches, a couple of quick actions, a recent file. Open More to pull in extra filters, or tap the sort control to flip the people list.",
+          "Start typing and it turns into results, people first, then files, reactions, and collections. Try a few letters like mar and the matches glow, even the ones hiding inside an email. Lead with an @ and a small member picker drops in over the list. Click away and it folds back to a single bar.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "The text you type is a see-through input laid over a rendered copy, so the caret stays real while the token gets its own treatment. Matches are found and wrapped by hand, which is why they light up in names, domains, and lists alike.",
+          "Resting and results are two separate layouts, swapped on whether the bar is empty, so each can be tuned without fighting the other. Everything opens on its own height, and the little menus measure themselves so they never spill past the edges.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "invite-stack",
     title: "Invite stack",
     aspect: "4 / 3",

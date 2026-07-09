@@ -18,7 +18,6 @@ const signature = Dancing_Script({
 import PageTransition from "./components/PageTransition";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./components/ThemeProvider";
-import ThemeToggle from "./components/ThemeToggle";
 import NotesAutoLock from "./components/NotesAutoLock";
 import { site } from "./lib/site";
 
@@ -165,7 +164,6 @@ export default function RootLayout({
         />
         <ViewTransitions>
           <ThemeProvider>
-            <ThemeToggle />
             <NotesAutoLock />
             <PageTransition>{children}</PageTransition>
           </ThemeProvider>

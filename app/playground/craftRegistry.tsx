@@ -13,4 +13,5 @@ import type { ComponentType } from "react";
 //   };
 export const craftDemos: Record<string, ComponentType> = {
   "invite-stack": dynamic(() => import("./demos/InviteStack"), { ssr: false }),
+  "command-search": dynamic(() => import("./demos/CommandSearch"), { ssr: false }),
 };
