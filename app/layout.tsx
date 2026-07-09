@@ -76,6 +76,9 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  // Stop browsers from auto-linking/underlining detected emails, phone numbers,
+  // and addresses (e.g. the sample emails in the Playground invite craft).
+  formatDetection: { email: false, telephone: false, address: false },
   applicationName: site.shortName,
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,

@@ -30,10 +30,10 @@ const initialsFromEmail = (email: string) =>
   (email.split("@")[0].replace(/[^a-zA-Z]/g, "").slice(0, 2) || "?").toUpperCase();
 
 const INITIAL: Member[] = [
-  { id: "1", email: "sophia@radianos.com", name: "Sophia", seed: "Sophia", initials: "SO", color: COLORS[0], status: "accepted" },
-  { id: "2", email: "michael@radianos.com", name: "Michael", seed: "Michael", initials: "MI", color: COLORS[1], status: "sent" },
-  { id: "3", email: "emily@radianos.com", name: "Emily", seed: "Emily", initials: "EM", color: COLORS[2], status: "sent" },
-  { id: "4", email: "jack@radianos.com", name: "Jack", seed: "Jack", initials: "JA", color: COLORS[3], status: "accepted" },
+  { id: "1", email: "sophia@example.com", name: "Sophia", seed: "Sophia", initials: "SO", color: COLORS[0], status: "accepted" },
+  { id: "2", email: "michael@example.com", name: "Michael", seed: "Michael", initials: "MI", color: COLORS[1], status: "sent" },
+  { id: "3", email: "emily@example.com", name: "Emily", seed: "Emily", initials: "EM", color: COLORS[2], status: "sent" },
+  { id: "4", email: "jack@example.com", name: "Jack", seed: "Jack", initials: "JA", color: COLORS[3], status: "accepted" },
 ];
 
 function Avatar({
@@ -122,7 +122,7 @@ function StatusBadge({ status }: { status: Status }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -4 }}
         transition={{ duration: 0.2 }}
-        className={`shrink-0 rounded-md px-2.5 py-1 text-[11px] font-medium ${
+        className={`shrink-0 rounded-md px-2.5 py-1 text-[11px] font-medium no-underline ${
           accepted
             ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400"
             : "bg-custom-gray-100 text-custom-gray-500 dark:bg-custom-gray-800 dark:text-custom-gray-400"
@@ -432,7 +432,7 @@ export default function InviteStack() {
                 className="flex items-center gap-3 rounded-lg px-1 py-1.5"
               >
                 <Avatar member={m} size={28} />
-                <span className="min-w-0 flex-1 truncate text-sm text-custom-gray-700 dark:text-custom-gray-300">
+                <span className="min-w-0 flex-1 truncate text-sm text-custom-gray-700 no-underline dark:text-custom-gray-300">
                   {m.email}
                 </span>
                 <StatusBadge status={m.status} />
