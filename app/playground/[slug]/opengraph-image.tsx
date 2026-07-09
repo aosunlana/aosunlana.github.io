@@ -14,7 +14,8 @@ export default async function Image({
   const { slug } = await params;
   const craft = crafts[getCraftIndex(slug)];
   const title = craft?.title ?? "Playground";
-  const subtitle = "An experiment in components, interactions, and motion.";
+  const subtitle =
+    craft?.summary ?? "An experiment in components, interactions, and motion.";
 
   return new ImageResponse(
     (

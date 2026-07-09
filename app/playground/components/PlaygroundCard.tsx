@@ -11,7 +11,7 @@ export default function PlaygroundCard({ craft }: { craft: Craft }) {
     >
       {/* Media fills the card, keeps its own aspect ratio */}
       <div className="absolute inset-0">
-        <CraftStage slug={craft.slug} />
+        <CraftStage craft={craft} mode="card" />
       </div>
 
       {/* Caption sits inside the card: title left, date right, over a bottom scrim */}

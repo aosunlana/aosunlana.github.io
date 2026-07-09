@@ -16,7 +16,8 @@ export async function generateMetadata(props: {
   const craft = crafts[getCraftIndex(slug)];
   if (!craft) return { title: "Craft not found" };
   const url = `/playground/${slug}`;
-  const description = "An experiment in components, interactions, and motion.";
+  const description =
+    craft.summary ?? "An experiment in components, interactions, and motion.";
   return {
     title: { absolute: `${craft.title} · Emmanuel A. Priestley` },
     description,
@@ -37,14 +38,22 @@ export default async function CraftPage(props: {
   const prevCraft = crafts[index - 1]; // Previous: lower number
   const nextCraft = crafts[index + 1]; // Next: higher number
 
-  // The stage card is sized to the craft's aspect, capped to the viewport so a
-  // portrait craft does not overflow. A real component sets its own aspect.
+  // The stage card is sized to the craft's aspect, capped to BOTH viewport
+  // dimensions so it never overflows on a narrow phone. Live components keep the
+  // aspect as a minimum but are free to grow taller (e.g. an expanding panel).
   const [aspectW, aspectH] = craft.aspect.split("/").map((n) => parseFloat(n));
   const ratio = aspectW / aspectH;
+  const hasWriteup = Boolean(craft.writeup && craft.writeup.length > 0);
+  const isComponent = craft.kind === "component";
+  // Width is bounded by the design cap, the available width (viewport minus the
+  // page's horizontal padding), and the height-derived width. min() picks the
+  // smallest, so the card fits whichever axis is tightest.
+  const stageWidth = `min(760px, calc(100vw - 2rem), calc(72vh * ${ratio}))`;
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[1800px] flex-col px-4 py-8 text-custom-gray-900 dark:text-app-text-dark md:px-6">
       <EscapeToExit href="/playground" />
+      <h1 className="sr-only">{craft.title}</h1>
 
       {/* Header: breadcrumb left, date right */}
       <div className="mb-6 flex items-baseline justify-between gap-4 text-sm">
@@ -74,23 +83,64 @@ export default async function CraftPage(props: {
         ) : null}
       </div>
 
-      {/* Centered stage */}
-      <div className="flex flex-1 items-center justify-center pt-6 pb-24">
+      {/* Stage. Centered in the viewport when there is no writeup; sits near the
+          top when a writeup follows so the copy can flow beneath it. */}
+      <div
+        className={`flex items-center justify-center pt-6 ${
+          hasWriteup ? "pb-10" : "flex-1 pb-24"
+        }`}
+      >
         {/* Stage: a contained card sized to the craft's aspect, centered */}
         <section
-          className="relative overflow-hidden rounded-2xl ring-1 ring-black/5 dark:ring-white/10"
+          className={`relative overflow-hidden rounded-2xl ring-1 ring-black/5 dark:ring-white/10 ${
+            isComponent ? "flex" : ""
+          }`}
           style={{
-            width: `min(760px, calc(72vh * ${ratio}))`,
-            aspectRatio: craft.aspect,
+            width: stageWidth,
+            // Components use the aspect as a floor so a tall panel can push the
+            // card down instead of being clipped; static media stays exact.
+            ...(isComponent
+              ? { minHeight: `calc(${stageWidth} / ${ratio})` }
+              : { aspectRatio: craft.aspect }),
             background: craft.background ?? "#0a0a0a",
             viewTransitionName: `craft-${craft.slug}`,
           }}
         >
-          <div className="absolute inset-0">
-            <CraftStage slug={craft.slug} />
+          {/* Components render in normal flow so a growing panel expands the card
+              (the section's min-height still holds the aspect as a floor). Static
+              media fills the fixed-aspect box via an absolute layer. */}
+          <div className={isComponent ? "w-full" : "absolute inset-0"}>
+            <CraftStage craft={craft} mode="stage" />
           </div>
         </section>
       </div>
+
+      {/* Optional writeup (case study) below the stage */}
+      {hasWriteup && (
+        <div className="mx-auto w-full max-w-[640px] pb-32">
+          {craft.summary ? (
+            <p className="mb-8 text-[1.0625rem] leading-7 text-custom-gray-600 dark:text-custom-gray-400">
+              {craft.summary}
+            </p>
+          ) : null}
+          <div className="flex flex-col gap-8">
+            {craft.writeup!.map((section, i) => (
+              <section key={i}>
+                {section.heading ? (
+                  <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-custom-gray-400 dark:text-custom-gray-500">
+                    {section.heading}
+                  </h2>
+                ) : null}
+                <div className="flex flex-col gap-4 text-[0.95rem] leading-7 text-custom-gray-700 dark:text-custom-gray-300">
+                  {section.paragraphs.map((paragraph, j) => (
+                    <p key={j}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Fixed Previous / Next bar, same position on every craft */}
       <nav
