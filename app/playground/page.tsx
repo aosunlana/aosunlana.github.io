@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
   },
   twitter: {
+    card: "summary_large_image",
     title: "Playground",
     description: "A collection of experimental components, interactions, and visual explorations. My digital playground for UI engineering.",
   },

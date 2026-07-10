@@ -8,12 +8,14 @@ import { Lock, ArrowRight, House } from "@phosphor-icons/react";
 export default function NotesUnlockPage() {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const [attempted, setAttempted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!value || loading) return;
     setLoading(true);
+    setAttempted(true);
     setError(false);
     try {
       const res = await fetch("/api/notes-unlock", {
@@ -119,14 +121,13 @@ export default function NotesUnlockPage() {
             </AnimatePresence>
           </div>
 
-          <p
-            className={`mt-1 h-4 text-xs transition-opacity ${
-              error ? "text-custom-red-500 opacity-100" : "opacity-0"
-            }`}
-            aria-live="polite"
-          >
-            That password is not right.
-          </p>
+          <div className="mt-1 flex h-4 items-center justify-center">
+            {attempted && error && (
+              <p role="alert" className="text-xs text-custom-red-500">
+                That password is not right.
+              </p>
+            )}
+          </div>
         </form>
 
         <Link

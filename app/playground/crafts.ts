@@ -7,6 +7,8 @@
 export type CraftSection = {
   heading?: string; // short label, e.g. "Context" or "How it's built"
   paragraphs: string[]; // one entry per paragraph
+  code?: string; // optional code snippet rendered after the paragraphs
+  after?: string[]; // optional paragraphs rendered after the code block
 };
 
 type Base = {
@@ -34,6 +36,57 @@ export type Craft =
 // Newest first. Swap these for real crafts as they are ready.
 export const crafts: Craft[] = [
   {
+    slug: "prompt-composer",
+    title: "Prompt composer",
+    aspect: "4 / 3",
+    date: "2026-07",
+    background: "#eeeef0",
+    kind: "component",
+    component: "prompt-composer",
+    summary: "A chat box, the kind you type into all day. Quiet while you write, with the rest of it a tap away when you need it.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "I live in one of these, so I knew what I wanted before I started. Stay boring while I type. Do not make me dig for the model or the tools. Keep everything else folded up until I ask. Most of the work was leaving things out, not piling them in.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Type and the send button turns dark. Tools are on or off, so turning one on drops a small chip you can tap to remove. The model list is searchable, with a beta tag on one and a soon tag on another. Voice turns the bar into a recorder with a moving waveform, and drops the transcript back in when you hit stop.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "There is no magic here. It is a few booleans and a couple of small bits of state, and the UI just reads them, so a chip and its tick in the menu can never disagree. The menus also check how much room is above them and cap their height, so a long list does not run off the top.",
+          "The two parts worth showing are the send button and the voice swap. The button watches one value and fades its background. Voice is two layouts under one AnimatePresence, and swapping on wait lets the box resize while it is faded, which is why it never pops:",
+        ],
+        code: `// One flag drives the send button, resting to armed.
+const canSend = text.trim().length > 0
+
+<motion.button
+  disabled={!canSend}
+  animate={{ backgroundColor: canSend ? "#1a1a1a" : "#e6e6e8" }}
+  transition={{ duration: 0.25 }}
+/>
+
+// Voice and text are two layouts behind one crossfade.
+// Swapping on "wait" hides the height change, so the bar
+// resizes while both are faded and never jumps.
+<AnimatePresence mode="wait">
+  {recording
+    ? <Recorder key="rec" />
+    : <Composer key="text" />}
+</AnimatePresence>`,
+        after: [
+          "That is the pattern the whole thing leans on. Read a value, animate a property off it, and let the state be the single source of truth. No part of the UI reaches over to poke another, so there is nothing to keep in sync by hand.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "command-search",
     title: "Command search",
     aspect: "3 / 2",
@@ -41,26 +94,40 @@ export const crafts: Craft[] = [
     background: "#2e2e2e",
     kind: "component",
     component: "command-search",
-    summary: "A search palette that switches from a resting state to live results as you type.",
+    summary: "A search box that starts empty and quiet, then turns into grouped, live results as you type.",
     writeup: [
       {
         heading: "Why",
         paragraphs: [
-          "The command bar is where a product shows its manners. What it offers before you type, how it sorts what it finds, how it points at a match without making a scene. I wanted one that felt thought through from the first click to the last, so I slowed down on the parts most people skip.",
+          "I hit a box like this before I even know what I am after, so I cared most about two things. What it shows me before I type, and how it marks a match without lighting up the whole row. Those took the longest by far.",
         ],
       },
       {
         heading: "Try it",
         paragraphs: [
-          "Click the bar and it opens. Empty, it shows the resting view: the filters you are looking for, your last few searches, a couple of quick actions, a recent file. Open More to pull in extra filters, or tap the sort control to flip the people list.",
-          "Start typing and it turns into results, people first, then files, reactions, and collections. Try a few letters like mar and the matches glow, even the ones hiding inside an email. Lead with an @ and a small member picker drops in over the list. Click away and it folds back to a single bar.",
+          "Click the bar and it opens. With nothing typed you get the resting view: a few filters, your last searches, a couple of quick actions, a recent file. Open More for extra filters, or hit sort to flip the people list around.",
+          "Start typing and it turns into results, people first, then files, reactions, collections. Type mar and the matches glow, even the ones sitting inside an email. Put an @ in front and a little people picker drops in. Click anywhere outside and it shrinks back to one bar.",
         ],
       },
       {
         heading: "How it is built",
         paragraphs: [
-          "The text you type is a see-through input laid over a rendered copy, so the caret stays real while the token gets its own treatment. Matches are found and wrapped by hand, which is why they light up in names, domains, and lists alike.",
-          "Resting and results are two separate layouts, swapped on whether the bar is empty, so each can be tuned without fighting the other. Everything opens on its own height, and the little menus measure themselves so they never spill past the edges.",
+          "The trick with the matches is that I do not just find them, I wrap them. A small function walks the text and splits it around each hit, so the match can be its own styled piece rather than a highlight painted over the row. That is why it works the same in a name, a domain, or a comma list.",
+        ],
+        code: `// Split the text around each hit and mark the matches.
+function highlight(text, q) {
+  const out = []
+  const lower = text.toLowerCase()
+  let i = 0
+  for (let at; (at = lower.indexOf(q, i)) !== -1; i = at + q.length) {
+    out.push(text.slice(i, at))
+    out.push(<mark className="text-amber-500">{text.slice(at, at + q.length)}</mark>)
+  }
+  out.push(text.slice(i))
+  return out
+}`,
+        after: [
+          "Searching a person is relational, not literal. Every file and list carries the people on it, so looking up a name pulls in the things they touch, not only the rows their name shows up in. Resting and results are two separate layouts too, swapped on whether the box is empty, so I could tune each one without the other getting in the way.",
         ],
       },
     ],
@@ -73,36 +140,43 @@ export const crafts: Craft[] = [
     background: "#fafafa",
     kind: "component",
     component: "invite-stack",
-    summary: "The invite control you see in every app. A row of faces, and a plus to add more.",
+    summary: "The row of faces with a plus on the end that shows up in every app. I slowed down and sweated the small parts.",
     writeup: [
       {
         heading: "Why",
         paragraphs: [
-          "Every product has an invite somewhere, and most of them feel rushed. I used this as an excuse to slow down on the small moments: the hover, adding someone by email, the way a new face slots into the row.",
+          "Every app has an invite screen and most of them feel like an afterthought. I took it as a chance to fuss over the small stuff instead: the hover, typing an email, the way a new face slides into the row and pushes the rest over.",
         ],
       },
       {
         heading: "Try it",
         paragraphs: [
-          "Type a few emails, separated by commas, and send. Each person drops into the stack and the tag flips from sent to accepted. Or copy the link and it is on your clipboard.",
-          "Hover a face to see the name, and the little cross to take them back out.",
+          "Type a few emails with commas between them and send. Each one drops into the stack and its tag flips from sent to accepted. Or copy the link and it is on your clipboard.",
+          "Hover a face to see who it is, and a little cross to pull them back out.",
         ],
       },
       {
         heading: "How it is built",
         paragraphs: [
-          "The row is a flex line with negative margins so the circles sit over each other, and each face comes from DiceBear. When someone joins, the layout slides everyone across on its own.",
-          "The form opens with a height and fade, checks the email as you type, and the copy button writes to the clipboard, then shows a tick for a second.",
+          "The overlap is the fun part. It is a plain flex row with a negative margin so each circle sits on the one before it, and a ring the colour of the background to fake the little cut-out gap. The sliding is not mine to write, though. A layout animation handles it, so adding or removing a face reflows the whole row on its own:",
+        ],
+        code: `// Negative margin overlaps the circles; the ring fakes the
+// cut-out; layout animates the reflow when the list changes.
+{members.map((m) => (
+  <motion.div
+    key={m.id}
+    layout
+    className="-ml-3 rounded-full ring-2 ring-white"
+  >
+    <Avatar seed={m.seed} />
+  </motion.div>
+))}`,
+        after: [
+          "The rest is little touches stacked up. The invite form opens on its own height and fade, the address gets checked as you type, and the copy button writes to the clipboard, flashes a tick for a second, then settles back. None of it is hard on its own. It just needed someone to bother.",
         ],
       },
     ],
   },
-  { slug: "placeholder-01", title: "Placeholder 01", aspect: "4 / 3" },
-  { slug: "placeholder-02", title: "Placeholder 02", aspect: "3 / 4" },
-  { slug: "placeholder-03", title: "Placeholder 03", aspect: "1 / 1" },
-  { slug: "placeholder-04", title: "Placeholder 04", aspect: "16 / 9" },
-  { slug: "placeholder-05", title: "Placeholder 05", aspect: "4 / 3" },
-  { slug: "placeholder-06", title: "Placeholder 06", aspect: "3 / 4" },
 ];
 
 export const getCraftIndex = (slug: string) =>

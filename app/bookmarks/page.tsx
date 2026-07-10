@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     description: "Links, references, and things worth keeping.",
   },
   twitter: {
+    card: "summary_large_image",
     title: "Bookmarks",
     description: "Links, references, and things worth keeping.",
   },

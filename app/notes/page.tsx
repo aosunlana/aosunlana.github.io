@@ -6,18 +6,14 @@ import SubPageMenu from "@/components/SubPageMenu";
 
 import { getAllNotes } from "@/lib/notes";
 
+// The notes live behind a password gate, so this page is never served to
+// crawlers (the middleware rewrites unauthed requests to the gate). Keep it out
+// of the index and pointed at its own canonical regardless.
 export const metadata: Metadata = {
   title: "Notes",
-  description: "Thoughts, essays, and reflections on design, engineering, and life.",
+  description: "Private notes.",
   alternates: { canonical: "/notes" },
-  openGraph: {
-    title: "Notes",
-    description: "Thoughts, essays, and reflections on design, engineering, and life.",
-  },
-  twitter: {
-    title: "Notes",
-    description: "Thoughts, essays, and reflections on design, engineering, and life.",
-  },
+  robots: { index: false, follow: false },
 };
 
 export default function NotesPage() {

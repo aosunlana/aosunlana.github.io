@@ -43,7 +43,7 @@ export default function Footer() {
             switch (each icon separated by its own full-height divider). */}
         <div className="w-full rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark h-12 pl-4 flex items-stretch justify-between -mt-[0.5px]">
           <p className="self-center min-w-0 truncate text-base leading-6 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark">
-            &copy; {new Date().getFullYear()} Emmanuel. All rights reserved.
+            &copy; {new Date().getFullYear()} Emmanuel A. Priestley. All rights reserved.
           </p>
           <div className="flex shrink-0 items-stretch">
             <span

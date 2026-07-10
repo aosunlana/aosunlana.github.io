@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description: "The software and tools I use to design and build.",
   },
   twitter: {
+    card: "summary_large_image",
     title: "Tools",
     description: "The software and tools I use to design and build.",
   },

@@ -59,17 +59,20 @@ const bgStyle = (name: string) => {
     : { backgroundColor: v };
 };
 
-// White icon on the brand background.
+// White icon on the brand background. If a local SVG is missing it falls back to
+// a lettermark (never to another tool's icon or a shared placeholder).
 function Glyph({ name, className = "" }: { name: string; className?: string }) {
   const spec = ICON[name];
+  const [failed, setFailed] = useState(false);
   const transform = spec?.nudgeY ? `translateY(${spec.nudgeY}px)` : undefined;
-  if (spec?.src) {
+  if (spec?.src && !failed) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={spec.src}
         alt=""
         aria-hidden
+        onError={() => setFailed(true)}
         className={`${className} block shrink-0 object-contain`}
         style={{
           transform,
@@ -82,7 +85,10 @@ function Glyph({ name, className = "" }: { name: string; className?: string }) {
   return Comp ? (
     <Comp aria-hidden className={`${className} text-white`} style={{ transform }} />
   ) : (
-    <span aria-hidden className={`font-semibold text-white ${className}`}>
+    <span
+      aria-hidden
+      className={`inline-flex items-center justify-center font-semibold text-white ${className}`}
+    >
       {name.charAt(0)}
     </span>
   );
@@ -294,7 +300,7 @@ export default function ToolsList() {
         </div>
       </motion.div>
 
-      {/* Story timeline — hidden for now */}
+      {/* Story timeline, hidden for now */}
       {false && (
         <div className="mt-10">
           <div className="mb-4 flex items-center justify-between">

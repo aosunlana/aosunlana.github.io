@@ -95,6 +95,7 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
     creator: site.twitter,
+    site: site.twitter,
   },
   robots: {
     index: true,

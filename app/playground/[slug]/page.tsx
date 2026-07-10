@@ -1,9 +1,41 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { crafts, getCraftIndex } from "../crafts";
 import CraftStage from "../CraftStage";
 import EscapeToExit from "./EscapeToExit";
+
+// A tiny JS/JSX highlighter for the writeup code blocks. Colors comments,
+// strings, keywords, JSX tag names, and numbers; readable in light and dark.
+const TOKEN_COLOR: Record<string, string> = {
+  comment: "text-emerald-600 dark:text-emerald-400",
+  string: "text-amber-600 dark:text-amber-400",
+  keyword: "text-violet-600 dark:text-violet-400",
+  tag: "text-rose-500 dark:text-rose-400",
+  number: "text-orange-600 dark:text-orange-500",
+};
+
+function highlightCode(code: string): ReactNode[] {
+  const re =
+    /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b(?:const|let|var|function|return|import|from|export|default|new|if|else|for|while|true|false|null|undefined|async|await|type|interface)\b)|(<\/?[A-Za-z][\w.]*|\/>)|(\b\d+(?:\.\d+)?\b)/g;
+  const out: ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let k = 0;
+  while ((m = re.exec(code)) !== null) {
+    if (m.index > last) out.push(<span key={k++}>{code.slice(last, m.index)}</span>);
+    const kind = m[1] ? "comment" : m[2] ? "string" : m[3] ? "keyword" : m[4] ? "tag" : "number";
+    out.push(
+      <span key={k++} className={TOKEN_COLOR[kind]}>
+        {m[0]}
+      </span>
+    );
+    last = re.lastIndex;
+  }
+  if (last < code.length) out.push(<span key={k++}>{code.slice(last)}</span>);
+  return out;
+}
 
 export function generateStaticParams() {
   return crafts.map((c) => ({ slug: c.slug }));
@@ -137,6 +169,16 @@ export default async function CraftPage(props: {
                 <div className="flex flex-col gap-4 text-[0.95rem] leading-7 text-custom-gray-700 dark:text-custom-gray-300">
                   {section.paragraphs.map((paragraph, j) => (
                     <p key={j}>{paragraph}</p>
+                  ))}
+                  {section.code ? (
+                    <pre className="mt-1 overflow-x-auto rounded-xl border border-custom-gray-200 bg-custom-gray-50 p-4 text-[0.8125rem] leading-6 dark:border-app-border-dark dark:bg-app-card-dark">
+                      <code className="font-mono text-custom-gray-800 dark:text-custom-gray-200">
+                        {highlightCode(section.code)}
+                      </code>
+                    </pre>
+                  ) : null}
+                  {section.after?.map((paragraph, j) => (
+                    <p key={`after-${j}`}>{paragraph}</p>
                   ))}
                 </div>
               </section>
