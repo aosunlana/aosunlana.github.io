@@ -11,19 +11,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
-  // Serve one host. www duplicates the apex and splits ranking signals, so send
-  // every www request to the apex permanently. (If the apex is set as the
-  // primary domain in Vercel, that handles it at the edge and this is a no-op.)
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.emmah.xyz" }],
-        destination: "https://emmah.xyz/:path*",
-        permanent: true,
-      },
-    ];
-  },
+  // Canonical host (www vs apex) is handled at the edge by Vercel's domain
+  // settings, NOT here. An app-level host redirect fights Vercel's own
+  // domain-level redirect and causes an infinite loop (ERR_TOO_MANY_REDIRECTS).
 };
 
 export default nextConfig;
