@@ -23,6 +23,7 @@ type Base = {
   // the grid stays light (the live demo only mounts on the detail stage).
   poster?: string;
   posterDark?: string;
+  hidden?: boolean; // keep the entry but drop it from the grid + routes
 };
 
 export type Craft =
@@ -34,7 +35,147 @@ export type Craft =
   | (Base & { kind?: "placeholder" });
 
 // Newest first. Swap these for real crafts as they are ready.
-export const crafts: Craft[] = [
+const allCrafts: Craft[] = [
+  {
+    slug: "date-range-picker",
+    title: "Date range picker",
+    hidden: true,
+    aspect: "3 / 2",
+    date: "2026-07",
+    background: "#f4f4f6",
+    kind: "component",
+    component: "date-range-picker",
+    summary: "Two months, a set of presets, and a range that fills in under your cursor before you have even clicked the second date.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "This is the control everyone needs and nobody enjoys building, so most apps ship a rough one. I wanted the opposite. The bit that makes or breaks it is the moment between the two clicks, when you have a start but no end and you are just moving the mouse around. If that feels alive, the whole thing feels considered.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Click a day to set the start, then move across the grid. The range fills in as you go and only commits on the second click. Pick a preset on the side to jump to a common span, page between months with the arrows, or click into the grid and drive the whole thing with the keyboard.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "There is no date library here, just a handful of small helpers over the native Date. The selected range lives in one piece of state. The preview is a second range worked out on the fly from the start and whatever day you are hovering, so the highlight can run ahead of the real selection without ever committing it:",
+        ],
+        code: `// With a start but no end, the range previews to the
+// day under the cursor, ordered so either direction works.
+const preview = useMemo(() => {
+  if (start && !end && hover) {
+    return hover < start
+      ? { start: hover, end: start }
+      : { start, end: hover }
+  }
+  return { start, end }
+}, [start, end, hover])`,
+        after: [
+          "Every day cell just asks the same question against that preview, am I the start, the end, or somewhere in between, and styles itself. The keyboard path reuses the exact click handler, so arrows move a focused day and Enter picks it with none of the logic written twice.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "segmented-tabs",
+    title: "Segmented tabs",
+    hidden: true,
+    aspect: "4 / 3",
+    date: "2026-07",
+    background: "#f4f4f6",
+    kind: "component",
+    component: "segmented-tabs",
+    summary: "One highlight that glides between tabs, in a pill or an underline, with the panel sliding whichever way you moved.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "Tabs are everywhere and usually snap between states with no life to them. I like the little detail where a single highlight slides from one tab to the next instead of blinking out and back in. Once that felt right I wanted to see how far the same idea stretched, so it does the pill and the underline off the same trick.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Click between the tabs and watch the highlight travel. Flip the switch up top to swap the pill for an underline, both glide the same way. The panel underneath slides in the direction you moved, left when you go forward and right when you go back, and you can drag the panel itself sideways to change tabs.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "The gliding highlight is one element shared across every tab through a layoutId. Whichever tab is active renders it, and the layout animation carries it between positions on its own. The panel remembers which way you last moved and feeds that direction into the enter and exit, so the slide always matches the travel:",
+        ],
+        code: `// One highlight, shared by id, glides to the active tab.
+{active && <motion.span layoutId="tab-pill" transition={GLIDE} />}
+
+// The panel slides in whichever direction you moved.
+<AnimatePresence mode="wait" custom={dir}>
+  <motion.div
+    key={tab.id}
+    custom={dir}
+    variants={{
+      enter:  (d) => ({ opacity: 0, x: d * 34 }),
+      center: { opacity: 1, x: 0 },
+      exit:   (d) => ({ opacity: 0, x: d * -34 }),
+    }}
+  />
+</AnimatePresence>`,
+        after: [
+          "Because the highlight is tied to an id rather than a class, switching the variant does not reset anything. The pill and the underline are two skins over the same moving part, which is why they behave identically no matter how fast you click around.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "toast-stack",
+    title: "Toast stack",
+    hidden: true,
+    aspect: "4 / 3",
+    date: "2026-07",
+    background: "#f6f6f7",
+    kind: "component",
+    component: "toast-stack",
+    summary: "Notifications that fan out behind each other, count down on a bar that waits when you hover, and flick away with a drag.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "A toast has more going on than it lets on. It has to appear without shoving the others around, count itself down, and get out of the way once you have read it. The part people skip is the courtesy, pausing the timer the second you reach over to read one. That is the whole reason I built it.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Fire a few from the buttons. They stack at the front and the older ones fan out behind, collapsing into a small plus count once there are more than a few. Hover the stack and it opens into a full list while every timer holds still. Drag any toast sideways to flick it away, or let the bar run out and it leaves on its own.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "One loop drives every countdown. Each tick it rebuilds the toasts with a little less time left and drops the ones that hit zero, and it simply skips that work while the pointer is over the stack. Rebuilding the list each tick is also what nudges the progress bars along, so the timing and the bars can never drift apart:",
+        ],
+        code: `// One loop ticks every toast down, and skips a beat
+// whenever the pointer is resting over the stack.
+setInterval(() => {
+  if (hovering) return
+  setToasts((cur) =>
+    cur.map((t) => ({ ...t, remaining: t.remaining - TICK }))
+       .filter((t) => t.remaining > 0))
+}, TICK)
+
+// A flick past the threshold dismisses the toast.
+onDragEnd={(_, info) => {
+  if (Math.abs(info.offset.x) > 90) dismiss(id)
+}}`,
+        after: [
+          "The stacking is just each toast placed by its index, offset and scaled a touch while collapsed and laid out in a column while open. Since position comes from the index and not from measuring, adding or removing one lets the rest spring into their new spots without any bookkeeping.",
+        ],
+      },
+    ],
+  },
   {
     slug: "prompt-composer",
     title: "Prompt composer",
@@ -178,6 +319,10 @@ function highlight(text, q) {
     ],
   },
 ];
+
+// Anything flagged `hidden` is kept in source but dropped from the grid, the
+// detail routes, and prev/next. Remove the flag on a craft to bring it back.
+export const crafts: Craft[] = allCrafts.filter((c) => !c.hidden);
 
 export const getCraftIndex = (slug: string) =>
   crafts.findIndex((c) => c.slug === slug);

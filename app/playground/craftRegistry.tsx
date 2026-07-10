@@ -15,4 +15,7 @@ export const craftDemos: Record<string, ComponentType> = {
   "invite-stack": dynamic(() => import("./demos/InviteStack"), { ssr: false }),
   "command-search": dynamic(() => import("./demos/CommandSearch"), { ssr: false }),
   "prompt-composer": dynamic(() => import("./demos/PromptComposer"), { ssr: false }),
+  "date-range-picker": dynamic(() => import("./demos/DateRangePicker"), { ssr: false }),
+  "segmented-tabs": dynamic(() => import("./demos/SegmentedTabs"), { ssr: false }),
+  "toast-stack": dynamic(() => import("./demos/ToastStack"), { ssr: false }),
 };
