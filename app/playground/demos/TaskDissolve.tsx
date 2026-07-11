@@ -429,7 +429,10 @@ export default function TaskDissolve() {
         {/* Dashed frame around the whole deck, drawn as SVG so the dash gaps are tunable */}
         <div className="relative rounded-[30px] p-2.5">
           <svg aria-hidden className="pointer-events-none absolute inset-0 h-full w-full overflow-visible text-black/[0.13] dark:text-white/[0.12]" fill="none">
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="30" ry="30" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 5" strokeLinecap="round" />
+            {/* Percentage geometry (not calc) so Samsung Internet / Android WebView,
+                which don't support calc() in SVG geometry attributes, render it too.
+                overflow-visible lets the half-stroke sit on the edge without clipping. */}
+            <rect x="0" y="0" width="100%" height="100%" rx="30" ry="30" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 5" strokeLinecap="round" />
           </svg>
           {/* Stack */}
           <div className="relative">
