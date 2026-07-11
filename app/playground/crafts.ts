@@ -37,11 +37,56 @@ export type Craft =
 // Newest first. Swap these for real crafts as they are ready.
 const allCrafts: Craft[] = [
   {
+    slug: "task-dissolve",
+    title: "Task dissolve",
+    aspect: "3 / 2",
+    date: "2026-06",
+    background: "#eceef1",
+    kind: "component",
+    component: "task-dissolve",
+    summary: "Check a task off and the card turns to dust and blows away. Change your mind and it comes right back.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "Checking something off is a small, good feeling, and a checkbox that just greys out does not earn it. I wanted the card to actually leave, to come apart and drift off, so finishing a task looks like the thing is really gone. The undo is there because the moment you make deleting feel final, people want a way back.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Hover the card and it leans toward your cursor. Tap the checkbox and the title strikes through, the card lifts for a beat, then it scatters into dust and blows up and to the right while the next task cascades into place. An Undo bar appears and brings back every task you have cleared, all at once. It pauses its timer when you hover it, and Cmd or Ctrl Z works too. Clear the whole list and you land on a done state you can reset.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "Two libraries share the card. GSAP drives the interactive parts, a quickTo tilt that follows your cursor and a staggered reveal that cascades the rows in when a card reaches the front, while framer-motion handles the mount, the advance, and the Undo bar. The dust itself is real, not a stock effect. At the moment you check the box I rasterize the card DOM to a canvas, read the pixels, and sample them into a grid of small colored squares. Each square becomes a particle with the color it sat on plus its own velocity, gravity, and lifetime, and they animate on one oversized canvas so they can blow clear of the card without clipping. The real card is hidden the instant the snapshot exists:",
+        ],
+        code: `// Snapshot the card, then sample it into particles.
+const snap = await toCanvas(cardNode, { pixelRatio: dpr })
+const px = snap.getContext("2d").getImageData(0, 0, w, h).data
+for (let y = 0; y < rows; y++)
+  for (let x = 0; x < cols; x++) {
+    const i = (sy * w + sx) * 4
+    if (px[i + 3] < 36) continue           // skip transparent cells
+    particles.push({
+      x, y, r: px[i], g: px[i + 1], b: px[i + 2],
+      vx: 0.7 + nx * 2.4, vy: -1.4 - Math.random() * 2.6,
+    })
+  }`,
+        after: [
+          "The motion is all decorative, so the whole thing has to work with it switched off. Under prefers-reduced-motion the tilt, the cascade, and the canvas all drop out, the card just fades, and if the rasterize ever fails it takes the same quiet path. The completion is announced in a live region rather than through the animation, so a screen reader hears \"Task completed\" whether the dust runs or not.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "date-range-picker",
     title: "Date range picker",
     hidden: true,
     aspect: "3 / 2",
-    date: "2026-07",
+    date: "2026-05",
     background: "#f4f4f6",
     kind: "component",
     component: "date-range-picker",
@@ -85,7 +130,7 @@ const preview = useMemo(() => {
     title: "Segmented tabs",
     hidden: true,
     aspect: "4 / 3",
-    date: "2026-07",
+    date: "2026-04",
     background: "#f4f4f6",
     kind: "component",
     component: "segmented-tabs",
@@ -134,7 +179,7 @@ const preview = useMemo(() => {
     title: "Toast stack",
     hidden: true,
     aspect: "4 / 3",
-    date: "2026-07",
+    date: "2026-03",
     background: "#eceef1",
     kind: "component",
     component: "toast-stack",
@@ -180,7 +225,7 @@ onDragEnd={(_, info) => {
     slug: "prompt-composer",
     title: "Prompt composer",
     aspect: "4 / 3",
-    date: "2026-07",
+    date: "2026-01",
     background: "#eceef1",
     kind: "component",
     component: "prompt-composer",
@@ -231,7 +276,7 @@ const canSend = text.trim().length > 0
     slug: "command-search",
     title: "Command search",
     aspect: "3 / 2",
-    date: "2026-07",
+    date: "2025-12",
     background: "#eceef1",
     kind: "component",
     component: "command-search",
@@ -277,7 +322,7 @@ function highlight(text, q) {
     slug: "invite-stack",
     title: "Invite stack",
     aspect: "4 / 3",
-    date: "2026-07",
+    date: "2025-10",
     background: "#eceef1",
     kind: "component",
     component: "invite-stack",
