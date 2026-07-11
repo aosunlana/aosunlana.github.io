@@ -12,6 +12,8 @@ import type { ComponentType } from "react";
 //     "magnetic-button": dynamic(() => import("./demos/MagneticButton"), { ssr: false }),
 //   };
 export const craftDemos: Record<string, ComponentType> = {
+  "select-delete": dynamic(() => import("./demos/SelectDelete"), { ssr: false }),
+  "focus-picker": dynamic(() => import("./demos/FocusPicker"), { ssr: false }),
   "task-dissolve": dynamic(() => import("./demos/TaskDissolve"), { ssr: true }),
   "invite-stack": dynamic(() => import("./demos/InviteStack"), { ssr: true }),
   "command-search": dynamic(() => import("./demos/CommandSearch"), { ssr: true }),

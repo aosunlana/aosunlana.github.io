@@ -37,6 +37,83 @@ export type Craft =
 // Newest first. Swap these for real crafts as they are ready.
 const allCrafts: Craft[] = [
   {
+    slug: "select-delete",
+    title: "Select and delete",
+    aspect: "3 / 2",
+    date: "2026-07",
+    background: "#eceef1",
+    hidden: true,
+    kind: "component",
+    component: "select-delete",
+    summary: "Multi-select a list, a floating bar rises, and delete throws the rows into the trash. Change your mind and they fly back.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "Bulk delete is usually a boring row of checkboxes and a confirm dialog. I wanted the act of throwing things away to feel like actually throwing things away, so the rows you picked lift out and fly into the trash, and the lid opens to catch them.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Click rows to select them, shift-click for a range, and a bar rises with the count and the actions. Hit delete and the selected rows arc into the trash while the rest close the gap; an Undo bar puts them back exactly where they were. Archive moves rows aside instead. It is all keyboard driven too: arrows and space to select, Cmd or Ctrl A for all, Delete to remove, Escape to clear, Cmd or Ctrl Z to undo.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "The flight is a measure then clone then reflow trick, the same FLIP thinking real list animations use. On delete I snapshot each selected row's position, remove it from the data so the list immediately closes up, then fly a clone of it on top into the trash. The clone is a fixed element animating only transform and opacity in a portal, so the handoff from the real row to the clone is invisible and nothing janks.",
+        ],
+        code: `// Snapshot the row, remove it from data (list reflows), then fly a clone.
+const rect = rowEl.getBoundingClientRect()          // where it is now
+setItems((cur) => cur.filter((i) => !selected.has(i.id)))  // list closes up
+setClones((c) => [...c, { item, rect, dx, dy }])    // clone flies on top
+// clone: position:fixed, animate x/y along an arc + scale 0.16 + fade`,
+        after: [
+          "The flying part is decorative, so the whole thing has to make sense with it turned off. That is the real work: under prefers-reduced-motion the rows just fade and collapse with no flight, selection is exposed as an aria-multiselectable listbox, every change is announced in a live region, and focus lands on the undo control after a delete. The throw was the fun part; making it correct with the animation off was the actual one.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "focus-picker",
+    title: "Focus picker",
+    aspect: "3 / 2",
+    date: "2026-07",
+    background: "#eceef1",
+    kind: "component",
+    component: "focus-picker",
+    summary: "A scroll wheel where the row in the middle leans forward onto a white card while the rest fall back in scale, opacity, and blur.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "A picker where the middle item leans forward is a small thing that just feels good to use. I wanted to see if I could get the falloff to feel right rather than mechanical, where the rows nearest the center lift toward you and the edges melt away, so your eye always knows where the choice is.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Scroll the wheel or grab and drag it, and it snaps so a row always lands in the center on a white card. A soft tick plays as each row passes the middle, like the iPhone picker, and you can mute it with the toggle under the wheel. Click any row to glide it to the center, or use the keyboard: the arrow keys move and center the choice, Home and End jump to the ends, and Enter confirms.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "It is a real scroll container with CSS scroll snap, not a faked transform stack, so the wheel gets native momentum and stays accessible. On scroll, a handler throttled with requestAnimationFrame measures each row's distance from the center, normalizes it over a falloff span, and maps that one number to scale, opacity, and blur. It only touches transform, opacity, and filter, so the whole thing rides the compositor and never janks.",
+        ],
+        code: `// One distance drives all three. Written plainly on purpose.
+const n = Math.min(1, distanceFromCenter / SPAN)   // 0 at center, 1 at edges
+row.style.transform = \`scale(\${1 - n * 0.22})\`      // 1 down to 0.78
+row.style.opacity   = String(1 - n * 0.72)           // 1 down to 0.28
+row.style.filter    = \`blur(\${n * 3}px)\`             // 0 up to 3px`,
+        after: [
+          "The pretty part was the easy part. Underneath it is a single-select listbox, and that was the actual work: one active option at a time with aria-selected, roving tabindex so focus follows the selection, arrow and Home and End keys, and the active label announced in a live region. The tick is synthesized live with the Web Audio API, no sound file, just a short click on each row change that you can mute. Under reduced motion the blur and smooth scroll drop out and the selection still reads clearly, because the white card and aria-selected carry the meaning, not the effect.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "task-dissolve",
     title: "Task dissolve",
     aspect: "3 / 2",

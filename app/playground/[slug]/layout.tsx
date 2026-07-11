@@ -110,7 +110,7 @@ export default async function CraftLayout({
         {/* Demo area. On mobile it centers the demo in at least 68dvh and grows
             taller if the demo needs it (so the page scrolls, nothing clips). On
             large screens the demo's own absolute inset-0 covers the section. */}
-        <div className="relative flex min-h-[68dvh] flex-col justify-center lg:static lg:block lg:min-h-0">
+        <div className="relative flex min-h-[80dvh] flex-col justify-center lg:static lg:block lg:min-h-0">
           {children}
         </div>
 

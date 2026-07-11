@@ -424,8 +424,8 @@ export default function TaskDissolve() {
   }, []);
 
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden bg-[#eceef1] p-3 sm:p-6 dark:bg-[#141416]">
-      <div ref={wrapRef} className="relative flex w-full max-w-[540px] flex-col">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden bg-[#eceef1] p-3 pt-10 sm:p-6 dark:bg-[#141416]">
+      <div ref={wrapRef} className="@container relative flex w-full max-w-[540px] flex-col">
         {/* Dashed frame around the whole deck, drawn as SVG so the dash gaps are tunable */}
         <div className="relative rounded-[30px] p-2.5">
           <svg aria-hidden className="pointer-events-none absolute inset-0 h-full w-full overflow-visible text-black/[0.13] dark:text-white/[0.12]" fill="none">
@@ -457,14 +457,14 @@ export default function TaskDissolve() {
                     onMouseMove={onCardMove}
                     onMouseLeave={onCardLeave}
                     style={{ willChange: "transform" }}
-                    className="rounded-[20px] border border-black/[0.08] bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.03),0_10px_22px_-20px_rgba(20,20,45,0.22)] sm:p-5 dark:border-white/[0.09] dark:bg-[#1c1c1f]"
+                    className="rounded-[20px] border border-black/[0.08] bg-white p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.03),0_10px_22px_-20px_rgba(20,20,45,0.22)] @lg:p-5 dark:border-white/[0.09] dark:bg-[#1c1c1f]"
                   >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-2.5 @lg:gap-3">
                     <button
                       type="button"
                       onClick={complete}
                       aria-label={`Complete task, ${front.title}`}
-                      className="relative mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-neutral-300 transition-colors hover:border-neutral-400 dark:border-neutral-600 dark:hover:border-neutral-500"
+                      className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-neutral-300 transition-colors hover:border-neutral-400 @lg:h-[22px] @lg:w-[22px] dark:border-neutral-600 dark:hover:border-neutral-500"
                       style={{ backgroundColor: checking ? ACCENT : "transparent", borderColor: checking ? ACCENT : undefined }}
                     >
                       <AnimatePresence>
@@ -486,7 +486,7 @@ export default function TaskDissolve() {
                       <div data-row className="flex items-start justify-between gap-2">
                         <div className="flex min-w-0 items-center gap-2">
                           <h3
-                            className={`truncate text-[15px] font-semibold leading-6 transition-colors ${
+                            className={`truncate text-[13.5px] font-semibold leading-5 transition-colors @lg:text-[15px] @lg:leading-6 ${
                               checking ? "text-neutral-400 line-through dark:text-neutral-500" : "text-neutral-900 dark:text-white"
                             }`}
                           >
@@ -496,16 +496,17 @@ export default function TaskDissolve() {
                         <PriorityIcon priority={front.priority} />
                       </div>
 
-                      <p data-row className="mt-1 line-clamp-2 text-[13px] leading-5 text-neutral-500 dark:text-neutral-400">{front.desc}</p>
+                      <p data-row className="mt-1 line-clamp-2 text-[12px] leading-[1.45] text-neutral-500 @lg:text-[13px] @lg:leading-5 dark:text-neutral-400">{front.desc}</p>
 
                       {/* Date + tags */}
-                      <div data-row className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5">
-                        <span className="flex shrink-0 items-center gap-1 text-[12.5px] text-neutral-500 dark:text-neutral-400">
-                          <CalendarBlank size={14} />
+                      <div data-row className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1.5 @lg:mt-3">
+                        <span className="flex shrink-0 items-center gap-1 text-[11.5px] text-neutral-500 @lg:text-[12.5px] dark:text-neutral-400">
+                          <CalendarBlank size={13} className="@lg:hidden" />
+                          <CalendarBlank size={14} className="hidden @lg:block" />
                           {front.date}
                         </span>
                         {front.tags.map((tag) => (
-                          <span key={tag.label} className={`rounded-md px-2 py-0.5 text-[12px] font-medium ${tag.className}`}>
+                          <span key={tag.label} className={`rounded-md px-1.5 py-0.5 text-[11px] font-medium @lg:px-2 @lg:text-[12px] ${tag.className}`}>
                             {tag.label}
                           </span>
                         ))}
@@ -514,16 +515,18 @@ export default function TaskDissolve() {
                   </div>
 
                   {/* Divider */}
-                  <div data-row className="mt-4 border-t border-dashed border-black/[0.08] dark:border-white/[0.1]" />
+                  <div data-row className="mt-3 border-t border-dashed border-black/[0.08] @lg:mt-4 dark:border-white/[0.1]" />
 
                   {/* Footer */}
-                  <div data-row className="mt-3 flex items-center gap-3 text-[12.5px] text-neutral-500 sm:gap-4 dark:text-neutral-400">
+                  <div data-row className="mt-2.5 flex items-center gap-2.5 text-[12px] text-neutral-500 @lg:mt-3 @lg:gap-4 @lg:text-[12.5px] dark:text-neutral-400">
                     <span className="flex items-center gap-1.5">
-                      <Paperclip size={15} />
+                      <Paperclip size={14} className="@lg:hidden" />
+                      <Paperclip size={15} className="hidden @lg:block" />
                       {front.attachments}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <ChatCircle size={15} />
+                      <ChatCircle size={14} className="@lg:hidden" />
+                      <ChatCircle size={15} className="hidden @lg:block" />
                       {front.comments}
                     </span>
                     <span className="flex items-center gap-1.5">
@@ -545,7 +548,7 @@ export default function TaskDissolve() {
               initial={{ opacity: 0, y: 10, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={SOFT}
-              className="flex flex-col items-center justify-center rounded-[20px] border border-black/[0.06] bg-white px-5 py-12 text-center sm:px-6 sm:py-14 dark:border-white/[0.07] dark:bg-[#1c1c1f]"
+              className="flex flex-col items-center justify-center rounded-[20px] border border-black/[0.06] bg-white px-5 py-12 text-center @lg:px-6 @lg:py-14 dark:border-white/[0.07] dark:bg-[#1c1c1f]"
             >
               {/* Self-drawing "complete" ring with a check */}
               <div className="relative mb-6 h-16 w-16">
@@ -605,7 +608,7 @@ export default function TaskDissolve() {
         />
 
         {/* Undo bar, in a reserved row so the stack never shifts */}
-        <div className="relative mt-10 flex h-11 items-start justify-center sm:mt-16">
+        <div className="relative mt-10 flex h-11 items-start justify-center @lg:mt-16">
           <AnimatePresence>
             {undoActive && doneCount > 0 && (
               <motion.div
