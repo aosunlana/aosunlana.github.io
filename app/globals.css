@@ -380,3 +380,28 @@ body::-webkit-scrollbar {
     animation: none !important;
   }
 }
+
+/* The playground detail chrome (breadcrumb, date, prev/next) is pinned across
+   craft navigations: it never moves and never fades. The old snapshot is hidden
+   and the new one shown instantly, so only its text content swaps. This avoids
+   the ghosting you get when translucent pills cross-fade over each other. */
+::view-transition-group(pg-crumb),
+::view-transition-group(pg-date),
+::view-transition-group(pg-nav),
+::view-transition-group(pg-writeup) {
+  animation: none !important;
+}
+::view-transition-old(pg-crumb),
+::view-transition-old(pg-date),
+::view-transition-old(pg-nav),
+::view-transition-old(pg-writeup) {
+  animation: none !important;
+  opacity: 0;
+}
+::view-transition-new(pg-crumb),
+::view-transition-new(pg-date),
+::view-transition-new(pg-nav),
+::view-transition-new(pg-writeup) {
+  animation: none !important;
+  opacity: 1;
+}

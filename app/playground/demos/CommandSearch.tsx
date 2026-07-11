@@ -844,7 +844,7 @@ export default function CommandSearch() {
     <div
       onMouseEnter={() => (hoveredRef.current = true)}
       onMouseLeave={() => (hoveredRef.current = false)}
-      className="flex h-full w-full items-center justify-center bg-[#ececec] p-4 transition-colors sm:p-8 dark:bg-[#2e2e2e]"
+      className="flex h-full w-full items-center justify-center bg-[#eceef1] p-4 transition-colors sm:p-8 dark:bg-[#141416]"
     >
       <motion.div
         ref={panelRef}

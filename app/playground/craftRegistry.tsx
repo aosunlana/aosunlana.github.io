@@ -12,9 +12,9 @@ import type { ComponentType } from "react";
 //     "magnetic-button": dynamic(() => import("./demos/MagneticButton"), { ssr: false }),
 //   };
 export const craftDemos: Record<string, ComponentType> = {
-  "invite-stack": dynamic(() => import("./demos/InviteStack"), { ssr: false }),
-  "command-search": dynamic(() => import("./demos/CommandSearch"), { ssr: false }),
-  "prompt-composer": dynamic(() => import("./demos/PromptComposer"), { ssr: false }),
+  "invite-stack": dynamic(() => import("./demos/InviteStack"), { ssr: true }),
+  "command-search": dynamic(() => import("./demos/CommandSearch"), { ssr: true }),
+  "prompt-composer": dynamic(() => import("./demos/PromptComposer"), { ssr: true }),
   "date-range-picker": dynamic(() => import("./demos/DateRangePicker"), { ssr: false }),
   "segmented-tabs": dynamic(() => import("./demos/SegmentedTabs"), { ssr: false }),
   "toast-stack": dynamic(() => import("./demos/ToastStack"), { ssr: false }),

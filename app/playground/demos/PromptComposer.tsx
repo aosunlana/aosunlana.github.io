@@ -308,7 +308,7 @@ export default function PromptComposer() {
   return (
     <div
       ref={stageRef}
-      className="flex h-full w-full items-center justify-center bg-[#eeeef0] p-5 sm:p-8 dark:bg-[#161617]"
+      className="flex h-full w-full items-center justify-center bg-[#eceef1] p-5 sm:p-8 dark:bg-[#141416]"
     >
       <div ref={rootRef} className="relative w-full max-w-[640px]">
         {/* Card. Its height hugs whichever view is active; the crossfade below
@@ -318,8 +318,8 @@ export default function PromptComposer() {
           transition={{ duration: 0.35, ease: EASE }}
           className={`rounded-[26px] border bg-white px-4 pb-3 pt-4 transition-[border-color,box-shadow] duration-300 dark:bg-[#232325] ${
             focused || recording
-              ? "border-black/[0.12] shadow-[0_6px_34px_-8px_rgba(0,0,0,0.18)] dark:border-white/[0.16]"
-              : "border-black/[0.05] shadow-[0_2px_24px_-6px_rgba(0,0,0,0.12)] dark:border-white/[0.07]"
+              ? "border-black/[0.12] shadow-[0_2px_12px_-6px_rgba(0,0,0,0.1)] dark:border-white/[0.16]"
+              : "border-black/[0.05] shadow-[0_1px_4px_-2px_rgba(0,0,0,0.06)] dark:border-white/[0.07]"
           }`}
         >
           <AnimatePresence mode="wait" initial={false}>

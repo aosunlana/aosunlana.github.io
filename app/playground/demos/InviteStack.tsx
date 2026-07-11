@@ -66,7 +66,7 @@ function Avatar({
         transition={{ type: "spring", stiffness: 400, damping: 18 }}
         style={{ backgroundColor: member.color }}
         className={`relative flex h-full w-full items-center justify-center overflow-hidden rounded-full text-[10px] font-semibold text-white ${
-          isStack ? "ring-[3px] ring-custom-gray-50 dark:ring-app-bg-dark" : ""
+          isStack ? "ring-[3px] ring-[#eceef1] dark:ring-[#141416]" : ""
         }`}
       >
         <span className="absolute">{member.initials}</span>
@@ -101,7 +101,7 @@ function Avatar({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{ duration: 0.12 }}
-              className="absolute -right-1 -top-1 z-40 flex h-4 w-4 items-center justify-center rounded-full bg-custom-gray-900 text-white ring-2 ring-custom-gray-50 dark:bg-white dark:text-custom-gray-900 dark:ring-app-bg-dark"
+              className="absolute -right-1 -top-1 z-40 flex h-4 w-4 items-center justify-center rounded-full bg-custom-gray-900 text-white ring-2 ring-[#eceef1] dark:bg-white dark:text-custom-gray-900 dark:ring-[#141416]"
             >
               <X size={9} weight="bold" aria-hidden />
             </motion.button>
@@ -230,7 +230,7 @@ export default function InviteStack() {
   const extra = members.length - stack.length;
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-custom-gray-50 p-4 sm:p-6 dark:bg-app-bg-dark">
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[#eceef1] p-4 sm:p-6 dark:bg-[#141416]">
       <div className="relative flex w-full max-w-[400px] flex-col items-center">
         {/* Standalone avatar stack with a + trigger at the end */}
         <div
@@ -259,7 +259,7 @@ export default function InviteStack() {
               layout
               style={{ zIndex: 5 }}
               animate={{ marginLeft: expanded ? 6 : -12 }}
-              className="flex aspect-square h-11 w-11 shrink-0 items-center justify-center rounded-full bg-custom-gray-200 text-xs font-semibold text-custom-gray-700 ring-[3px] ring-custom-gray-50 dark:bg-custom-gray-700 dark:text-custom-gray-200 dark:ring-app-bg-dark"
+              className="flex aspect-square h-11 w-11 shrink-0 items-center justify-center rounded-full bg-custom-gray-200 text-xs font-semibold text-custom-gray-700 ring-[3px] ring-[#eceef1] dark:bg-custom-gray-700 dark:text-custom-gray-200 dark:ring-[#141416]"
             >
               +{extra}
             </motion.span>
@@ -282,7 +282,7 @@ export default function InviteStack() {
               whileTap={{ scale: 0.92 }}
               aria-expanded={open}
               aria-label={open ? "Close invite" : "Invite people"}
-              className="relative flex h-11 w-11 items-center justify-center rounded-full bg-custom-gray-50 text-custom-gray-400 ring-[3px] ring-custom-gray-50 transition-colors hover:text-custom-gray-600 dark:bg-app-bg-dark dark:text-custom-gray-500 dark:ring-app-bg-dark dark:hover:text-custom-gray-300"
+              className="relative flex h-11 w-11 items-center justify-center rounded-full bg-[#eceef1] text-custom-gray-400 ring-[3px] ring-[#eceef1] transition-colors hover:text-custom-gray-600 dark:bg-[#141416] dark:text-custom-gray-500 dark:ring-[#141416] dark:hover:text-custom-gray-300"
             >
               {/* Dashed ring with controllable gaps */}
               <svg

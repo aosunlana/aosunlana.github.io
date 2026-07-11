@@ -119,9 +119,11 @@ export default function ToastStack() {
   const stackH = shown === 0 ? 0 : hovered ? expandedH : collapsedH;
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-[#f6f6f7] p-5 sm:p-8 dark:bg-[#141416]">
-      <div className="flex w-full max-w-[420px] flex-col items-center gap-8">
-        {/* Trigger row: spawn different kinds of toasts */}
+    <div className="flex h-full w-full items-center justify-center bg-[#eceef1] p-4 sm:p-6 dark:bg-[#141416]">
+      {/* A little "screen": controls up top, the toaster docked at the bottom,
+          so the space between reads on purpose and the stack opens up into it. */}
+      <div className="relative flex h-full max-h-[540px] w-full max-w-[440px] flex-col">
+        {/* Controls */}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <TriggerButton onClick={() => push("success")} color="#12b76a" label="Success" />
           <TriggerButton onClick={() => push("info")} color="#2f6bff" label="Message" />
@@ -146,10 +148,10 @@ export default function ToastStack() {
           </AnimatePresence>
         </div>
 
-        {/* The stack. Anchored to its own bottom so new toasts push up. */}
+        {/* Toaster: docked at the bottom, new toasts stack up, hover fans it open. */}
         <div
-          className="relative w-full"
-          style={{ height: 236 }}
+          className="relative mt-auto w-full"
+          style={{ minHeight: 132 }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
