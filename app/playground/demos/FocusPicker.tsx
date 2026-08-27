@@ -80,7 +80,16 @@ export default function FocusPicker() {
     osc.stop(now + 0.055);
   }, []);
 
-  useEffect(() => () => void audioCtx.current?.close(), []);
+  useEffect(
+    () => () => {
+      const ctx = audioCtx.current;
+      audioCtx.current = null;
+      // Only close a live context, and swallow the async rejection, so a double
+      // unmount never throws "Cannot close a closed AudioContext".
+      if (ctx && ctx.state !== "closed") ctx.close().catch(() => {});
+    },
+    []
+  );
 
   const toggleMute = () =>
     setMuted((m) => {

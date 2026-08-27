@@ -1,9 +1,50 @@
 "use client";
 
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import Image from "next/image";
 import { Image as ImageIcon } from "@phosphor-icons/react";
 import type { Craft } from "./crafts";
 import { craftDemos } from "./craftRegistry";
+
+// Parse a CSS aspect like "3 / 2" into a width / height number.
+function ratioOf(aspect: string) {
+  const [w, h] = aspect.split("/").map((s) => parseFloat(s.trim()));
+  return w && h ? w / h : 3 / 2;
+}
+
+// A grid thumbnail: render the demo on a full desktop-sized stage, then scale
+// that whole stage down to fit the card. This shows the demo's desktop layout,
+// keeps fixed-size content from overflowing, and reads as a faithful mini view.
+function CardPreview({ Demo, aspect }: { Demo: ComponentType; aspect: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [w, setW] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    setW(el.clientWidth);
+    const ro = new ResizeObserver(() => setW(el.clientWidth));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const DESIGN_W = 1000;
+  const DESIGN_H = Math.round(DESIGN_W / ratioOf(aspect));
+  const scale = w > 0 ? w / DESIGN_W : 0;
+  return (
+    <div ref={ref} className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div
+        style={{
+          width: DESIGN_W,
+          height: DESIGN_H,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          opacity: scale ? 1 : 0,
+        }}
+      >
+        <Demo />
+      </div>
+    </div>
+  );
+}
 
 // Renders a craft's media. On the grid ("card") it prefers a lightweight poster;
 // on the detail page ("stage") it renders the full media, including live demos.
@@ -69,10 +110,14 @@ export default function CraftStage({
 
     const Demo = craftDemos[craft.component];
     if (Demo) {
-      // On the grid the demo is a non-interactive preview; the card link handles
-      // the click. On the detail stage it is fully interactive.
+      // On the grid, render a scaled-down desktop preview so the whole
+      // composition reads and nothing clips. On the detail stage it is the full
+      // interactive component.
+      if (mode === "card") {
+        return <CardPreview Demo={Demo} aspect={craft.aspect} />;
+      }
       return (
-        <div className={`h-full w-full ${mode === "card" ? "pointer-events-none" : ""}`}>
+        <div className="h-full w-full">
           <Demo />
         </div>
       );

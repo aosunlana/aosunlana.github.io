@@ -12,6 +12,7 @@ import type { ComponentType } from "react";
 //     "magnetic-button": dynamic(() => import("./demos/MagneticButton"), { ssr: false }),
 //   };
 export const craftDemos: Record<string, ComponentType> = {
+  "text-toolbar": dynamic(() => import("./demos/SelectionToolbar"), { ssr: false }),
   "select-delete": dynamic(() => import("./demos/SelectDelete"), { ssr: false }),
   "focus-picker": dynamic(() => import("./demos/FocusPicker"), { ssr: false }),
   "task-dissolve": dynamic(() => import("./demos/TaskDissolve"), { ssr: true }),

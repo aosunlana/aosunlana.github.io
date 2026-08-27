@@ -37,6 +37,44 @@ export type Craft =
 // Newest first. Swap these for real crafts as they are ready.
 const allCrafts: Craft[] = [
   {
+    slug: "text-toolbar",
+    title: "Selection toolbar",
+    aspect: "3 / 2",
+    date: "2026-08",
+    background: "#eceef1",
+    kind: "component",
+    component: "text-toolbar",
+    summary:
+      "Select any words and a formatting bar floats above the selection. The controls format the real text and reflect its current state.",
+    writeup: [
+      {
+        heading: "Why",
+        paragraphs: [
+          "A floating toolbar over selected text is in every editor and most get it subtly wrong: the positioning, tracking the selection, the button state, keeping the selection alive after a click. I wanted to get it right, not fake it.",
+        ],
+      },
+      {
+        heading: "Try it",
+        paragraphs: [
+          "Select a run of text. The bar appears above it and follows the selection, flipping below when there is no room. Bold, italic, underline, strike, size, weight, color, highlight, and alignment all change the real text and light up to match. Shortcuts work too, and on small screens the extras fold into a menu.",
+        ],
+      },
+      {
+        heading: "How it is built",
+        paragraphs: [
+          "The text is a contenteditable region. On each selection change I position the bar off the range's bounding rectangle. Bold and friends go through the document commands so their state reads back with queryCommandState; size, weight, and color wrap the range in a managed span. The real trick: every control cancels its own mousedown, so the selection stays put and commands stack without reselecting.",
+        ],
+        code: `// Position the bar off the live selection rectangle.
+const rect = range.getBoundingClientRect()
+let top = rect.top - barHeight - 10       // above the selection
+if (top < 2) top = rect.bottom + 10       // flip below near the top`,
+        after: [
+          "The Ask AI pill is a non-active affordance, not a fake response, and reduced motion drops the spring for a plain fade.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "select-delete",
     title: "Select and delete",
     aspect: "3 / 2",
