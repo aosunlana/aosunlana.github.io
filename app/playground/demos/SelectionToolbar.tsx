@@ -218,6 +218,23 @@ export default function SelectionToolbar() {
       const start = node === range.startContainer ? range.startOffset : 0;
       const end = node === range.endContainer ? range.endOffset : node.length;
       if (start >= end) return;
+      // Fast path: the whole node fills a plain managed span already, so restyle
+      // it in place rather than nesting another span over it (which would leave
+      // a redundant wrapper and extra kerning boundaries).
+      const parent = node.parentElement;
+      if (
+        start === 0 &&
+        end === node.length &&
+        parent &&
+        parent !== editor &&
+        parent.tagName === "SPAN" &&
+        !parent.className &&
+        parent.childNodes.length === 1
+      ) {
+        Object.assign(parent.style, style);
+        spans.push(parent);
+        return;
+      }
       const r = document.createRange();
       r.setStart(node, start);
       r.setEnd(node, end);
@@ -742,6 +759,10 @@ function HighlightButton({ onPick }: { onPick: (color: string) => void }) {
 }
 
 const CSS = `
+/* Tracking in em so every size, and every resized run, keeps proportional
+   letter-spacing (matches the rest of the site's display type). Optical sizing
+   stays on so the variable face shapes correctly across sizes. */
+.tst-editor { letter-spacing: -0.01em; font-optical-sizing: auto; }
 .tst-editor ::selection { background: #b7d0ff; color: inherit; }
 .dark .tst-editor ::selection { background: #2b4a80; color: #fff; }
 .tst-editor p { margin: 0 0 1em; }
