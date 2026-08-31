@@ -59,9 +59,6 @@ const EMPTY: Active = {
 
 const stop = (e: React.MouseEvent) => e.preventDefault(); // keep focus + selection in the editor
 
-// "fontSize" -> "font-size", so style.removeProperty can clear it by name.
-const camelToKebab = (s: string) => s.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
-
 // A slightly tight leading for resized runs so an enlarged word does not blow
 // out its line and break the paragraph's even rhythm, while staying clear of
 // clipping across the offered range.
@@ -187,40 +184,61 @@ export default function SelectionToolbar() {
     update();
   };
 
-  // Managed span: wrap the selected range in a styled span and reselect it, so
-  // size, weight, family and color apply and the selection survives.
+  // Managed span: wrap the selected slice of each text node it touches in its
+  // own styled span, then reselect the whole run. Wrapping per text node (rather
+  // than the range as a whole) means the new span always sits inside any span
+  // already on that run, so its value wins even when the text is a different
+  // size, and a selection that crosses paragraphs is handled per block instead
+  // of trying to wrap one span across the boundary.
   const applyStyle = (style: Partial<CSSStyleDeclaration>) => {
     const sel = window.getSelection();
-    if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return;
+    const editor = editorRef.current;
+    if (!sel || sel.rangeCount === 0 || sel.isCollapsed || !editor) return;
     const range = sel.getRangeAt(0);
-    const span = document.createElement("span");
-    Object.assign(span.style, style);
-    try {
-      range.surroundContents(span);
-    } catch {
-      const frag = range.extractContents();
-      span.appendChild(frag);
-      range.insertNode(span);
-    }
-    // The new span sets these properties for the whole selection, so clear the
-    // same ones from any nested spans inside it. Without this an inner value
-    // wins over the outer one (a child inline style beats its parent) and the
-    // change only lands on part of the run. Unwrap spans left with no styles so
-    // repeated edits do not pile up nested wrappers.
-    const props = Object.keys(style) as string[];
-    span.querySelectorAll<HTMLElement>("span").forEach((inner) => {
-      props.forEach((p) => {
-        inner.style.removeProperty(camelToKebab(p));
+    if (!editor.contains(range.commonAncestorContainer)) return;
+
+    // Collect every text node the selection touches before mutating the DOM.
+    const root = range.commonAncestorContainer;
+    const targets: Text[] = [];
+    if (root.nodeType === Node.TEXT_NODE) {
+      targets.push(root as Text);
+    } else {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) =>
+          range.intersectsNode(node) && node.textContent
+            ? NodeFilter.FILTER_ACCEPT
+            : NodeFilter.FILTER_REJECT,
       });
-      if (!inner.style.length && !inner.className) {
-        inner.replaceWith(...inner.childNodes);
+      let n: Node | null;
+      while ((n = walker.nextNode())) targets.push(n as Text);
+    }
+
+    const spans: HTMLElement[] = [];
+    targets.forEach((node) => {
+      const start = node === range.startContainer ? range.startOffset : 0;
+      const end = node === range.endContainer ? range.endOffset : node.length;
+      if (start >= end) return;
+      const r = document.createRange();
+      r.setStart(node, start);
+      r.setEnd(node, end);
+      const span = document.createElement("span");
+      Object.assign(span.style, style);
+      try {
+        r.surroundContents(span);
+        spans.push(span);
+      } catch {
+        // Skip a slice that cannot be wrapped cleanly.
       }
     });
-    span.normalize();
-    const next = document.createRange();
-    next.selectNodeContents(span);
-    sel.removeAllRanges();
-    sel.addRange(next);
+
+    // Keep the whole run selected across every wrapped span.
+    if (spans.length) {
+      const nr = document.createRange();
+      nr.setStartBefore(spans[0]);
+      nr.setEndAfter(spans[spans.length - 1]);
+      sel.removeAllRanges();
+      sel.addRange(nr);
+    }
     update();
   };
 
