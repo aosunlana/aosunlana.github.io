@@ -59,6 +59,14 @@ const EMPTY: Active = {
 
 const stop = (e: React.MouseEvent) => e.preventDefault(); // keep focus + selection in the editor
 
+// "fontSize" -> "font-size", so style.removeProperty can clear it by name.
+const camelToKebab = (s: string) => s.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+
+// A slightly tight leading for resized runs so an enlarged word does not blow
+// out its line and break the paragraph's even rhythm, while staying clear of
+// clipping across the offered range.
+const SIZE_LEADING = "1.35";
+
 export default function SelectionToolbar() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLDivElement>(null);
@@ -194,11 +202,32 @@ export default function SelectionToolbar() {
       span.appendChild(frag);
       range.insertNode(span);
     }
+    // The new span sets these properties for the whole selection, so clear the
+    // same ones from any nested spans inside it. Without this an inner value
+    // wins over the outer one (a child inline style beats its parent) and the
+    // change only lands on part of the run. Unwrap spans left with no styles so
+    // repeated edits do not pile up nested wrappers.
+    const props = Object.keys(style) as string[];
+    span.querySelectorAll<HTMLElement>("span").forEach((inner) => {
+      props.forEach((p) => {
+        inner.style.removeProperty(camelToKebab(p));
+      });
+      if (!inner.style.length && !inner.className) {
+        inner.replaceWith(...inner.childNodes);
+      }
+    });
+    span.normalize();
     const next = document.createRange();
     next.selectNodeContents(span);
     sel.removeAllRanges();
     sel.addRange(next);
     update();
+  };
+
+  // Size carries a tightened line-height so mixed sizes keep an even rhythm.
+  const setFontSize = (v: string) => {
+    applyStyle({ fontSize: v, lineHeight: SIZE_LEADING });
+    setSize(v);
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -268,10 +297,7 @@ export default function SelectionToolbar() {
             <Menu
               label={size}
               items={SIZES.map((s) => ({ label: s, value: s, sub: s }))}
-              onPick={(v) => {
-                applyStyle({ fontSize: v });
-                setSize(v);
-              }}
+              onPick={(v) => setFontSize(v)}
             />
           </div>
           <ColorButton onPick={(c) => applyStyle({ color: c })} />
@@ -373,10 +399,7 @@ export default function SelectionToolbar() {
                         key={sz}
                         label={sz}
                         active={size === sz}
-                        onClick={() => {
-                          applyStyle({ fontSize: sz });
-                          setSize(sz);
-                        }}
+                        onClick={() => setFontSize(sz)}
                       />
                     ))}
                   </MenuGroup>
