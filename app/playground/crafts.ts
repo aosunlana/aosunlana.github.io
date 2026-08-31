@@ -50,26 +50,57 @@ const allCrafts: Craft[] = [
       {
         heading: "Why",
         paragraphs: [
-          "A floating toolbar over selected text is in every editor and most get it subtly wrong: the positioning, tracking the selection, the button state, keeping the selection alive after a click. I wanted to get it right, not fake it.",
+          "Every editor has a formatting bar that floats over selected text, and most get it subtly wrong. I built this to get the four things they miss right at the same time: where the bar sits, how it tracks the selection, how its buttons reflect the current formatting, and how the selection survives a click on the bar.",
+        ],
+      },
+      {
+        heading: "The trap",
+        paragraphs: [
+          "The bar looks trivial and is not. Click a bold button in a naive build and the browser moves focus to that button, which collapses your selection, so the command has nothing left to act on. Give the bar a fixed offset and it drifts the moment a selection wraps two lines or sits near the top of the viewport. Hold formatting state in React and it lies the instant someone presses Cmd B on the keyboard instead of the button. Each one is its own small fight.",
         ],
       },
       {
         heading: "Try it",
         paragraphs: [
-          "Select a run of text. The bar appears above it and follows the selection, flipping below when there is no room. Bold, italic, underline, strike, size, weight, color, highlight, and alignment all change the real text and light up to match. Shortcuts work too, and on small screens the extras fold into a menu.",
+          "Select a run of text. The bar appears above it and follows the selection, flipping below when there is no room at the top. Bold, italic, underline, strike, size, weight, color, highlight, and alignment all change the real text and light up to match what is selected. Keyboard shortcuts stay in sync, and on a narrow screen the extra controls fold into a menu.",
         ],
       },
       {
-        heading: "How it is built",
+        heading: "Positioning",
         paragraphs: [
-          "The text is a contenteditable region. On each selection change I position the bar off the range's bounding rectangle. Bold and friends go through the document commands so their state reads back with queryCommandState; size, weight, and color wrap the range in a managed span. The real trick: every control cancels its own mousedown, so the selection stays put and commands stack without reselecting.",
+          "On every selection change I read the live range's bounding rectangle and place the bar from it, not from the mouse. It sits ten pixels above the selection and flips underneath when there is no room near the top, then clamps to a twenty pixel inset so it never hugs an edge. Because it reads the real geometry, a selection that wraps two lines still gets a bar centered over the whole run.",
         ],
-        code: `// Position the bar off the live selection rectangle.
+        code: `// Place the bar off the live selection rectangle, not the cursor.
 const rect = range.getBoundingClientRect()
 let top = rect.top - barHeight - 10       // above the selection
-if (top < 2) top = rect.bottom + 10       // flip below near the top`,
-        after: [
-          "The Ask AI pill is a non-active affordance, not a fake response, and reduced motion drops the spring for a plain fade.",
+if (top < 2) top = rect.bottom + 10       // flip below near the top
+left = Math.min(Math.max(left, 20), vw - barWidth - 20)  // keep off edges`,
+      },
+      {
+        heading: "Keeping the selection alive",
+        paragraphs: [
+          "This is the part that trips people. A mousedown on any button steals focus from the text and the selection is gone before the command runs. So every control cancels its own mousedown, which keeps focus and the selection exactly where they were. The command then acts on a selection that is still there, and you can stack bold, then italic, then a color without reselecting once.",
+        ],
+        code: `// Cancel mousedown so the click never costs you the selection.
+<button onMouseDown={(e) => e.preventDefault()} onClick={() => exec("bold")}>`,
+      },
+      {
+        heading: "Reading state back",
+        paragraphs: [
+          "Bold, italic, underline, strike, and alignment go through the document commands, so their pressed state reads straight back with queryCommandState after any change, a shortcut included. Size, weight, and color have no such query, so I wrap the range in a managed span and read the applied style off the selection instead. Both paths land in the same place: the buttons show what the text actually is right now, never a copy of it held in React that can fall out of step.",
+        ],
+      },
+      {
+        heading: "The last mile",
+        paragraphs: [
+          "A full bar does not fit on a phone, and wrapping it onto two rows reads as broken. The secondary controls collapse behind one overflow button that opens a categorized list: alignment, style, weight, size. The primary actions stay on the bar, so the common case is still a single tap.",
+          "The Ask AI pill is an honest affordance, not a canned response pretending to be one. Enter and exit run on a short spring, and under prefers-reduced-motion that becomes a plain fade with no movement. Every control is a real labelled button, so the bar is reachable and legible without a mouse.",
+        ],
+      },
+      {
+        heading: "What I would change",
+        paragraphs: [
+          "execCommand is deprecated, and it is still the honest choice here because it is the only API that reports formatting state back across browsers without me rebuilding it. In a production editor I would move the model into a real document tree and keep this bar as the view, so state never depends on querying the DOM. The interaction work, the positioning and the selection handling, carries over to that version unchanged.",
         ],
       },
     ],

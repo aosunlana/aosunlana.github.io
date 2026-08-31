@@ -706,6 +706,10 @@ const CSS = `
 .tst-editor p { margin: 0 0 1em; }
 .tst-editor p:last-child { margin-bottom: 0; }
 
+/* Highlights are pale tints meant for dark text. In dark mode the editor text
+   is light, so force any highlighted run back to dark ink to stay readable. */
+.dark .tst-editor [style*="background-color"] { color: #18181b !important; }
+
 /* The bar eases in with a small lift and settle. */
 .tst-bar {
   transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
