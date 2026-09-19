@@ -47,7 +47,7 @@ const EXPERIENCE = [
     company: "Smarttasker",
     href: null,
     role: "Software Engineer",
-    period: "Dates unconfirmed",
+    period: "Jun 2026 — Present",
     body: "Contributed to Smarttasker Indonesia's landing page, API, and mobile app alongside the core team.",
   },
   {
