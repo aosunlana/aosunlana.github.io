@@ -1,23 +1,17 @@
 import type { NextConfig } from "next";
 
-// Set by the GitHub Pages workflow only. Project pages are served from
-// https://aosunlana.github.io/emmah-portfolio/, not the domain root, so the
-// build needs a static export (no Node server on GH Pages) plus a basePath so
-// every internal link/asset resolves under that subpath. Vercel/Render builds
-// leave this unset and get the normal server build at the domain root.
+// Set by the GitHub Pages workflow only. The repo is named aosunlana.github.io
+// (GitHub's special "user site" name), so Pages serves it from the domain
+// root — no basePath needed, just a static export (no Node server on GH
+// Pages). Vercel/Render builds leave this unset and get the normal server
+// build.
 const isGithubPages = process.env.GITHUB_PAGES === "true";
 
 const nextConfig: NextConfig = {
   // Defaults to ".next". Set NEXT_BUILD_DIR to run a verification build without
   // clobbering the dev server's ".next". No effect on normal dev/deploy.
   distDir: process.env.NEXT_BUILD_DIR || ".next",
-  ...(isGithubPages
-    ? {
-        output: "export",
-        basePath: "/emmah-portfolio",
-        assetPrefix: "/emmah-portfolio/",
-      }
-    : {}),
+  ...(isGithubPages ? { output: "export" } : {}),
   images: {
     // Local images in /public need no config. For remotely hosted playground
     // mockups (e.g. Vercel Blob), allow the host here. Add more as needed.
