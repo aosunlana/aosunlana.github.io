@@ -18,14 +18,14 @@ const EXPERIENCE = [
     company: "Upsert Labs Limited",
     href: "https://eventhome.app",
     role: "Co-Founder & CEO",
-    period: "— Present", // start date not confirmed
+    period: "Mar 2026 — Present",
     body: "Building Upsert Labs Limited's product suite from the ground up: EventHome (event ticketing, marketing, and venue discovery for the Nigerian market — bank-transfer-first checkout, double-entry ledger accounting, atomic ticket inventory, offline-capable QR check-in), Upsert (a managed WordPress storefront platform — the only managed-WordPress store builder in Nigeria, zero commission, free themes and plugin requests), and Upsert Scout (an internal job-discovery and company-crawling tool: Playwright-based headless crawling, scheduled recrawls, retry/backoff resilience, JWT auth, verified company seed data). Own product, architecture, and payments integration (Paystack/Flutterwave) across all three.",
   },
   {
     company: "Tredar",
     href: null,
     role: "Founder",
-    period: "— Present", // start date not confirmed
+    period: "Feb 2026 — Present",
     body: "Co-founded and built the product for Tredar, a point-of-sale and commerce platform (tredar-pos, tredar-core), partnering with a co-founder on the business/sales side while owning engineering.",
   },
   {
