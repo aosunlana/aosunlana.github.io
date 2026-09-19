@@ -16,6 +16,6 @@ export const site = {
   // to the same person across the web (powers the name knowledge panel).
   sameAs: [
     "https://github.com/aosunlana",
-    // TODO: add real LinkedIn URL once confirmed.
+    "https://www.linkedin.com/in/aosunlana/",
   ],
 } as const;

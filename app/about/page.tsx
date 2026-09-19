@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   Envelope,
   GithubLogo,
+  LinkedinLogo,
   ArrowUpRight,
   Code,
   Stack,
@@ -32,7 +33,7 @@ const EXPERIENCE = [
     company: "Dreamlabs Innovations",
     href: null,
     role: "Software Engineer",
-    period: "2026 · Recent", // exact start date unconfirmed; commits observed through at least April 2026
+    period: "Mar 2026 - Apr 2026",
     body: "Lead contributor on Trava, a mobile app and API platform — top contributor by commit volume on both Trava.UI.Mobile and Trava.Core.Api.",
   },
   {
@@ -53,7 +54,7 @@ const EXPERIENCE = [
     company: "BestBytes AI",
     href: null,
     role: "Exploratory work",
-    period: "Dates unconfirmed",
+    period: "Mar 2026 - Apr 2026",
     body: "Built two solo proof-of-concept services (an auth POC, an experimental \"RedRhino pHat\" POC), exploratory work alongside the BestBytes AI team.",
   },
 ];
@@ -104,7 +105,8 @@ const TOOLBOX = [
 const CONTACT = [
   { label: "Email", value: "adwhatsap@gmail.com", href: "mailto:adwhatsap@gmail.com", icon: Envelope },
   { label: "GitHub", value: "aosunlana", href: "https://github.com/aosunlana", icon: GithubLogo },
-  // No verified Twitter/X or LinkedIn handle for Abdulsamad — omitted rather than guessed.
+  { label: "LinkedIn", value: "aosunlana", href: "https://www.linkedin.com/in/aosunlana/", icon: LinkedinLogo },
+  // No verified Twitter/X handle for Abdulsamad — omitted rather than guessed.
 ];
 
 const sectionTitle =
