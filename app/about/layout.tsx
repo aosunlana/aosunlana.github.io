@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const description =
-  "Design engineer with a product design background across fintech and insurance. Previously at Tempo (YC S23), Digit, and Carbon.";
+  "Software engineer and founder building event-commerce and storefront platforms. Currently building Upsert Labs Limited (EventHome, Upsert, Upsert Scout).";
 
 export const metadata: Metadata = {
   title: "About",

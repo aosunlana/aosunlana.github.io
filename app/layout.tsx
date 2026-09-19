@@ -18,7 +18,6 @@ const signature = Dancing_Script({
 import PageTransition from "./components/PageTransition";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./components/ThemeProvider";
-import NotesAutoLock from "./components/NotesAutoLock";
 import { site } from "./lib/site";
 
 const sfProDisplay = localFont({
@@ -90,13 +89,15 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: site.title,
-    description: site.description,
-    creator: site.twitter,
-    site: site.twitter,
-  },
+  twitter: site.twitter
+    ? {
+        card: "summary_large_image",
+        title: site.title,
+        description: site.description,
+        creator: site.twitter,
+        site: site.twitter,
+      }
+    : undefined,
   robots: {
     index: true,
     follow: true,
@@ -133,7 +134,7 @@ export default function RootLayout({
     "@type": "Person",
     name: site.name,
     alternateName: site.shortName,
-    jobTitle: "Design Engineer",
+    jobTitle: "Software Engineer",
     url: site.url,
     email: `mailto:${site.email}`,
     address: {
@@ -143,12 +144,13 @@ export default function RootLayout({
     },
     sameAs: site.sameAs,
     knowsAbout: [
-      "Design Engineering",
-      "Product Design",
-      "Design Systems",
+      "Software Engineering",
+      "Payments Infrastructure",
+      "Clean Architecture",
       "React",
       "Next.js",
       "TypeScript",
+      "C#/.NET",
     ],
     description: site.description,
   };
@@ -165,7 +167,6 @@ export default function RootLayout({
         />
         <ViewTransitions>
           <ThemeProvider>
-            <NotesAutoLock />
             <PageTransition>{children}</PageTransition>
           </ThemeProvider>
         </ViewTransitions>

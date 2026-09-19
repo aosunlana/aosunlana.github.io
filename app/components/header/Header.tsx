@@ -31,10 +31,10 @@ export default function Header() {
           </Link>
           <div>
             <h1 className="font-display text-[16px] font-semibold leading-8 tracking-[0.5px] text-custom-gray-900 dark:text-app-text-dark">
-              Emmanuel A. Priestley
+              Abdulsamad Osunlana
             </h1>
             <p className="text-base leading-6 tracking-[0.5px] text-custom-gray-500 dark:text-app-text-dark">
-              Product Designer <span className="text-custom-gray-500">/</span> Design Engineer
+              Software Engineer <span className="text-custom-gray-500">/</span> Founder
             </p>
           </div>
         </div>

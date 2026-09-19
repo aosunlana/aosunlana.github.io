@@ -2,7 +2,7 @@
 # run as a Node Web Service, not a Static Site.
 services:
   - type: web
-    name: emmah-portfolio
+    name: aosunlana-portfolio
     runtime: node
     plan: free
     buildCommand: npm install && npm run build

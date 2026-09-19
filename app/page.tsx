@@ -21,54 +21,58 @@ export default function Home() {
         <div className="mx-auto w-full max-w-[600px] px-4 flex items-center dark:text-app-text-dark">
           <section className="w-full">
             <h2 className="font-display text-[23px] leading-8 tracking-[1%] font-semibold pt-6 pb-6 md:pt-4">
-              I design interfaces and build <br />
-              the <span className="text-custom-gray-500 dark:text-app-link-text-default ">version</span> that{" "}
-              <span className="text-custom-gray-500 dark:text-app-link-text-default">ships</span>.
+              I build products end to end <br />
+              from the <span className="text-custom-gray-500 dark:text-app-link-text-default ">ledger</span> to{" "}
+              <span className="text-custom-gray-500 dark:text-app-link-text-default">checkout</span>.
             </h2>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
-              I started in{" "}
+              I&rsquo;m a{" "}
               <span className="text-custom-gray-500 dark:text-app-link-text-default font-medium">
-                product design
+                software engineer and founder
               </span>{" "}
-              and kept crossing into code. Now I do both: design the thing, then
-              build it. I pay attention to the small details people feel but
-              rarely name, and to how quickly an idea can become something real.
+              building event-commerce and storefront platforms. I care as much
+              about a balanced double-entry ledger and an idempotent payment
+              webhook as I do about the storefront a customer actually buys
+              from.
             </p>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
-              Over the past few years I&rsquo;ve designed across fintech and
-              insurance, and worked with teams at:
+              I&rsquo;m currently building Upsert Labs Limited, and have
+              worked across engineering teams at:
             </p>
 
             <div className="pt-[16px] pb-[16px]">
-              <BrandWidget />    
+              <BrandWidget />
             </div>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
-              My foundation is in Product Design, and I&rsquo;ve moved steadily
-              into{" "}
-              <span className="text-custom-gray-500 dark:text-app-link-text-default">Design Engineering</span>.
-              I care as much about how a product is built and shipped as how it
-              looks.
+              My foundation is backend and payments engineering, built to{" "}
+              <span className="text-custom-gray-500 dark:text-app-link-text-default">
+                &ldquo;The Standard&rdquo;
+              </span>{" "}
+              clean-architecture methodology, and I contribute to its open-source
+              ecosystem (The Standard, EventHighway, ADotNet) alongside my own
+              work.
             </p>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
-              This site collects a few things I&rsquo;ve{" "}
+              This site collects{" "}
               <span className="text-custom-gray-500 dark:text-app-link-text-default">
                 <Link
-                  href="/playground"
+                  href="/about"
                   className="underline decoration-dotted decoration-current underline-offset-6 hover:decoration-2 hover:text-app-link-text-hover"
                 >
-                  designed, shipped, and iterated
+                  where I&rsquo;ve worked and what I&rsquo;ve built
                 </Link>
               </span>{" "}
-              on, plus experiments and notes.
+              so far.
             </p>
 
             <p className="text-base leading-6 tracking-[0.5%] pb-4">
-              <span className="font-medium">What&rsquo;s next?</span> Pushing
-              the boundary of design by combining creativity with code.
+              <span className="font-medium">What&rsquo;s next?</span> Growing
+              EventHome and Upsert into the default event-commerce and
+              storefront platforms for the Nigerian market.
             </p>
           </section>
         </div>

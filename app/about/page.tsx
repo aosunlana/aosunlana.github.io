@@ -3,92 +3,108 @@
 import Link from "next/link";
 import {
   Envelope,
-  XLogo,
   GithubLogo,
-  LinkedinLogo,
   ArrowUpRight,
-  PenNib,
   Code,
+  Stack,
 } from "@phosphor-icons/react";
 import SubPageMenu from "@/components/SubPageMenu";
 import Footer from "@/components/Footer";
-import ResumeButton from "./ResumeButton";
 import Reveal from "./Reveal";
 import ContactRow from "./ContactRow";
 
 const EXPERIENCE = [
   {
-    company: "Tempo (YC S23)",
-    href: "https://www.tempo.new/",
-    role: "Design Engineer",
-    period: "2025",
-    body: "Designed and helped build an AI visual IDE that let developers and designers ship interfaces faster. I worked end to end, from research and prototyping to the polished UI.",
+    company: "Upsert Labs Limited",
+    href: "https://eventhome.app",
+    role: "Co-Founder & CEO",
+    period: "— Present", // start date not confirmed
+    body: "Building Upsert Labs Limited's product suite from the ground up: EventHome (event ticketing, marketing, and venue discovery for the Nigerian market — bank-transfer-first checkout, double-entry ledger accounting, atomic ticket inventory, offline-capable QR check-in), Upsert (a managed WordPress storefront platform — the only managed-WordPress store builder in Nigeria, zero commission, free themes and plugin requests), and Upsert Scout (an internal job-discovery and company-crawling tool: Playwright-based headless crawling, scheduled recrawls, retry/backoff resilience, JWT auth, verified company seed data). Own product, architecture, and payments integration (Paystack/Flutterwave) across all three.",
   },
   {
-    company: "Digit Insurance",
-    href: "https://www.godigit.com/",
-    role: "Product Designer",
-    period: "2022 - 2025",
-    body: "Owned design end to end for a digital insurance platform at one of India's largest digital-first insurers. Ran research, shipped UI, and worked closely with product, engineering, and marketing.",
-  },
-  {
-    company: "Carbon (formerly Vella Finance)",
-    href: "https://www.getcarbon.co/",
-    role: "Product Designer",
-    period: "2021 - 2023",
-    body: "Built and kept up the product's visual language and design system at a pan-African fintech, working with engineering to ship to a high bar.",
-  },
-  {
-    company: "Earlier",
+    company: "Tredar",
     href: null,
-    role: "Product and UI Design",
-    period: "2019 - 2022",
-    body: "Earlier product and UI work across fintech and early-stage teams (LAHPay, Hespat, and freelance).",
+    role: "Founder",
+    period: "— Present", // start date not confirmed
+    body: "Co-founded and built the product for Tredar, a point-of-sale and commerce platform (tredar-pos, tredar-core), partnering with a co-founder on the business/sales side while owning engineering.",
+  },
+  {
+    company: "Dreamlabs Innovations",
+    href: null,
+    role: "Software Engineer",
+    period: "2026 · Recent", // exact start date unconfirmed; commits observed through at least April 2026
+    body: "Lead contributor on Trava, a mobile app and API platform — top contributor by commit volume on both Trava.UI.Mobile and Trava.Core.Api.",
+  },
+  {
+    company: "Aspen Publishing",
+    href: null,
+    role: "Software Engineer",
+    period: "May 2024 - Jan 2025", // observed commit range
+    body: "Contributed to Aspen Publishing's .NET/Azure backend and mobile systems (NL.Apps.Mobile, NL.Web.Grove, NL.Core.GateKeeper.Api), built to \"The Standard\" clean-architecture methodology — several hundred commits across mobile and backend services.",
+  },
+  {
+    company: "Smarttasker",
+    href: null,
+    role: "Software Engineer",
+    period: "Dates unconfirmed",
+    body: "Contributed to Smarttasker Indonesia's landing page, API, and mobile app alongside the core team.",
+  },
+  {
+    company: "BestBytes AI",
+    href: null,
+    role: "Exploratory work",
+    period: "Dates unconfirmed",
+    body: "Built two solo proof-of-concept services (an auth POC, an experimental \"RedRhino pHat\" POC), exploratory work alongside the BestBytes AI team.",
   },
 ];
 
-const BUILDING = [
+const OPEN_SOURCE = [
   {
-    name: "Veer",
-    domain: "useveer.xyz",
-    href: "https://useveer.xyz",
+    name: "The Standard",
+    domain: "hassanhabib/The-Standard",
+    href: "https://github.com/hassanhabib/The-Standard",
     description:
-      "Animate any logo or icon in the browser, then export it or copy the code.",
+      "Contributor to Hassan Habib's clean-architecture methodology and reference implementation for .NET.",
   },
   {
-    name: "MyTherapist",
-    domain: "mytherapist.tools",
-    href: "https://mytherapist.tools",
+    name: "EventHighway",
+    domain: "The-Standard-Organization/EventHighway",
+    href: "https://github.com/The-Standard-Organization/EventHighway",
     description:
-      "A hand-tested directory of therapy software, so choosing a tool doesn't mean ten open tabs.",
+      "One of the most active contributors on the project — 137 commits.",
+  },
+  {
+    name: "ADotNet",
+    domain: "The-Standard-Organization/ADotNet",
+    href: "https://github.com/The-Standard-Organization/ADotNet",
+    description: "Minor contributor.",
   },
 ];
 
 const WHAT_I_DO = [
   {
-    title: "Design Engineering",
-    body: "I design a thing, then build the real version, so nothing gets lost between the Figma file and what ships.",
+    title: "Product & Founding Engineering",
+    body: "Building products end to end as a founder: architecture, backend, payments, and shipping to real users.",
   },
   {
-    title: "Interaction Design",
-    body: "The motion and feedback that make an interface feel right. Usually the part nobody notices until it is missing.",
+    title: "Payments & Financial Infrastructure",
+    body: "Double-entry ledgers, idempotent payment webhooks, atomic inventory, Paystack/Flutterwave integrations.",
   },
   {
-    title: "Design Systems",
-    body: "Components and patterns that keep a growing product consistent, and keep the design and the code from drifting apart.",
+    title: "Clean Architecture",
+    body: "Building to \"The Standard\" methodology (Brokers/Services/Controllers, one-way dependency flow, high test coverage) across .NET and TypeScript codebases.",
   },
 ];
 
 const TOOLBOX = [
-  { label: "Design", icon: PenNib, items: "Product Design, Design Systems, Prototyping, Figma, Framer Motion" },
-  { label: "Build", icon: Code, items: "React, Next.js, TypeScript, Tailwind, Node.js" },
+  { label: "Backend", icon: Stack, items: "C#/.NET, TypeScript, Node.js, PostgreSQL, Drizzle" },
+  { label: "Frontend", icon: Code, items: "React, Next.js, Tailwind CSS" },
 ];
 
 const CONTACT = [
-  { label: "Email", value: "hello@emmah.xyz", href: "mailto:hello@emmah.xyz", icon: Envelope },
-  { label: "Twitter", value: "@hey_emmah", href: "https://x.com/hey_emmah", icon: XLogo },
-  { label: "GitHub", value: "hey-emmah", href: "https://github.com/hey-emmah", icon: GithubLogo },
-  { label: "LinkedIn", value: "in/emmah-priestley", href: "https://www.linkedin.com/in/emmah-priestley/", icon: LinkedinLogo },
+  { label: "Email", value: "adwhatsap@gmail.com", href: "mailto:adwhatsap@gmail.com", icon: Envelope },
+  { label: "GitHub", value: "aosunlana", href: "https://github.com/aosunlana", icon: GithubLogo },
+  // No verified Twitter/X or LinkedIn handle for Abdulsamad — omitted rather than guessed.
 ];
 
 const sectionTitle =
@@ -117,19 +133,15 @@ export default function AboutPage() {
         <Reveal>
           <div>
             <h1 className="font-display text-[34px] font-semibold leading-[1.05] tracking-[-0.01em] sm:text-[40px]">
-              Emmanuel A. Priestley
+              Abdulsamad Osunlana
             </h1>
             <p className="mt-4 text-[1.0625rem] leading-7 text-custom-gray-600 dark:text-custom-gray-400">
-              Design engineer. I design the thing, then build it. I&apos;m a
-              product designer who learned to build. I spent a few years on
-              fintech and insurance products, then got tired of handing designs
-              off and watching the details slip, so I started shipping them
-              myself. Going from a rough idea to a real, working thing is still
-              the part I like most.
+              Software engineer and founder. I build event-commerce and
+              storefront platforms end to end — from ledger-accurate payments
+              infrastructure to the storefront a customer actually buys from.
+              Currently building Upsert Labs Limited (EventHome, Upsert,
+              Upsert Scout).
             </p>
-            <div className="mt-6">
-              <ResumeButton />
-            </div>
           </div>
         </Reveal>
 
@@ -169,12 +181,12 @@ export default function AboutPage() {
           </section>
         </Reveal>
 
-        {/* Building */}
+        {/* Open Source */}
         <Reveal>
           <section className="mt-16">
-            <h2 className={sectionTitle}>Building</h2>
+            <h2 className={sectionTitle}>Open Source</h2>
             <div className="mt-4 flex flex-col">
-              {BUILDING.map((project) => (
+              {OPEN_SOURCE.map((project) => (
                 <a
                   key={project.domain}
                   href={project.href}

@@ -4,13 +4,10 @@ import Link from "next/link";
 import type { ComponentType } from "react";
 import {
   HandWaving,
-  Palette,
   Toolbox,
   BookmarkSimple,
-  PenNib,
   Smiley,
   ArrowUpRight,
-  Lock,
   type IconProps,
 } from "@phosphor-icons/react";
 
@@ -23,10 +20,8 @@ export type NavItem = {
 
 export const NAV: NavItem[] = [
   { label: "Hello", href: "/", Icon: HandWaving },
-  { label: "Playground", href: "/playground", Icon: Palette },
   { label: "Tools", href: "/tools", Icon: Toolbox },
   { label: "Bookmarks", href: "/bookmarks", Icon: BookmarkSimple },
-  { label: "Notes", href: "/notes", Icon: PenNib, locked: true },
   { label: "About Me", href: "/about", Icon: Smiley },
 ];
 
@@ -44,15 +39,6 @@ export default function SubPageMenu() {
       />
       <span>{item.label}</span>
 
-      {/* Locked items show a padlock at rest; every item reveals the arrow on hover. */}
-      {item.locked && (
-        <Lock
-          size={15}
-          aria-hidden="true"
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-custom-gray-400 opacity-100 transition-opacity duration-150 group-hover:opacity-0 dark:text-custom-gray-500"
-        />
-      )}
-
       <ArrowUpRight
         size={16}
         aria-hidden="true"
@@ -63,29 +49,12 @@ export default function SubPageMenu() {
 
   return (
     <nav className="rounded-[16px] border border-custom-gray-200 dark:border-app-border-dark overflow-hidden">
-      {/* MOBILE: 2 columns x 3 rows */}
-      <div className="grid grid-cols-2 md:hidden">
+      {/* 2 columns x 2 rows, same on every breakpoint */}
+      <div className="grid grid-cols-2">
         {NAV.map((item, i) => {
           const col = i % 2;
           const row = Math.floor(i / 2);
           const borders = (col === 0 ? "border-r " : "") + (row > 0 ? "border-t " : "");
-          return renderItem(item, borders);
-        })}
-      </div>
-
-      {/* DESKTOP: 3 columns x 2 rows */}
-      <div className="hidden md:grid grid-cols-3">
-        {NAV.map((item, idx) => {
-          const row = Math.floor(idx / 3);
-          const col = idx % 3;
-          const borders =
-            row === 0
-              ? col < 2
-                ? "border-r"
-                : ""
-              : col < 2
-              ? "border-t border-r"
-              : "border-t";
           return renderItem(item, borders);
         })}
       </div>

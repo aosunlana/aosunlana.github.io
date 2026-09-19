@@ -1,26 +1,9 @@
 import { MetadataRoute } from "next";
-import { getAllNotes } from "@/lib/notes";
-import { crafts } from "@/playground/crafts";
+import { site } from "@/lib/site";
 
-const BASE_URL = "https://emmah.xyz";
+const BASE_URL = site.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const notes = getAllNotes();
-
-  const notesUrls = notes.map((note) => ({
-    url: `${BASE_URL}/notes/${note.slug}`,
-    lastModified: new Date(note.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
-  const craftUrls = crafts.map((craft) => ({
-    url: `${BASE_URL}/playground/${craft.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
   const staticRoutes = [
     {
       url: BASE_URL,
@@ -46,13 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
-    {
-      url: `${BASE_URL}/playground`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    },
   ];
 
-  return [...staticRoutes, ...notesUrls, ...craftUrls];
+  return staticRoutes;
 }

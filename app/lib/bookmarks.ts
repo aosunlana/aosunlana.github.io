@@ -16,7 +16,7 @@ async function fetchMetadata(url: string): Promise<Partial<Bookmark>> {
     const response = await fetch(url, {
       next: { revalidate: 3600 * 24 }, // Cache for 24 hours
       headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; EmmahPortfolio/1.0; +https://emmah.xyz)",
+        "User-Agent": "Mozilla/5.0 (compatible; AbdulsamadPortfolioBot/1.0)",
       },
     });
 
